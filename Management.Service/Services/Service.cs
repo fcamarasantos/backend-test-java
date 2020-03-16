@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Gerenciamento.Service
+namespace Gerenciamento.Service.Services
 {
     public class GenericService<T> : IGenericService<T> where T: BaseEntity
     {

@@ -1,11 +1,12 @@
-﻿using Gerenciamento.Infra.Data.Repository;
+﻿using Management.Domain.Entities;
 using Management.Domain.Interfaces;
+using Management.Infra.Data.Repository;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Gerenciamento.Infra.CrossCutting
+namespace Management.Infra.CrossCutting
 {
     public static class DependencyInjectionRepository
     {
@@ -16,7 +17,7 @@ namespace Gerenciamento.Infra.CrossCutting
 
         public static void RegisterRepositories(IServiceCollection services)
         {
-            services.AddScoped<IGenericRepository, GenericRepository>();
+            services.AddScoped<IGenericRepository<BaseEntity>, GenericRepository<BaseEntity>>();
         }
     }
 }

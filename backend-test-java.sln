@@ -11,19 +11,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infra", "Infra", "{4888ABC4
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{F4B8E31F-55AE-462A-A986-93CFB1076B99}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Management.Domain", "Gerenciamento.Domain\Management.Domain.csproj", "{0C422E69-7F4F-496F-B976-42235959396B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Management.Domain", "Management.Domain\Management.Domain.csproj", "{0C422E69-7F4F-496F-B976-42235959396B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gerenciamento.Service", "Gerenciamento.Service\Gerenciamento.Service.csproj", "{151F1EB9-7647-400D-82DD-4FB675EE85D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Management.Service", "Management.Service\Management.Service.csproj", "{151F1EB9-7647-400D-82DD-4FB675EE85D3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{4A0E0170-88EC-4D4E-A9A6-4F4CB45C870B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gerenciamento.Infra.Data", "Gerenciamento.Infra.Data\Gerenciamento.Infra.Data.csproj", "{2ADAC6BA-F180-498D-9F72-CCB465D72CAC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Management.Infra.Data", "Management.Infra.Data\Management.Infra.Data.csproj", "{2ADAC6BA-F180-498D-9F72-CCB465D72CAC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CrossCutting", "CrossCutting", "{FBB8078B-2FEC-44FF-B61C-C7A09FCB158D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gerenciamento.Infra.CrossCutting", "Gerenciamento.Infra.CrossCutting\Gerenciamento.Infra.CrossCutting.csproj", "{8F0FDE49-80BA-46C7-9E68-C16D2CCAFFBB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Management.Infra.CrossCutting", "Management.Infra.CrossCutting\Management.Infra.CrossCutting.csproj", "{8F0FDE49-80BA-46C7-9E68-C16D2CCAFFBB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManagementEstablishment.Api", "ManagementEstablishment.Api\ManagementEstablishment.Api.csproj", "{80687958-DDF6-459B-8429-254A457FD63B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ManagementEstablishment.Api", "ManagementEstablishment.Api\ManagementEstablishment.Api.csproj", "{80687958-DDF6-459B-8429-254A457FD63B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

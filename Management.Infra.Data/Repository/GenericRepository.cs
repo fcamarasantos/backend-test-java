@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Gerenciamento.Infra.Data.Repository
+namespace Management.Infra.Data.Repository
 {
     public class GenericRepository<T> : IGenericRepository<T> where T: BaseEntity
     {

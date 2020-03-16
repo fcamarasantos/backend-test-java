@@ -12,15 +12,17 @@ namespace Management.Domain.Entities
         }
 
         public int id_establishment { get; set; }
-        public int id_vehicle { get; set; }
+        public int id_type_parking_place { get; set; }
+        public int? id_vehicle { get; set; }
         public int id_column { get; set; }
         public int id_line { get; set; }
         public string description { get; set; }
         public DateTime date_in { get; set; }
         public DateTime date_out { get; set; }
         public TimeSpan time { get; set; }
-        public bool avaliable { get; set; }
+        public bool avaliable { get; set; } = false;
 
+        public virtual TypeParkingPlace TypeParkingPlace { get; set; }
         public virtual Establishment Establishment { get; set; }
         public virtual Vehicle Vehicle { get; set; }
         public virtual ICollection<HistoryVehicleParkPlace> HistoryVehicleParkPlaces { get; set; }

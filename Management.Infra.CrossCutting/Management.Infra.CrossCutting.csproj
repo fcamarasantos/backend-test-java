@@ -9,8 +9,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Gerenciamento.Domain\Management.Domain.csproj" />
-    <ProjectReference Include="..\Gerenciamento.Infra.Data\Gerenciamento.Infra.Data.csproj" />
+    <ProjectReference Include="..\Management.Domain\Management.Domain.csproj" />
+    <ProjectReference Include="..\Management.Infra.Data\Management.Infra.Data.csproj" />
   </ItemGroup>
 
 </Project>
