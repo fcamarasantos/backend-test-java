@@ -1,30 +1,37 @@
 package bruno.estacionamentoAPI.model;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
 @Getter
+@Setter
 public class Veiculo {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  @NotNull
   private String marca;
-  @NotNull
   private String modelo;
-  @NotNull
   private String cor;
-  @NotNull
   private String placa;
-  @NotNull
   private TipoVeiculo tipo;
-  @NotNull
   @ManyToOne
   @JoinColumn(name = "estacionamento_id")
   private Estacionamento estacionamento;
 
+  public Veiculo() {
+
+  }
+
+  public Veiculo(String marca, String modelo, String cor, String placa, TipoVeiculo tipo) {
+    this.marca = marca;
+    this.modelo = modelo;
+    this.cor = cor;
+    this.placa = placa;
+    this.tipo = tipo;
+  }
 }

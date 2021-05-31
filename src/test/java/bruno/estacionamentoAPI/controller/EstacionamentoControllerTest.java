@@ -66,7 +66,7 @@ class EstacionamentoControllerTest {
     URI uri = new URI("/estacionamentos/" + estacionamentoDelete.get().getId());
 
     mockMvc.perform(MockMvcRequestBuilders.delete(uri))
-            .andExpect(MockMvcResultMatchers.status().is(204))
+            .andExpect(MockMvcResultMatchers.status().is(200))
             .andExpect(MockMvcResultMatchers.content().json("{\"mensagem\":\"Estacionamento excluido com sucesso\"}"));
   }
 

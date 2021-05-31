@@ -40,7 +40,7 @@ public class EstacionamentoController {
     estacionamento.setId(id);
     repository.save(estacionamento);
 
-    return ResponseEntity.status(204).body(EstacionamentoDto.converterUm(estacionamento));
+    return ResponseEntity.status(200).body(EstacionamentoDto.converterUm(estacionamento));
   }
 
   @DeleteMapping("/{id}")
@@ -48,7 +48,7 @@ public class EstacionamentoController {
     Optional<Estacionamento> estacionamento = repository.findById(id);
     if (estacionamento.isPresent()) {
       repository.delete(estacionamento.get());
-      return ResponseEntity.status(204).body(RespostaJson.mensagem("Estacionamento excluido com sucesso"));
+      return ResponseEntity.status(200).body(RespostaJson.mensagem("Estacionamento excluido com sucesso"));
     }
     return ResponseEntity.status(404).body(RespostaJson.mensagem("Não foi possivel encontrar o estacionamento"));
   }
