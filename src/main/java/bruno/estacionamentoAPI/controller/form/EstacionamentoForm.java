@@ -4,6 +4,7 @@ import bruno.estacionamentoAPI.model.Estacionamento;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.validation.constraints.NotNull;
 
@@ -29,6 +30,7 @@ public class EstacionamentoForm {
   private int quantidadeVagasCarros;
 
   public Estacionamento converter() {
+    String senha = new BCryptPasswordEncoder().encode(this.senha);
     return new Estacionamento(nome, email, senha, cnpj, endereco, telefone, quantidadeVagasMotos, quantidadeVagasCarros);
   }
 }

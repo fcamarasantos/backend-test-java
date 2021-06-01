@@ -38,7 +38,7 @@ class VeiculoControllerTest {
   @Test
   @Order(1)
   void deveriaCadastrarUmVeiculoNoEstacionamentoTeste() throws Exception {
-    URI uri = new URI("/veiculos/18");
+    URI uri = new URI("/veiculos/20");
     String body = new JSONObject()
             .put("marca", "Chevrolet")
             .put("modelo", "Cobalt")
