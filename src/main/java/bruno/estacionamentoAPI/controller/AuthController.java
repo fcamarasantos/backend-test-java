@@ -3,6 +3,10 @@ package bruno.estacionamentoAPI.controller;
 import bruno.estacionamentoAPI.config.security.TokenService;
 import bruno.estacionamentoAPI.controller.dto.TokenDto;
 import bruno.estacionamentoAPI.controller.form.LoginForm;
+import bruno.estacionamentoAPI.util.RespostaJson;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,7 +31,12 @@ public class AuthController {
   private TokenService tokenService;
 
   @PostMapping
-  public ResponseEntity<TokenDto> autenticar(@RequestBody @Valid LoginForm form) {
+  @ApiOperation(value = "Efetuar login na aplicação")
+  @ApiResponses(value = {
+          @ApiResponse(code = 200, message = "Retorna token e tipo"),
+          @ApiResponse(code = 400, message = "Credenciais inválidas")
+  })
+  public ResponseEntity<?> autenticar(@RequestBody @Valid LoginForm form) {
     UsernamePasswordAuthenticationToken dadosLogin = form.converter();
 
     try {
@@ -35,7 +44,7 @@ public class AuthController {
       String token = tokenService.gerarToken(authentication);
       return ResponseEntity.ok(new TokenDto(token, "Bearer"));
     } catch (AuthenticationException e) {
-      return ResponseEntity.badRequest().build();
+      return ResponseEntity.badRequest().body(RespostaJson.mensagem("Email ou senha incorretos"));
     }
   }
 }
