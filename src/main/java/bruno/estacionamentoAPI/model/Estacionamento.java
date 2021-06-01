@@ -12,11 +12,11 @@ import java.util.List;
 
 @Entity
 @Getter
+@Setter
 public class Estacionamento implements UserDetails {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Setter
   private Long id;
   private String nome;
   private String email;
@@ -26,6 +26,8 @@ public class Estacionamento implements UserDetails {
   private String telefone;
   private int quantidadeVagasMotos;
   private int quantidadeVagasCarros;
+  private int vagasOcupadasMotos;
+  private int vagasOcupadasCarros;
   @OneToMany(fetch = FetchType.EAGER, mappedBy = "estacionamento")
   private List<Veiculo> veiculos = new ArrayList();
 

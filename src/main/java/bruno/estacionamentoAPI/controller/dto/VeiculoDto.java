@@ -21,6 +21,7 @@ public class VeiculoDto {
   private String placa;
   private TipoVeiculo tipo;
   private String estacionamento;
+  private boolean estacionado;
 
   public VeiculoDto(Veiculo veiculo) {
     this.id = veiculo.getId();
@@ -30,6 +31,7 @@ public class VeiculoDto {
     this.placa = veiculo.getPlaca();
     this.tipo = veiculo.getTipo();
     this.estacionamento = veiculo.getEstacionamento().getNome();
+    this.estacionado = veiculo.isEstacionado();
   }
 
   public static List<VeiculoDto> converter(List<Veiculo> veiculos) {

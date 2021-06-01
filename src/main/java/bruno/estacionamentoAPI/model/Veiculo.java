@@ -22,6 +22,7 @@ public class Veiculo {
   @ManyToOne
   @JoinColumn(name = "estacionamento_id")
   private Estacionamento estacionamento;
+  private boolean estacionado = false;
 
   public Veiculo() {
 
