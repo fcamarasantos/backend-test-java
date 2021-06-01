@@ -22,7 +22,6 @@ public class VeiculoForm {
   private String placa;
   @NotNull
   private TipoVeiculo tipo;
-  private Long estacionamentoId;
 
   public Veiculo converter() {
     return new Veiculo(marca, modelo, cor, placa, tipo);
