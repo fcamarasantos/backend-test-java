@@ -27,10 +27,10 @@ public class Veiculo {
 	}
 
 	public Veiculo(String placa, String marca, String modelo, String cor, TipoVeiculo tipo) {
+		this.placa = placa;
 		this.marca = marca;
 		this.modelo = modelo;
 		this.cor = cor;
-		this.placa = placa;
 		this.tipo = tipo;
 	}
 

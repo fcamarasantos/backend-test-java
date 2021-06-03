@@ -34,8 +34,8 @@ public class VeiculoRepositoryTest {
 				"ABC1D231",
 				TipoVeiculo.CARRO
 				);
-		long id = (long)em.persistAndGetId(veiculo);
-		Veiculo persistiu = repository.findById(id).get();
+		String placa = (String) em.persistAndGetId(veiculo);
+		Veiculo persistiu = repository.findByPlaca(placa);
 		
 		Assert.assertNotNull(persistiu);
 		Assert.assertEquals(veiculo.getPlaca(), persistiu.getPlaca());
@@ -50,16 +50,16 @@ public class VeiculoRepositoryTest {
 				TipoVeiculo.CARRO
 				);
 		
-		long id = (long)em.persistAndGetId(veiculo);
+		String placa = (String) em.persistAndGetId(veiculo);
 		
 		veiculo.setModelo("GOLF TSI");
 		repository.save(veiculo);
-		Veiculo alterou = repository.findById(id).get();
+		Veiculo alterou = repository.findByPlaca(placa);
 		
 		Assert.assertEquals("GOLF TSI",alterou.getModelo());
 	}
 	
-	@Test //PRECISA ARRUMAR!!
+	@Test
 	public void deveriaApagarUmVeiculo() {
 		Veiculo veiculo = new Veiculo("VOLKSWAGEN",
 				"GOLF GTI",
@@ -68,11 +68,9 @@ public class VeiculoRepositoryTest {
 				TipoVeiculo.CARRO
 				);
 		
-		long id = (long)em.persistAndGetId(veiculo);
-		//em.remove(deletou);
-		
-		repository.deleteById(id);
-		Veiculo deletou = repository.findById(1l).get();
+		String placa = (String) em.persistAndGetId(veiculo);
+		repository.deleteById(placa);
+		Veiculo deletou = repository.findByPlaca(placa);
 		Assert.assertNull(deletou);
 	}
 	
