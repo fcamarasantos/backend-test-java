@@ -13,7 +13,6 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-@ActiveProfiles(profiles = "test")
 class EstacionamentoRepositoryTest {
 
   @Autowired
@@ -24,7 +23,7 @@ class EstacionamentoRepositoryTest {
     String email = "teste@teste.com.br";
     Optional<Estacionamento> estacionamento = repository.findByEmail(email);
     assertNotNull(estacionamento);
-    assertEquals("Estacionamento teste", estacionamento.get().getNome());
+    assertEquals("Estacionamento Laranja", estacionamento.get().getNome());
   }
 
 }

@@ -39,19 +39,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     auth.userDetailsService(autenticacaoService).passwordEncoder(new BCryptPasswordEncoder());
   }
 
-  private static final String[] AUTH_WHITELIST = {
-
-          // -- swagger ui
-          "/swagger-resources/**",
-          "/swagger-ui.html",
-          "/v2/api-docs",
-          "/webjars/**"
-  };
-
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http.authorizeRequests()
-            .antMatchers(AUTH_WHITELIST).permitAll()
             .antMatchers(HttpMethod.GET, "/estacionamentos").permitAll()
             .antMatchers(HttpMethod.POST, "/estacionamentos").permitAll()
             .antMatchers(HttpMethod.POST, "/auth").permitAll()

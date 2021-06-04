@@ -1,5 +1,6 @@
 package bruno.estacionamentoAPI.controller;
 
+import bruno.estacionamentoAPI.config.security.TokenService;
 import bruno.estacionamentoAPI.model.TipoVeiculo;
 import bruno.estacionamentoAPI.model.Veiculo;
 import bruno.estacionamentoAPI.repository.VeiculosRepository;
@@ -10,23 +11,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@ActiveProfiles(profiles = "test")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class VeiculoControllerTest {
 
+  private String token;
 
   @Autowired
   private MockMvc mockMvc;
@@ -34,11 +38,24 @@ class VeiculoControllerTest {
   @Autowired
   private VeiculosRepository repository;
 
+  @Autowired
+  private TokenService tokenService;
+
+  @Autowired
+  private AuthenticationManager authManager;
+
+  @BeforeAll
+  void login() {
+    UsernamePasswordAuthenticationToken dadosLogin = new UsernamePasswordAuthenticationToken("teste@teste.com.br", "1234");
+    Authentication authentication = authManager.authenticate(dadosLogin);
+    token = "Bearer " + tokenService.gerarToken(authentication);
+  }
+
 
   @Test
   @Order(1)
   void deveriaCadastrarUmVeiculoNoEstacionamentoTeste() throws Exception {
-    URI uri = new URI("/veiculos/20");
+    URI uri = new URI("/veiculos");
     String body = new JSONObject()
             .put("marca", "Chevrolet")
             .put("modelo", "Cobalt")
@@ -47,7 +64,7 @@ class VeiculoControllerTest {
             .put("tipo", TipoVeiculo.CARRO)
             .toString();
 
-    mockMvc.perform(MockMvcRequestBuilders.post(uri).content(body).contentType(MediaType.APPLICATION_JSON))
+    mockMvc.perform(MockMvcRequestBuilders.post(uri).content(body).contentType(MediaType.APPLICATION_JSON).header("Authorization", token))
             .andExpect(MockMvcResultMatchers.status().is(201))
             .andExpect(MockMvcResultMatchers.content().json("{\"marca\":\"Chevrolet\"}"));
   }
@@ -66,7 +83,7 @@ class VeiculoControllerTest {
             .put("estacionamentoId", 18)
             .toString();
 
-    mockMvc.perform(MockMvcRequestBuilders.put(uri).content(body).contentType(MediaType.APPLICATION_JSON))
+    mockMvc.perform(MockMvcRequestBuilders.put(uri).content(body).contentType(MediaType.APPLICATION_JSON).header("Authorization", token))
             .andExpect(MockMvcResultMatchers.status().is(200))
             .andExpect(MockMvcResultMatchers.content().json("{\"cor\":\"Prata\"}"));
   }
@@ -77,7 +94,7 @@ class VeiculoControllerTest {
     Optional<Veiculo> veiculoDelete = repository.findByPlaca("ABC-1234");
     URI uri = new URI("/veiculos/" + veiculoDelete.get().getId());
 
-    mockMvc.perform(MockMvcRequestBuilders.delete(uri))
+    mockMvc.perform(MockMvcRequestBuilders.delete(uri).header("Authorization", token))
             .andExpect(MockMvcResultMatchers.status().is(200))
             .andExpect(MockMvcResultMatchers.content().json("{\"mensagem\":\"Veiculo excluido com sucesso\"}"));
   }

@@ -38,7 +38,7 @@ public class EntradaESaidaController {
       boolean isEstacionado =  controleService.estacionar(veiculo.get(), estacionamento);
 
       if(isEstacionado) return ResponseEntity.ok().body(RespostaJson.mensagem("Veiculo estácionado"));
-      return ResponseEntity.badRequest().body(RespostaJson.mensagem("Não foi possivel estacionar o veiculo"));
+      return ResponseEntity.badRequest().body(RespostaJson.mensagem("Estacionamento atingiu a capacidade máxima"));
     }
     return ResponseEntity.badRequest().body(RespostaJson.mensagem("Veiculo não cadastrado"));
   }
@@ -52,7 +52,6 @@ public class EntradaESaidaController {
       boolean isEstacionado = controleService.retirar(veiculo.get(), estacionamento);
 
       if(isEstacionado) return ResponseEntity.ok().body(RespostaJson.mensagem("Veiculo retirado"));
-      return ResponseEntity.badRequest().body(RespostaJson.mensagem("Veiculo não encontrado"));
     }
     return ResponseEntity.badRequest().body(RespostaJson.mensagem("Veiculo não encontrado"));
   }

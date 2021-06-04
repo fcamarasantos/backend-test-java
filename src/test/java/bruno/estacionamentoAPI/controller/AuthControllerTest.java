@@ -21,7 +21,6 @@ import java.net.URISyntaxException;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-@ActiveProfiles(profiles = "test")
 @AutoConfigureMockMvc
 class AuthControllerTest {
 

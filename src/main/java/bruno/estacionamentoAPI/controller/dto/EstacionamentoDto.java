@@ -1,8 +1,10 @@
 package bruno.estacionamentoAPI.controller.dto;
 
 import bruno.estacionamentoAPI.model.Estacionamento;
+import bruno.estacionamentoAPI.model.Veiculo;
 import lombok.Getter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,6 +19,7 @@ public class EstacionamentoDto {
   private String telefone;
   private int quantidadeVagasMotos;
   private int quantidadeVagasCarros;
+  private List<VeiculoDto> veiculos;
 
   public EstacionamentoDto(Estacionamento estacionamento) {
     this.id = estacionamento.getId();
@@ -27,6 +30,7 @@ public class EstacionamentoDto {
     this.telefone = estacionamento.getTelefone();
     this.quantidadeVagasMotos = estacionamento.getQuantidadeVagasMotos();
     this.quantidadeVagasCarros = estacionamento.getQuantidadeVagasCarros();
+    this.veiculos = VeiculoDto.converter(estacionamento.getVeiculos());
   }
 
   public static List<EstacionamentoDto> converter(List<Estacionamento> estacionamentos) {

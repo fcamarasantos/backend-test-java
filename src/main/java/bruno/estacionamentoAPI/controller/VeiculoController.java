@@ -9,7 +9,6 @@ import bruno.estacionamentoAPI.repository.EstacionamentoRepository;
 import bruno.estacionamentoAPI.repository.VeiculosRepository;
 import bruno.estacionamentoAPI.util.RespostaJson;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +28,7 @@ public class VeiculoController {
   @Autowired
   private TokenService tokenService;
 
+
   @GetMapping
   public ResponseEntity<List<VeiculoDto>> getAll() {
     return ResponseEntity.ok(VeiculoDto.converter(repository.findAll()));
@@ -38,13 +38,15 @@ public class VeiculoController {
   public ResponseEntity<?> store(@RequestHeader("Authorization") String token, @RequestBody VeiculoForm form) {
     Long estacionamentoId = tokenService.getUsuarioId(token.substring(7, token.length()));
     Optional<Estacionamento> estacionamento = estacionamentoRepository.findById(estacionamentoId);
-    if (estacionamento.isPresent()) {
+    Optional<Veiculo> veiculoDb = repository.findByPlacaAndEstacionamento(form.getPlaca(), estacionamento.get());
+    if (veiculoDb.isPresent()) {
+      return ResponseEntity.badRequest().body(RespostaJson.mensagem("Veiculo já cadastrado nesse estacionamento"));
+    }
       Veiculo veiculo = form.converter();
       veiculo.setEstacionamento(estacionamento.get());
       repository.save(veiculo);
       return ResponseEntity.status(201).body(VeiculoDto.converterUm(veiculo));
-    }
-    return ResponseEntity.status(404).body(RespostaJson.mensagem("Estacionamento com id " + estacionamentoId + " não existe"));
+
   }
 
   @PutMapping("/{id}")

@@ -26,7 +26,6 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-@ActiveProfiles(profiles = "test")
 @AutoConfigureMockMvc
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class EstacionamentoControllerTest {
@@ -48,7 +47,7 @@ class EstacionamentoControllerTest {
   private TokenService tokenService;
 
   void login() {
-    UsernamePasswordAuthenticationToken dadosLogin = new UsernamePasswordAuthenticationToken("teste@teste.com.br", "1234");
+    UsernamePasswordAuthenticationToken dadosLogin = new UsernamePasswordAuthenticationToken("testeEstacionaTeste@teste.com.br", "1234");
     Authentication authentication = authManager.authenticate(dadosLogin);
     token = "Bearer " + tokenService.gerarToken(authentication);
   }
@@ -63,7 +62,7 @@ class EstacionamentoControllerTest {
   void deveriaCadastrarUmEstacionamento() throws Exception {
     String body = new JSONObject()
             .put("nome", "Estacionamento teste")
-            .put("email", "teste@teste.com.br")
+            .put("email", "testeEstacionaTeste@teste.com.br")
             .put("senha", "1234")
             .put("cnpj", "03.775.758/0001-90")
             .put("endereco", "Rua Teste")
@@ -79,26 +78,14 @@ class EstacionamentoControllerTest {
   }
 
   @Test
-  @Order(3)
-  void deveriaExcluirUmEstacionamento() throws Exception {
-    login();
-    Optional<Estacionamento> estacionamentoDelete = estacionamentoRepository.findByEmail("teste@teste.com.br");
-    URI uri = new URI("/estacionamentos/" + estacionamentoDelete.get().getId());
-
-    mockMvc.perform(MockMvcRequestBuilders.delete(uri).header("Authorization", token))
-            .andExpect(MockMvcResultMatchers.status().is(200))
-            .andExpect(MockMvcResultMatchers.content().json("{\"mensagem\":\"Estacionamento excluido com sucesso\"}"));
-  }
-
-  @Test
   @Order(2)
   void deveriaEditarAsInformacoesDeUmEstacionamento() throws Exception {
     login();
-    Optional<Estacionamento> estacionamentoUpdate = estacionamentoRepository.findByEmail("teste@teste.com.br");
-    URI uri = new URI("/estacionamentos/" + estacionamentoUpdate.get().getId());
+    Optional<Estacionamento> estacionamentoUpdate = estacionamentoRepository.findByEmail("testeEstacionaTeste@teste.com.br");
+    URI uri = new URI("/estacionamentos");
     String body = new JSONObject()
             .put("nome", "Estacionamento atualizado")
-            .put("email", "teste@teste.com.br")
+            .put("email", "testeEstacionaTeste@teste.com.br")
             .put("senha", "1234")
             .put("cnpj", "03.775.758/0001-90")
             .put("endereco", "Rua Teste")
@@ -108,6 +95,18 @@ class EstacionamentoControllerTest {
 
     mockMvc.perform(MockMvcRequestBuilders.put(uri).content(body).contentType(MediaType.APPLICATION_JSON).header("Authorization", token))
             .andExpect(MockMvcResultMatchers.content().json("{\"nome\":\"Estacionamento atualizado\"}"));
+  }
+
+  @Test
+  @Order(3)
+  void deveriaExcluirUmEstacionamento() throws Exception {
+    login();
+    Optional<Estacionamento> estacionamentoDelete = estacionamentoRepository.findByEmail("testeEstacionaTeste@teste.com.br");
+    URI uri = new URI("/estacionamentos/" + estacionamentoDelete.get().getId());
+
+    mockMvc.perform(MockMvcRequestBuilders.delete(uri).header("Authorization", token))
+            .andExpect(MockMvcResultMatchers.status().is(200))
+            .andExpect(MockMvcResultMatchers.content().json("{\"mensagem\":\"Estacionamento excluido com sucesso\"}"));
   }
 
 }

@@ -35,4 +35,12 @@ public class Veiculo {
     this.placa = placa;
     this.tipo = tipo;
   }
+
+  @Override
+  public String toString() {
+    return "Veiculo{" +
+            "estacionamento=" + estacionamento.getNome()+ " " +
+            "placa=" + placa +
+            '}';
+  }
 }

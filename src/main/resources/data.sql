@@ -1,0 +1,3 @@
+INSERT INTO estacionamento (cnpj, email, endereco, nome, quantidade_vagas_carros, quantidade_vagas_motos, senha, telefone, vagas_ocupadas_carros, vagas_ocupadas_motos) VALUES ('129.221.20./21', 'teste@teste.com.br', 'Av. Ricieri José Marcato', 'Estacionamento Laranja', 25, 15, '$2a$10$XMdO0MJwFnMVqPbHGGv/leLi6j4qECZL6SxK0OkcgUeKDAzS1FMg.', '11999888765', 0, 0);
+
+INSERT INTO veiculo (cor, estacionado, marca, modelo, placa, tipo, estacionamento_id) VALUES ('Cinza', false, 'Fiat', 'Grand Siena', 'FOW3689', 0, 1);
