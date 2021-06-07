@@ -3,11 +3,12 @@ package fcamara.controller.dto;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import fcamara.model.TipoVeiculo;
-import fcamara.model.Veiculo;
+import fcamara.model.entity.TipoVeiculo;
+import fcamara.model.entity.Veiculo;
 
 public class VeiculoDto {
 	
+	private String msg;
 	private String placa;
 	private String marca;
 	private String modelo;
@@ -24,6 +25,14 @@ public class VeiculoDto {
 		this.modelo = veiculo.getModelo();
 		this.cor = veiculo.getCor();
 		this.tipo = veiculo.getTipo();
+	}
+
+	public String getMsg() {
+		return msg;
+	}
+	
+	public void setMsg(String msg) {
+		this.msg = msg;
 	}
 
 	public String getMarca() {

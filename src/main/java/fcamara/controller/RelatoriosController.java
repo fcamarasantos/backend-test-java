@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import fcamara.controller.dto.RequisicaoRelatorioEstacionamentoDto;
 import fcamara.controller.dto.RequisicaoRelatorioVeiculosDto;
-import fcamara.model.Estacionamento;
-import fcamara.model.Veiculo;
-import fcamara.repository.EstacionamentoRepository;
-import fcamara.repository.VeiculoRepository;
+import fcamara.model.entity.Estacionamento;
+import fcamara.model.entity.Veiculo;
+import fcamara.model.repository.EstacionamentoRepository;
+import fcamara.model.repository.VeiculoRepository;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;

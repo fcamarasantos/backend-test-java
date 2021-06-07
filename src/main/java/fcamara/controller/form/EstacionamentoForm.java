@@ -4,8 +4,8 @@ package fcamara.controller.form;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import fcamara.model.Estacionamento;
-import fcamara.repository.EstacionamentoRepository;
+import fcamara.model.entity.Estacionamento;
+import fcamara.model.repository.EstacionamentoRepository;
 
 public class EstacionamentoForm {
 	

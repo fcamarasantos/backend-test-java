@@ -3,8 +3,8 @@ package fcamara.controller.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-import fcamara.model.Controle;
-import fcamara.model.Estacionamento;
+import fcamara.model.entity.Controle;
+import fcamara.model.entity.Estacionamento;
 
 public class ControleEstacionadosDto {
 

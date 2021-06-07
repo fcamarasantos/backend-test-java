@@ -5,12 +5,12 @@ import java.time.LocalDateTime;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import fcamara.model.Controle;
-import fcamara.model.Estacionamento;
-import fcamara.model.Veiculo;
-import fcamara.repository.ControleRepository;
-import fcamara.repository.EstacionamentoRepository;
-import fcamara.repository.VeiculoRepository;
+import fcamara.model.entity.Controle;
+import fcamara.model.entity.Estacionamento;
+import fcamara.model.entity.Veiculo;
+import fcamara.model.repository.ControleRepository;
+import fcamara.model.repository.EstacionamentoRepository;
+import fcamara.model.repository.VeiculoRepository;
 
 public class ControleForm {
 	@NotNull @NotEmpty

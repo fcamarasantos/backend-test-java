@@ -5,12 +5,13 @@ import java.util.stream.Collectors;
 
 import javax.persistence.Id;
 
-import fcamara.model.Estacionamento;
-import fcamara.model.TipoVeiculo;
-import fcamara.model.Veiculo;
+import fcamara.model.entity.Estacionamento;
+import fcamara.model.entity.TipoVeiculo;
+import fcamara.model.entity.Veiculo;
 
 public class EstacionamentoDto {
 	
+	private String msg;
 	private String nome;
 	private String cnpj;
 	private String endereco;
@@ -35,6 +36,14 @@ public class EstacionamentoDto {
 
 	
 	
+	public String getMsg() {
+		return msg;
+	}
+
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
+
 	public String getNome() {
 		return nome;
 	}

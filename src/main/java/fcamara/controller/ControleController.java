@@ -20,122 +20,76 @@ import org.springframework.web.util.UriComponentsBuilder;
 import fcamara.controller.dto.ControleDto;
 import fcamara.controller.dto.ControleEstacionadosDto;
 import fcamara.controller.form.ControleForm;
-import fcamara.model.Controle;
-import fcamara.model.Estacionamento;
-import fcamara.model.TipoVeiculo;
-import fcamara.repository.ControleRepository;
-import fcamara.repository.EstacionamentoRepository;
-import fcamara.repository.VeiculoRepository;
+import fcamara.model.entity.Controle;
+import fcamara.model.entity.Estacionamento;
+import fcamara.model.entity.TipoVeiculo;
+import fcamara.model.service.ControleService;
 
 @RestController
 @RequestMapping("controle")
 public class ControleController {
 	
 	@Autowired
-	private ControleRepository controleRepository;
-	@Autowired
-	private EstacionamentoRepository estacionamentoRepository;
-	@Autowired
-	private VeiculoRepository veiculoRepository;
+	private ControleService controleService;
 	
 	@GetMapping
 	public List<ControleDto> listar() {
-		return ControleDto.converter(controleRepository.findAll());
+		return controleService.listar();
 	}
 	
 	@GetMapping("/{cnpj}/estacionados")
 	public ResponseEntity<ControleEstacionadosDto> buscarEstacionados(@PathVariable String cnpj) {
-		Estacionamento estacionamento = estacionamentoRepository.findByCnpj(cnpj);
-		List<Controle> estacionados = controleRepository.findByCnpjAndDatahoraSaidaNull(cnpj);
-		if(estacionamento == null || estacionados == null || estacionados.isEmpty())
+		ControleEstacionadosDto controle = controleService.buscarEstacionados(cnpj);
+		if(controle == null)
 			return ResponseEntity.notFound().build();
 		
-		return ResponseEntity.ok().body(new ControleEstacionadosDto(estacionamento, estacionados));
+		return ResponseEntity.ok().body(controle);
 	}
 	
 	@GetMapping("/{cnpj}/historico")
 	public ResponseEntity<ControleEstacionadosDto> buscarHistorico(@PathVariable String cnpj) {
-		Estacionamento estacionamento = estacionamentoRepository.findByCnpj(cnpj);
-		List<Controle> estacionados = controleRepository.findByCnpjAndDatahoraSaidaNotNull(cnpj);
-		if(estacionamento == null || estacionados == null || estacionados.isEmpty())
+		ControleEstacionadosDto controle = controleService.buscarHistorico(cnpj);
+		if(controle == null)
 			return ResponseEntity.notFound().build();
 		
-		return ResponseEntity.ok().body(new ControleEstacionadosDto(estacionamento, estacionados));
+		return ResponseEntity.ok().body(controle);
 	}
 	
 
 	@PostMapping
 	@Transactional
-	public ResponseEntity<String> entrada(@RequestBody @Valid ControleForm form,UriComponentsBuilder uriBuilder) {
-		Controle controle = form.converter(veiculoRepository, estacionamentoRepository);
+	public ResponseEntity<String> entrada(@RequestBody @Valid ControleForm form) {
+		String msg  = controleService.entrada(form);
 		
-		if(controle.getEstacionamento() == null)
-			return ResponseEntity.status(404).body("Cnpj do estacionamento não encontrado!");
-		
-		if(controle.getVeiculo() == null)
-			return ResponseEntity.status(404).body("Placa do veiculo não encontrado!");
-		
-		Controle jaEstaEstacionado = controleRepository
-										.findByPlacaAndDatahoraSaidaNull(
-												controle.getVeiculo().getPlaca()
-												);
-		if(jaEstaEstacionado != null) {
-			return ResponseEntity.status(400).body("Veiculo com está placa ja se encontra estacionado no "+jaEstaEstacionado.getEstacionamento().getNome() + "!");
+		switch(msg) {
+		case "Cnpj do estacionamento não encontrado!":
+			return ResponseEntity.status(404).body("{\"msg\":\""+msg+"\"}");
+		case "Placa do veiculo não encontrado!":
+			return ResponseEntity.status(404).body("{\"msg\":\""+msg+"\"}");
+		case "Não há vagas disponíveis no momento!":
+			return ResponseEntity.status(400).body("{\"msg\":\""+msg+"\"}");
+		case "Veiculo estacionado!":
+			return ResponseEntity.status(200).body("{\"msg\":\""+msg+"\"}");
+		default:
+			return ResponseEntity.status(400).body("{\"msg\":\""+msg+"\"}");
 		}
-		
-		if(controle.getVeiculo().getTipo() == TipoVeiculo.CARRO && controle.getEstacionamento().getQtd_carro() > 0)
-		{
-			controle.getEstacionamento().setQtd_carro(controle.getEstacionamento().getQtd_carro() - 1);
-			estacionamentoRepository.save(controle.getEstacionamento());
-			controleRepository.save(controle);
-		}
-		else if(controle.getVeiculo().getTipo() == TipoVeiculo.MOTO && controle.getEstacionamento().getQtd_moto() > 0) {
-			controle.getEstacionamento().setQtd_moto(controle.getEstacionamento().getQtd_moto() - 1);
-			estacionamentoRepository.save(controle.getEstacionamento());
-			controleRepository.save(controle);
-		}
-		else {
-			return ResponseEntity.status(400).body("Não há vagas disponíveis no momento!");
-		}
-		
-		return ResponseEntity.status(201).body("Veiculo estacionado!");
 	}
 
 	@PutMapping
 	@Transactional
-	public ResponseEntity<String> saida(@RequestBody @Valid ControleForm form,UriComponentsBuilder uriBuilder) {
-		Controle controle = form.converter(veiculoRepository, estacionamentoRepository);
+	public ResponseEntity<String> saida(@RequestBody @Valid ControleForm form) {
+		String msg  = controleService.saida(form);
 		
-		if(controle.getEstacionamento() == null)
-			return ResponseEntity.status(404).body("Cnpj do estacionamento não encontrado!");
-		
-		if(controle.getVeiculo() == null)
-			return ResponseEntity.status(404).body("Placa do veiculo não encontrado!");
-		
-		Controle estaEstacionado = controleRepository
-										.findByCnpjAndPlacaAndDatahoraSaidaNull(
-												controle.getEstacionamento().getCnpj(),
-												controle.getVeiculo().getPlaca()
-												);
-		if(estaEstacionado == null) {
-			return ResponseEntity.status(404).body("Veiculo com está placa não está estacionado neste estacionamento!");
+		switch(msg) {
+		case "Cnpj do estacionamento não encontrado!":
+			return ResponseEntity.status(404).body("{\"msg\":\""+msg+"\"}");
+		case "Placa do veiculo não encontrado!":
+			return ResponseEntity.status(404).body("{\"msg\":\""+msg+"\"}");
+		case "Veiculo com está placa não está estacionado neste estacionamento!":
+			return ResponseEntity.status(404).body("{\"msg\":\""+msg+"\"}");
+		default:
+			return ResponseEntity.status(200).body("{\"msg\":\""+msg+"\"}");
 		}
-		
-		if(estaEstacionado.getVeiculo().getTipo() == TipoVeiculo.CARRO)
-		{
-			estaEstacionado.getEstacionamento().setQtd_carro(estaEstacionado.getEstacionamento().getQtd_carro() + 1);
-			estaEstacionado.setDatahora_saida(LocalDateTime.now());
-			estacionamentoRepository.save(estaEstacionado.getEstacionamento());
-			controleRepository.save(estaEstacionado);
-		}
-		else if(estaEstacionado.getVeiculo().getTipo() == TipoVeiculo.MOTO) {
-			estaEstacionado.getEstacionamento().setQtd_moto(controle.getEstacionamento().getQtd_moto() + 1);
-			estaEstacionado.setDatahora_saida(LocalDateTime.now());
-			estacionamentoRepository.save(estaEstacionado.getEstacionamento());
-			controleRepository.save(estaEstacionado);
-		}
-		
-		return ResponseEntity.status(200).body("Volte Sempre!");
 	}
 	
 	

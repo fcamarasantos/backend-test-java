@@ -1,6 +1,6 @@
 package fcamara.controller.dto;
 
-import fcamara.model.Veiculo;
+import fcamara.model.entity.Veiculo;
 
 public class RequisicaoRelatorioVeiculosDto {
 	

@@ -4,9 +4,9 @@ package fcamara.controller.form;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import fcamara.model.TipoVeiculo;
-import fcamara.model.Veiculo;
-import fcamara.repository.VeiculoRepository;
+import fcamara.model.entity.TipoVeiculo;
+import fcamara.model.entity.Veiculo;
+import fcamara.model.repository.VeiculoRepository;
 
 public class VeiculoForm {
 	

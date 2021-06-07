@@ -9,10 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-import fcamara.model.Controle;
-import fcamara.model.Estacionamento;
-import fcamara.model.TipoVeiculo;
-import fcamara.model.Veiculo;
+import fcamara.model.entity.Controle;
+import fcamara.model.entity.Estacionamento;
+import fcamara.model.entity.TipoVeiculo;
+import fcamara.model.entity.Veiculo;
 
 public class ControleDto {
 	

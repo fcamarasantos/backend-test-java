@@ -21,60 +21,79 @@ import org.springframework.web.util.UriComponentsBuilder;
 import fcamara.controller.dto.EstacionamentoDto;
 import fcamara.controller.dto.VeiculoDto;
 import fcamara.controller.form.EstacionamentoForm;
-import fcamara.controller.form.VeiculoForm;
-import fcamara.model.Estacionamento;
-import fcamara.model.Veiculo;
-import fcamara.repository.EstacionamentoRepository;
+import fcamara.model.entity.Estacionamento;
+import fcamara.model.service.EstacionamentoService;
 
 @RestController
 @RequestMapping("estacionamento")
 public class EstacionamentoController {
 	
 	@Autowired
-	private EstacionamentoRepository estacionamentoRepository;
+	private EstacionamentoService estacionamentoService;
+	
 	
 	@GetMapping
-	public List<EstacionamentoDto> listar() {
-		return EstacionamentoDto.converter(estacionamentoRepository.findAll());
+	public ResponseEntity<List<EstacionamentoDto>> listar() {
+		List<EstacionamentoDto> estacionamentos = estacionamentoService.listar();
+		if(estacionamentos == null) 
+			return ResponseEntity.notFound().build();
+		return ResponseEntity.ok().body(estacionamentos);
 	}
 	
 	@GetMapping("/{cnpj}")
-	public Estacionamento buscar(@PathVariable String cnpj) {
-		return estacionamentoRepository.findByCnpj(cnpj);
+	public ResponseEntity<EstacionamentoDto> buscar(@PathVariable String cnpj) {
+		Estacionamento estacionamento = estacionamentoService.buscar(cnpj);
+		if(estacionamento == null) 
+			return ResponseEntity.notFound().build();
+		return ResponseEntity.ok().body(new EstacionamentoDto(estacionamento));
 	}
 	
 	@PostMapping
 	@Transactional
-	public ResponseEntity<EstacionamentoDto> cadastrar(@RequestBody @Valid EstacionamentoForm form,UriComponentsBuilder uriBuilder) {
+	public ResponseEntity<?> cadastrar(@RequestBody @Valid EstacionamentoForm form,UriComponentsBuilder uriBuilder) {
 		Estacionamento estacionamento = form.converter();
-		estacionamentoRepository.save(estacionamento);
+		String msg = estacionamentoService.cadastrar(estacionamento);
+		if(msg == "Cadastrado com Sucesso!") {
+			EstacionamentoDto e = new EstacionamentoDto(estacionamento);
+			e.setMsg(msg);
+			URI uri = uriBuilder.path("estacionamento/{cnpj}").buildAndExpand(estacionamento.getCnpj()).toUri();
+			return ResponseEntity.created(uri).body(e);
+		}
+		else {
+			msg = "{\"msg\":\""+msg+"\"}";
+			return ResponseEntity.badRequest().body(msg);
+		}
 		
-		URI uri = uriBuilder.path("estacionamento/{cnpj}").buildAndExpand(estacionamento.getCnpj()).toUri();
-		return ResponseEntity.created(uri).body(new EstacionamentoDto(estacionamento));
 	}
 		
 	@DeleteMapping("/{cnpj}")
 	@Transactional
 	public ResponseEntity<?> deletar(@PathVariable String cnpj) {
-		Estacionamento estacionamento = estacionamentoRepository.findByCnpj(cnpj);
-		if(estacionamento == null) {
-			return ResponseEntity.notFound().build();
+		String msg = estacionamentoService.deletar(cnpj);
+		if(msg != "Estacionamento deletado com Sucesso!") {
+			msg = "{\"msg\":\""+msg+"\"}";
+			return ResponseEntity.badRequest().body(msg);
 		}
+		msg = "{\"msg\":\""+msg+"\"}";
+		return ResponseEntity.ok().body(msg);
 		
-		estacionamentoRepository.deleteByCnpj(cnpj);
-		return ResponseEntity.ok().build();
 	}
 	
 	@PutMapping("/{cnpj}")
 	@Transactional
-	public ResponseEntity<EstacionamentoDto> atualizar(@PathVariable String cnpj, @RequestBody @Valid EstacionamentoForm form) {
-		Estacionamento estacionamento = estacionamentoRepository.findByCnpj(cnpj);
-		if(estacionamento == null) {
-			return ResponseEntity.notFound().build();
+	public ResponseEntity<?> atualizar(@PathVariable String cnpj, @RequestBody @Valid EstacionamentoForm form) {
+		Estacionamento estacionamento = form.converter();
+		String msg = estacionamentoService.atualizar(cnpj, form);
+		
+		if(msg != "Estacionamento atualizado com Sucesso!") {
+			msg = "{\"msg\":\""+msg+"\"}";
+			return ResponseEntity.badRequest().body(msg);
 		}
 		
-		Estacionamento atualizado = form.atualizar(cnpj, estacionamentoRepository);
-		return ResponseEntity.ok(new EstacionamentoDto(atualizado));
+		EstacionamentoDto e = new EstacionamentoDto(estacionamento);
+		e.setMsg(msg);
+		return ResponseEntity.ok().body(e);
+		
 	}
 	
 	

@@ -1,7 +1,7 @@
 package fcamara.controller.dto;
 
 
-import fcamara.model.Estacionamento;
+import fcamara.model.entity.Estacionamento;
 
 public class RequisicaoRelatorioEstacionamentoDto {
 	
