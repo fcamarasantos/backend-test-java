@@ -17,6 +17,7 @@ public class VeiculoService {
 	private VeiculoRepository veiculoRepository;
 	
 	
+	
 	public List<VeiculoDto> listar() {
 		return VeiculoDto.converter(veiculoRepository.findAll());
 	}

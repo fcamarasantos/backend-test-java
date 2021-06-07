@@ -36,6 +36,7 @@ public class ControleService {
 	private VeiculoRepository veiculoRepository;
 	
 	
+	
 	public List<ControleDto> listar() {
 		return ControleDto.converter(controleRepository.findAll());
 	}

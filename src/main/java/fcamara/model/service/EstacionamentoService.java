@@ -15,6 +15,7 @@ public class EstacionamentoService {
 	private EstacionamentoRepository estacionamentoRepository;
 	
 	
+	
 	public List<EstacionamentoDto> listar() {
 		return EstacionamentoDto.converter(estacionamentoRepository.findAll());
 	}
