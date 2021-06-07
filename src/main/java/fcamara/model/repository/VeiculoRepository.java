@@ -1,10 +1,10 @@
-package fcamara.repository;
+package fcamara.model.repository;
 
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import fcamara.model.Veiculo;
+import fcamara.model.entity.Veiculo;
 
 public interface VeiculoRepository extends JpaRepository<Veiculo, String>{
 

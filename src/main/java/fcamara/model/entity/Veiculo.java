@@ -1,4 +1,4 @@
-package fcamara.model;
+package fcamara.model.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;

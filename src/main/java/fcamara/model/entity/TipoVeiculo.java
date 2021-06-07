@@ -1,4 +1,4 @@
-package fcamara.model;
+package fcamara.model.entity;
 
 public enum TipoVeiculo {
 	CARRO,

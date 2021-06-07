@@ -1,4 +1,4 @@
-package fcamara.repository;
+package fcamara.model.repository;
 
 import java.util.List;
 
@@ -6,8 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import fcamara.model.Controle;
-import fcamara.model.Veiculo;
+import fcamara.model.entity.Controle;
+import fcamara.model.entity.Veiculo;
 
 public interface ControleRepository extends JpaRepository<Controle, Long>{
 
