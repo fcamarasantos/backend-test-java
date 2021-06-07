@@ -35,13 +35,14 @@ class ControleControllerTest {
 				.contentType(MediaType.APPLICATION_JSON))
 		.andExpect(MockMvcResultMatchers
 				.status()
-				.is(201)
+				.is(200)
 				);
 	}
 	
 	@Test
 	public void naoDeveriaDarEntradaNoEstacionamentoPoisNaoHaVagasDisponiveis() throws Exception {
 		URI uri = new URI("/controle");
+		String msg = "Não há vagas disponíveis no momento!";
 		String json = "{\"cnpj\":\"75123455245625\", \"placa\":\"KIL1D331\"}";
 		mockMvc
 		.perform(MockMvcRequestBuilders
@@ -54,12 +55,13 @@ class ControleControllerTest {
 				)
 		.andExpect(MockMvcResultMatchers
 				.content()
-				.string("Não há vagas disponíveis no momento!"));
+				.string("{\"msg\":\""+msg+"\"}"));
 	}
 	
 	@Test
 	public void aoTentarEstacionarNaoLocalizarCnpj() throws Exception {
 		URI uri = new URI("/controle");
+		String msg = "Cnpj do estacionamento não encontrado!";
 		String json = "{\"cnpj\":\"erro\", \"placa\":\"FGH5J231\"}";
 		mockMvc
 		.perform(MockMvcRequestBuilders
@@ -72,12 +74,13 @@ class ControleControllerTest {
 				)
 		.andExpect(MockMvcResultMatchers
 				.content()
-				.string("Cnpj do estacionamento não encontrado!"));
+				.string("{\"msg\":\""+msg+"\"}"));
 	}
 	
 	@Test
 	public void aoTentarEstacionarNaoLocalizarPlaca() throws Exception {
 		URI uri = new URI("/controle");
+		String msg = "Placa do veiculo não encontrado!";
 		String json = "{\"cnpj\":\"75123455245625\", \"placa\":\"erro\"}";
 		mockMvc
 		.perform(MockMvcRequestBuilders
@@ -90,12 +93,13 @@ class ControleControllerTest {
 				)
 		.andExpect(MockMvcResultMatchers
 				.content()
-				.string("Placa do veiculo não encontrado!"));
+				.string("{\"msg\":\""+msg+"\"}"));
 	}
 	
 	@Test
 	public void deveriaSairDoEstacionamento() throws Exception {
 		URI uri = new URI("/controle");
+		String msg = "Volte Sempre!";
 		String json = "{\"cnpj\":\"14253647586941\", \"placa\":\"ABC1D231\"}";
 		mockMvc
 		.perform(MockMvcRequestBuilders
@@ -108,7 +112,7 @@ class ControleControllerTest {
 				)
 		.andExpect(MockMvcResultMatchers
 				.content()
-				.string("Volte Sempre!"));
+				.string("{\"msg\":\""+msg+"\"}"));
 	}
 	
 	

@@ -11,8 +11,9 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import fcamara.model.TipoVeiculo;
-import fcamara.model.Veiculo;
+import fcamara.model.entity.TipoVeiculo;
+import fcamara.model.entity.Veiculo;
+import fcamara.model.repository.VeiculoRepository;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
