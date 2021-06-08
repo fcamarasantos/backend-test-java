@@ -1,13 +1,29 @@
 package br.com.brunobrolesi.parking.domain;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class VehicleTests {
+    private Vehicle vehicle;
+
+    @BeforeEach
+    void createVeichle() {
+        this.vehicle = new Vehicle(
+                "FORD",
+                "Fusion",
+                "2018",
+                "ALX8182",
+                "Preto",
+                "Carro");
+    }
 
     @Test
     void manufacturerMustBeInLowerCase() {
-        Assertions.fail();
+        Assertions.assertTrue(vehicle.getManufacturer().matches("^[a-z0-9]*$"));
+
+        this.vehicle.setManufacturer("REnaulT");
+        Assertions.assertTrue(vehicle.getManufacturer().matches("^[a-z0-9]*$"));
     }
 
     @Test
