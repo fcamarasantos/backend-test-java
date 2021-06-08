@@ -13,8 +13,8 @@ public class VehicleTests {
                 "FORD",
                 "Fusion",
                 "2018",
-                "ALX8182",
                 "Preto",
+                "ALX8182",
                 "Carro");
     }
 
@@ -36,7 +36,10 @@ public class VehicleTests {
 
     @Test
     void colorMustBeInLowerCase() {
-        Assertions.fail();
+        Assertions.assertTrue(vehicle.getColor().matches("^[a-z]*$"));
+
+        this.vehicle.setColor("BrancO");
+        Assertions.assertTrue(vehicle.getColor().matches("^[a-z]*$"));
     }
 
     @Test
