@@ -28,7 +28,10 @@ public class VehicleTests {
 
     @Test
     void modelMustBeInLowerCase() {
-        Assertions.fail();
+        Assertions.assertTrue(vehicle.getModel().matches("^[a-z0-9]*$"));
+
+        this.vehicle.setModel("KA");
+        Assertions.assertTrue(vehicle.getModel().matches("^[a-z0-9]*$"));
     }
 
     @Test
