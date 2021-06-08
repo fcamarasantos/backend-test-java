@@ -44,12 +44,23 @@ public class VehicleTests {
 
     @Test
     void licensePlateMustBeInUpperCase() {
-        Assertions.fail();
+        Assertions.assertTrue(vehicle.getLicensePlate().matches("^[A-Z0-9]*$"));
+
+        this.vehicle.setLicensePlate("aLx8182");
+        Assertions.assertTrue(vehicle.getLicensePlate().matches("^[A-Z0-9]*$"));
     }
 
     @Test
     void licensePlateMustBeValid(){
-        Assertions.fail();
+        Assertions.assertThrows(IllegalArgumentException.class,
+                () -> new Vehicle(
+                        "FORD",
+                        "Fusion",
+                        "2018",
+                        "Preto",
+                        "A8182",
+                        VehicleType.CARRO)
+                );
     }
 
     @Test
