@@ -8,18 +8,18 @@ public class Vehicle {
     private String year;
     private String color;
     private String licensePlate;
-    private String vehicleType;
+    private Integer type;
 
     public Vehicle() {
     }
 
-    public Vehicle(String manufacturer, String model, String year, String color, String licensePlate, String vehicleType) {
+    public Vehicle(String manufacturer, String model, String year, String color, String licensePlate, VehicleType type) {
         this.manufacturer = manufacturer.toLowerCase(Locale.ENGLISH);
         this.model = model.toLowerCase(Locale.ENGLISH);
         this.year = year;
         this.color = color.toLowerCase(Locale.ENGLISH);
         this.licensePlate = licensePlate;
-        this.vehicleType = vehicleType.toLowerCase(Locale.ENGLISH);
+        this.type = type.getId();
     }
 
     public String getManufacturer() {
@@ -42,8 +42,8 @@ public class Vehicle {
         return licensePlate;
     }
 
-    public String getVehicleType() {
-        return vehicleType;
+    public VehicleType getType() {
+        return VehicleType.toEnum(this.type);
     }
 
     public void setManufacturer(String manufacturer) {
@@ -66,7 +66,7 @@ public class Vehicle {
         this.licensePlate = licensePlate;
     }
 
-    public void setVehicleType(String vehicleType) {
-        this.vehicleType = vehicleType.toLowerCase(Locale.ENGLISH);
+    public void setType(VehicleType type) {
+        this.type = type.getId();
     }
 }
