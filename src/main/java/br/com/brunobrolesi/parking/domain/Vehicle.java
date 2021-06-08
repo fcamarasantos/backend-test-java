@@ -17,7 +17,7 @@ public class Vehicle {
         this.manufacturer = manufacturer.toLowerCase(Locale.ENGLISH);
         this.model = model.toLowerCase(Locale.ENGLISH);
         this.year = year;
-        this.color = color;
+        this.color = color.toLowerCase(Locale.ENGLISH);
         this.licensePlate = licensePlate;
         this.vehicleType = vehicleType;
     }
@@ -59,7 +59,7 @@ public class Vehicle {
     }
 
     public void setColor(String color) {
-        this.color = color;
+        this.color = color.toLowerCase(Locale.ENGLISH);
     }
 
     public void setLicensePlate(String licensePlate) {
