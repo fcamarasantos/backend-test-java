@@ -19,7 +19,7 @@ public class Vehicle {
         this.year = year;
         this.color = color.toLowerCase(Locale.ENGLISH);
         this.licensePlate = licensePlate;
-        this.vehicleType = vehicleType;
+        this.vehicleType = vehicleType.toLowerCase(Locale.ENGLISH);
     }
 
     public String getManufacturer() {
@@ -67,6 +67,6 @@ public class Vehicle {
     }
 
     public void setVehicleType(String vehicleType) {
-        this.vehicleType = vehicleType;
+        this.vehicleType = vehicleType.toLowerCase(Locale.ENGLISH);
     }
 }
