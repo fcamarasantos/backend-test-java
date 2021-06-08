@@ -15,7 +15,7 @@ public class VehicleTests {
                 "2018",
                 "Preto",
                 "ALX8182",
-                "Carro");
+                VehicleType.CARRO);
     }
 
     @Test
@@ -40,19 +40,6 @@ public class VehicleTests {
 
         this.vehicle.setColor("BrancO");
         Assertions.assertTrue(vehicle.getColor().matches("^[a-z]*$"));
-    }
-
-    @Test
-    void vehicleTypeMustBeInLowerCase() {
-        Assertions.assertTrue(vehicle.getVehicleType().matches("^[a-z]*$"));
-
-        this.vehicle.setVehicleType("MoTo");
-        Assertions.assertTrue(vehicle.getVehicleType().matches("^[a-z]*$"));
-    }
-
-    @Test
-    void vehicleTypeMustValid() {
-        Assertions.fail();
     }
 
     @Test
