@@ -15,7 +15,7 @@ public class Vehicle {
 
     public Vehicle(String manufacturer, String model, String year, String color, String licensePlate, String vehicleType) {
         this.manufacturer = manufacturer.toLowerCase(Locale.ENGLISH);
-        this.model = model;
+        this.model = model.toLowerCase(Locale.ENGLISH);
         this.year = year;
         this.color = color;
         this.licensePlate = licensePlate;
@@ -51,7 +51,7 @@ public class Vehicle {
     }
 
     public void setModel(String model) {
-        this.model = model;
+        this.model = model.toLowerCase(Locale.ENGLISH);
     }
 
     public void setYear(String year) {
