@@ -11,11 +11,16 @@ import fcamara.model.repository.EstacionamentoRepository;
 
 @Service
 public class EstacionamentoService {
-	@Autowired
+	
 	private EstacionamentoRepository estacionamentoRepository;
 	
 	
-	
+	@Autowired
+	public EstacionamentoService(EstacionamentoRepository estacionamentoRepository) {
+		this.estacionamentoRepository = estacionamentoRepository;
+	}
+
+
 	public List<EstacionamentoDto> listar() {
 		return EstacionamentoDto.converter(estacionamentoRepository.findAll());
 	}

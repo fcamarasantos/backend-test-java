@@ -13,11 +13,15 @@ import fcamara.model.repository.VeiculoRepository;
 @Service
 public class VeiculoService {
 	
-	@Autowired
+	
 	private VeiculoRepository veiculoRepository;
 	
 	
-	
+	@Autowired
+	public VeiculoService(VeiculoRepository veiculoRepository) {
+		this.veiculoRepository = veiculoRepository;
+	}
+
 	public List<VeiculoDto> listar() {
 		return VeiculoDto.converter(veiculoRepository.findAll());
 	}

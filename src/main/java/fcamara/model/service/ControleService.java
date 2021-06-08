@@ -28,15 +28,20 @@ import fcamara.model.repository.VeiculoRepository;
 
 @Service
 public class ControleService {
-	@Autowired
+	
 	private ControleRepository controleRepository;
-	@Autowired
 	private EstacionamentoRepository estacionamentoRepository;
-	@Autowired
 	private VeiculoRepository veiculoRepository;
 	
 	
-	
+	@Autowired
+	public ControleService(ControleRepository controleRepository, EstacionamentoRepository estacionamentoRepository,
+			VeiculoRepository veiculoRepository) {
+		this.controleRepository = controleRepository;
+		this.estacionamentoRepository = estacionamentoRepository;
+		this.veiculoRepository = veiculoRepository;
+	}
+
 	public List<ControleDto> listar() {
 		return ControleDto.converter(controleRepository.findAll());
 	}
