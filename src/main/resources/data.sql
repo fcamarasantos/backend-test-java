@@ -1,16 +1,15 @@
+INSERT INTO user(username, password) VALUES('admin', '$2a$10$M3OT4JQUaYSENjYUgaEyJ.ugjItk8wfGY1Q6cdEwNp8GqDvly/0bi');
+
 INSERT INTO veiculo(marca, modelo, cor, placa, tipo) VALUES('VOLKSWAGEN','GOLF GTI','PRETO','ABC1D231','CARRO');
 INSERT INTO veiculo(marca, modelo, cor, placa, tipo) VALUES('VOLKSWAGEN','JETTA GLI','BRANCO','FGH5J231','CARRO');
 INSERT INTO veiculo(marca, modelo, cor, placa, tipo) VALUES('VOLKSWAGEN','FUSCA','VERMELHO','TYU1D456','CARRO');
 INSERT INTO veiculo(marca, modelo, cor, placa, tipo) VALUES('VOLKSWAGEN','TIGUAN','BRANCO','KIL1D331','CARRO');
-
 INSERT INTO veiculo(marca, modelo, cor, placa, tipo) VALUES('HONDA','CIVIC SI','PRETO','ATE1Y234','CARRO');
 INSERT INTO veiculo(marca, modelo, cor, placa, tipo) VALUES('HONDA','FIT','BRANCO','JUK8L487','CARRO');
 INSERT INTO veiculo(marca, modelo, cor, placa, tipo) VALUES('HONDA','ACCORD','VERMELHO','RFV1V123','CARRO');
 INSERT INTO veiculo(marca, modelo, cor, placa, tipo) VALUES('HONDA','WRX','BRANCO','KIQ8H587','CARRO');
-
 INSERT INTO veiculo(marca, modelo, cor, placa, tipo) VALUES('TOYOTA','COROLLA','PRATA','POI7P897','CARRO');
 INSERT INTO veiculo(marca, modelo, cor, placa, tipo) VALUES('TOYOTA','ETIOS','BRANCO','USX8Z512','CARRO');
-
 INSERT INTO veiculo(marca, modelo, cor, placa, tipo) VALUES('KAWAZAKI','H2R','CARBONO','UJZ8S258','MOTO');
 INSERT INTO veiculo(marca, modelo, cor, placa, tipo) VALUES('YAMAHA','MT-09','PRETO','URV5U167','MOTO');
 INSERT INTO veiculo(marca, modelo, cor, placa, tipo) VALUES('YAMAHA','MT-07','AZUL','PLM9O514','MOTO');
