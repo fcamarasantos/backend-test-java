@@ -3,12 +3,12 @@ package br.com.brunobrolesi.parking.domain;
 import java.util.Locale;
 
 public class Vehicle {
-    String manufacturer;
-    String model;
-    String year;
-    String color;
-    String licensePlate;
-    String vehicleType;
+    private String manufacturer;
+    private String model;
+    private String year;
+    private String color;
+    private String licensePlate;
+    private String vehicleType;
 
     public Vehicle() {
     }
