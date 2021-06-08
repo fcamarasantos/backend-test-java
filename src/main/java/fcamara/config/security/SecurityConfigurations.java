@@ -47,6 +47,9 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 		.antMatchers(HttpMethod.GET, "/controle").permitAll()
+		.antMatchers(HttpMethod.GET, "/relatorios/veiculos/porMarca").permitAll()
+		.antMatchers(HttpMethod.GET, "/relatorios/veiculos/listagem").permitAll()
+		.antMatchers(HttpMethod.GET, "/relatorios/estacionamentos/listagem").permitAll()
 		.antMatchers(HttpMethod.POST, "/auth").permitAll()
 		.anyRequest().authenticated()
 		.and().csrf().disable()
