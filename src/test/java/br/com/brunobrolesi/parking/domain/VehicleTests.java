@@ -44,7 +44,10 @@ public class VehicleTests {
 
     @Test
     void vehicleTypeMustBeInLowerCase() {
-        Assertions.fail();
+        Assertions.assertTrue(vehicle.getVehicleType().matches("^[a-z]*$"));
+
+        this.vehicle.setVehicleType("MoTo");
+        Assertions.assertTrue(vehicle.getVehicleType().matches("^[a-z]*$"));
     }
 
     @Test
