@@ -23,6 +23,7 @@ class ControleControllerTest {
 	@Autowired
 	private MockMvc mockMvc;
 	
+	private static String token = "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBUEkgZG8gYmFja2VuZHRlc3QiLCJzdWIiOiIxIiwiaWF0IjoxNjIzMTU5MTM5LCJleHAiOjE2MjMyNDU1Mzl9.jPESLwCV3DLvZcoadqPUdZJQT9K0amIprUN1gVOfogk";
 	
 	@Test
 	public void deveriaDarEntradaNoEstacionamento() throws Exception {
@@ -32,10 +33,26 @@ class ControleControllerTest {
 		.perform(MockMvcRequestBuilders
 				.post(uri)
 				.content(json)
-				.contentType(MediaType.APPLICATION_JSON))
+				.contentType(MediaType.APPLICATION_JSON)
+				.header("authorization", "Bearer " + token))
 		.andExpect(MockMvcResultMatchers
 				.status()
 				.is(200)
+				);
+	}
+	
+	@Test
+	public void naoDeveriaDarEntradaNoEstacionamentoPoisNaoEstaAutenticado() throws Exception {
+		URI uri = new URI("/controle");
+		String json = "{\"cnpj\":\"14253647586941\", \"placa\":\"FGH5J231\"}";
+		mockMvc
+		.perform(MockMvcRequestBuilders
+				.post(uri)
+				.content(json)
+				.contentType(MediaType.APPLICATION_JSON))
+		.andExpect(MockMvcResultMatchers
+				.status()
+				.is(403)
 				);
 	}
 	
@@ -48,7 +65,8 @@ class ControleControllerTest {
 		.perform(MockMvcRequestBuilders
 				.post(uri)
 				.content(json)
-				.contentType(MediaType.APPLICATION_JSON))
+				.contentType(MediaType.APPLICATION_JSON)
+				.header("authorization", "Bearer " + token))
 		.andExpect(MockMvcResultMatchers
 				.status()
 				.is(400)
@@ -67,7 +85,8 @@ class ControleControllerTest {
 		.perform(MockMvcRequestBuilders
 				.post(uri)
 				.content(json)
-				.contentType(MediaType.APPLICATION_JSON))
+				.contentType(MediaType.APPLICATION_JSON)
+				.header("authorization", "Bearer " + token))
 		.andExpect(MockMvcResultMatchers
 				.status()
 				.is(404)
@@ -86,7 +105,8 @@ class ControleControllerTest {
 		.perform(MockMvcRequestBuilders
 				.post(uri)
 				.content(json)
-				.contentType(MediaType.APPLICATION_JSON))
+				.contentType(MediaType.APPLICATION_JSON)
+				.header("authorization", "Bearer " + token))
 		.andExpect(MockMvcResultMatchers
 				.status()
 				.is(404)
@@ -105,7 +125,8 @@ class ControleControllerTest {
 		.perform(MockMvcRequestBuilders
 				.put(uri)
 				.content(json)
-				.contentType(MediaType.APPLICATION_JSON))
+				.contentType(MediaType.APPLICATION_JSON)
+				.header("authorization", "Bearer " + token))
 		.andExpect(MockMvcResultMatchers
 				.status()
 				.is(200)
@@ -115,24 +136,53 @@ class ControleControllerTest {
 				.string("{\"msg\":\""+msg+"\"}"));
 	}
 	
+	@Test
+	public void naoDeveriaSairDoEstacionamentoPoisNaoEstaAutenticado() throws Exception {
+		URI uri = new URI("/controle");
+		String json = "{\"cnpj\":\"14253647586941\", \"placa\":\"ABC1D231\"}";
+		mockMvc
+		.perform(MockMvcRequestBuilders
+				.put(uri)
+				.content(json)
+				.contentType(MediaType.APPLICATION_JSON))
+		.andExpect(MockMvcResultMatchers
+				.status()
+				.is(403));
+	}
+	
 	
 	@Test
 	public void deveriaListarVeiculosEstacionados() throws Exception {
 		URI uri = new URI("/controle/14253647586941/estacionados");
 		mockMvc
 		.perform(MockMvcRequestBuilders
-				.get(uri))
+				.get(uri)
+				.header("authorization", "Bearer " + token))
 		.andExpect(MockMvcResultMatchers
 				.status()
 				.is(200)
 				);
 	}
+	
+	@Test
+	public void naoDeveriaListarVeiculosEstacionadosPoisNaoEstaAutenticado() throws Exception {
+		URI uri = new URI("/controle/14253647586941/estacionados");
+		mockMvc
+		.perform(MockMvcRequestBuilders
+				.get(uri))
+		.andExpect(MockMvcResultMatchers
+				.status()
+				.is(403)
+				);
+	}
+	
 	@Test
 	public void naoDeveriaListarVeiculosEstacionados() throws Exception {
 		URI uri = new URI("/controle/erro/estacionados");
 		mockMvc
 		.perform(MockMvcRequestBuilders
-				.get(uri))
+				.get(uri)
+				.header("authorization", "Bearer " + token))
 		.andExpect(MockMvcResultMatchers
 				.status()
 				.is(404)
@@ -144,7 +194,8 @@ class ControleControllerTest {
 		URI uri = new URI("/controle/14253647586941/historico");
 		mockMvc
 		.perform(MockMvcRequestBuilders
-				.get(uri))
+				.get(uri)
+				.header("authorization", "Bearer " + token))
 		.andExpect(MockMvcResultMatchers
 				.status()
 				.is(200)
@@ -152,14 +203,27 @@ class ControleControllerTest {
 	}
 	
 	@Test
-	public void naoDeveriaListarHistoricoDeVeiculosEstacionados() throws Exception {
+	public void naoDeveriaListarHistoricoDeVeiculosEstacionadosPoisCnpjEstaErrado() throws Exception {
 		URI uri = new URI("/controle/erro/historico");
+		mockMvc
+		.perform(MockMvcRequestBuilders
+				.get(uri)
+				.header("authorization", "Bearer " + token))
+		.andExpect(MockMvcResultMatchers
+				.status()
+				.is(404)
+				);
+	}
+	
+	@Test
+	public void naoDeveriaListarHistoricoDeVeiculosEstacionadosPoisNaoEstaAutenticado() throws Exception {
+		URI uri = new URI("/controle/14253647586941/historico");
 		mockMvc
 		.perform(MockMvcRequestBuilders
 				.get(uri))
 		.andExpect(MockMvcResultMatchers
 				.status()
-				.is(404)
+				.is(403)
 				);
 	}
 	
