@@ -14,11 +14,14 @@ public class Vehicle {
     }
 
     public Vehicle(String manufacturer, String model, String year, String color, String licensePlate, VehicleType type) {
+        if(!licensePlate.matches("[A-Z]{2,3}[0-9]{4}|[A-Z]{3,4}[0-9]{3}|[A-Z0-9]{7}")) {
+            throw new IllegalArgumentException("Placa inválida: " + licensePlate);
+        }
         this.manufacturer = manufacturer.toLowerCase(Locale.ENGLISH);
         this.model = model.toLowerCase(Locale.ENGLISH);
         this.year = year;
         this.color = color.toLowerCase(Locale.ENGLISH);
-        this.licensePlate = licensePlate;
+        this.licensePlate = licensePlate.toUpperCase(Locale.ENGLISH);
         this.type = type.getId();
     }
 
@@ -63,7 +66,7 @@ public class Vehicle {
     }
 
     public void setLicensePlate(String licensePlate) {
-        this.licensePlate = licensePlate;
+        this.licensePlate = licensePlate.toUpperCase(Locale.ENGLISH);
     }
 
     public void setType(VehicleType type) {
