@@ -1,41 +1,32 @@
 package br.com.brunobrolesi.parking.resources;
 
 import br.com.brunobrolesi.parking.domain.Vehicle;
-import br.com.brunobrolesi.parking.domain.VehicleType;
+import br.com.brunobrolesi.parking.repositories.VehicleRepository;
+import br.com.brunobrolesi.parking.resources.dto.VehicleDto;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/veiculos")
 public class VehiclesResource {
 
-    @RequestMapping(method = RequestMethod.GET)
-    public List<Vehicle> listVehicles() {
-        Vehicle vehicle1 = new Vehicle(
-                1,
-                "FORD",
-                "Fusion",
-                "2018",
-                "Preto",
-                "ALX8182",
-                VehicleType.CARRO);
+    @Autowired
+    private VehicleRepository vehicleRepository;
 
-        Vehicle vehicle2 = new Vehicle(
-                2,
-                "Volkswagen",
-                "Gol",
-                "2018",
-                "Branco",
-                "ALB1234",
-                VehicleType.CARRO);
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<VehicleDto> findById(@PathVariable Integer id) {
+        Optional<Vehicle> obj = vehicleRepository.findById(id);
+        if(obj.isPresent())
+        {
+            return ResponseEntity.ok().body(new VehicleDto(obj.get()));
+        }
+            return ResponseEntity.notFound().build();
 
-        List<Vehicle> vehicles = new ArrayList<>();
-        vehicles.add(vehicle1);
-        vehicles.add(vehicle2);
-        return vehicles;
     }
 }
