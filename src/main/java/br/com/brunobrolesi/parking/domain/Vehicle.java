@@ -14,7 +14,7 @@ public class Vehicle {
     }
 
     public Vehicle(String manufacturer, String model, String year, String color, String licensePlate, VehicleType type) {
-        if(!licensePlate.matches("[A-Z]{2,3}[0-9]{4}|[A-Z]{3,4}[0-9]{3}|[A-Z0-9]{7}")) {
+        if(!licensePlate.toUpperCase(Locale.ENGLISH).matches("[A-Z]{2,3}[0-9]{4}|[A-Z]{3,4}[0-9]{3}|[A-Z0-9]{7}")) {
             throw new IllegalArgumentException("Placa inválida: " + licensePlate);
         }
         if(!year.matches("[0-9]{4}")) {
@@ -72,6 +72,9 @@ public class Vehicle {
     }
 
     public void setLicensePlate(String licensePlate) {
+        if(!licensePlate.toUpperCase(Locale.ENGLISH).matches("[A-Z]{2,3}[0-9]{4}|[A-Z]{3,4}[0-9]{3}|[A-Z0-9]{7}")) {
+            throw new IllegalArgumentException("Placa inválida: " + licensePlate);
+        }
         this.licensePlate = licensePlate.toUpperCase(Locale.ENGLISH);
     }
 
