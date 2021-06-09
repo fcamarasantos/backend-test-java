@@ -65,7 +65,21 @@ public class VehicleTests {
 
     @Test
     void yearMustHaveFourDigits() {
-        Assertions.fail();
+        Assertions.assertTrue(vehicle.getYear().matches("[0-9]{4}"));
+
+        Assertions.assertThrows(IllegalArgumentException.class,
+                () -> new Vehicle(
+                        "FORD",
+                        "Fusion",
+                        "218",
+                        "Preto",
+                        "ALX8182",
+                        VehicleType.CARRO)
+        );
+
+        Assertions.assertThrows(IllegalArgumentException.class,
+                () -> vehicle.setYear("12332")
+        );
     }
 
     @Test
