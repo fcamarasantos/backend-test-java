@@ -61,6 +61,9 @@ public class VehicleTests {
                         "A8182",
                         VehicleType.CARRO)
                 );
+
+        Assertions.assertThrows(IllegalArgumentException.class,
+                () -> vehicle.setLicensePlate("A8182"));
     }
 
     @Test
