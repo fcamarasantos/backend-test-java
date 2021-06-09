@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
+
 public class VehicleTests {
     private Vehicle vehicle;
 
@@ -87,6 +89,17 @@ public class VehicleTests {
 
     @Test
     void yearMustBeValid() {
-        Assertions.fail();
+       Assertions.assertThrows(IllegalArgumentException.class,
+               () -> new Vehicle(
+                       "FORD",
+                       "Fusion",
+                       "1800",
+                       "Preto",
+                       "ALX8182",
+                       VehicleType.CARRO)
+       );
+
+       Assertions.assertThrows(IllegalArgumentException.class,
+               () -> vehicle.setYear(String.valueOf(LocalDate.now().getYear() + 2)));
     }
 }
