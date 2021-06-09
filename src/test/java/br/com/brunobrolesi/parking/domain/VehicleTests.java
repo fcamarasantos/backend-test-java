@@ -12,6 +12,7 @@ public class VehicleTests {
     @BeforeEach
     void createVeichle() {
         this.vehicle = new Vehicle(
+                1,
                 "FORD",
                 "Fusion",
                 "2018",
@@ -56,6 +57,7 @@ public class VehicleTests {
     void licensePlateMustBeValid(){
         Assertions.assertThrows(IllegalArgumentException.class,
                 () -> new Vehicle(
+                        1,
                         "FORD",
                         "Fusion",
                         "2018",
@@ -74,6 +76,7 @@ public class VehicleTests {
 
         Assertions.assertThrows(IllegalArgumentException.class,
                 () -> new Vehicle(
+                        1,
                         "FORD",
                         "Fusion",
                         "218",
@@ -91,6 +94,7 @@ public class VehicleTests {
     void yearMustBeValid() {
        Assertions.assertThrows(IllegalArgumentException.class,
                () -> new Vehicle(
+                       1,
                        "FORD",
                        "Fusion",
                        "1800",

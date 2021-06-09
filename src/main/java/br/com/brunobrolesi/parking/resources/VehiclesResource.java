@@ -16,6 +16,7 @@ public class VehiclesResource {
     @RequestMapping(method = RequestMethod.GET)
     public List<Vehicle> listVehicles() {
         Vehicle vehicle1 = new Vehicle(
+                1,
                 "FORD",
                 "Fusion",
                 "2018",
@@ -24,6 +25,7 @@ public class VehiclesResource {
                 VehicleType.CARRO);
 
         Vehicle vehicle2 = new Vehicle(
+                2,
                 "Volkswagen",
                 "Gol",
                 "2018",
