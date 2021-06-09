@@ -17,6 +17,9 @@ public class Vehicle {
         if(!licensePlate.matches("[A-Z]{2,3}[0-9]{4}|[A-Z]{3,4}[0-9]{3}|[A-Z0-9]{7}")) {
             throw new IllegalArgumentException("Placa inválida: " + licensePlate);
         }
+        if(!year.matches("[0-9]{4}")) {
+            throw new IllegalArgumentException("Ano inválido: " + year);
+        }
         this.manufacturer = manufacturer.toLowerCase(Locale.ENGLISH);
         this.model = model.toLowerCase(Locale.ENGLISH);
         this.year = year;
@@ -58,6 +61,9 @@ public class Vehicle {
     }
 
     public void setYear(String year) {
+        if(!year.matches("[0-9]{4}")) {
+            throw new IllegalArgumentException("Ano inválido: " + year);
+        }
         this.year = year;
     }
 
