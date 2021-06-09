@@ -1,14 +1,18 @@
 package br.com.brunobrolesi.parking.domain;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Locale;
+import java.util.Objects;
 
-public class Vehicle {
+public class Vehicle implements Serializable {
+    private static final long SerialVersionUID = 1;
+
+    private String licensePlate;
     private String manufacturer;
     private String model;
     private String year;
     private String color;
-    private String licensePlate;
     private Integer type;
 
     public Vehicle() {
@@ -81,5 +85,18 @@ public class Vehicle {
 
     public void setType(VehicleType type) {
         this.type = type.getId();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Vehicle vehicle = (Vehicle) o;
+        return licensePlate.equals(vehicle.licensePlate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(licensePlate);
     }
 }
