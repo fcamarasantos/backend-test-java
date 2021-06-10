@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -19,8 +20,14 @@ public class VehiclesResource {
     @Autowired
     private VehicleRepository vehicleRepository;
 
+    @RequestMapping(method = RequestMethod.GET)
+    public List<VehicleDto> listVehicles() {
+        List<Vehicle> vehicles = vehicleRepository.findAll();
+        return VehicleDto.converter(vehicles);
+    }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<VehicleDto> findById(@PathVariable Integer id) {
+    public ResponseEntity<VehicleDto> findVehicleById(@PathVariable Integer id) {
         Optional<Vehicle> obj = vehicleRepository.findById(id);
         if(obj.isPresent())
         {
