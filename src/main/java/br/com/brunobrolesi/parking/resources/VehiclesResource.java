@@ -5,11 +5,10 @@ import br.com.brunobrolesi.parking.repositories.VehicleRepository;
 import br.com.brunobrolesi.parking.resources.dto.VehicleDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,6 +33,13 @@ public class VehiclesResource {
             return ResponseEntity.ok().body(new VehicleDto(obj.get()));
         }
             return ResponseEntity.notFound().build();
+    }
 
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<Vehicle> insertVehicle(@RequestBody Vehicle obj) {
+        obj = vehicleRepository.save(obj);
+        URI uri = ServletUriComponentsBuilder
+                .fromCurrentRequestUri().path("/{id}").buildAndExpand(obj.getId()).toUri();
+        return ResponseEntity.created(uri).body(obj);
     }
 }
