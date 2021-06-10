@@ -3,11 +3,14 @@ package br.com.brunobrolesi.parking.resources;
 import br.com.brunobrolesi.parking.domain.Vehicle;
 import br.com.brunobrolesi.parking.repositories.VehicleRepository;
 import br.com.brunobrolesi.parking.resources.dto.VehicleDto;
+import br.com.brunobrolesi.parking.resources.form.VehicleForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.transaction.Transactional;
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
@@ -19,13 +22,13 @@ public class VehiclesResource {
     @Autowired
     private VehicleRepository vehicleRepository;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public List<VehicleDto> listVehicles() {
         List<Vehicle> vehicles = vehicleRepository.findAll();
         return VehicleDto.converter(vehicles);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @GetMapping("/{id}")
     public ResponseEntity<VehicleDto> findVehicleById(@PathVariable Integer id) {
         Optional<Vehicle> obj = vehicleRepository.findById(id);
         if(obj.isPresent())
@@ -35,17 +38,25 @@ public class VehiclesResource {
             return ResponseEntity.notFound().build();
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Vehicle> insertVehicle(@RequestBody Vehicle obj) {
-        obj = vehicleRepository.save(obj);
+    @PostMapping
+    @Transactional
+    public ResponseEntity<VehicleDto> registerVehicle(@RequestBody @Valid VehicleForm form) {
+        Vehicle vehicle = form.converter();
+        vehicleRepository.save(vehicle);
         URI uri = ServletUriComponentsBuilder
-                .fromCurrentRequestUri().path("/{id}").buildAndExpand(obj.getId()).toUri();
-        return ResponseEntity.created(uri).body(obj);
+                .fromCurrentRequestUri().path("/{id}").buildAndExpand(vehicle.getId()).toUri();
+        return ResponseEntity.created(uri).body(new VehicleDto(vehicle));
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping("/{id}")
+    @Transactional
     public ResponseEntity<Void> deleteVehicle(@PathVariable Integer id) {
-        vehicleRepository.deleteById(id);
-        return ResponseEntity.noContent().build();
+        Optional<Vehicle> optional = vehicleRepository.findById(id);
+        if (optional.isPresent())
+        {
+            vehicleRepository.deleteById(id);
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 }
