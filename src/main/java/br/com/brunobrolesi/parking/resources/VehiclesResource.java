@@ -42,4 +42,10 @@ public class VehiclesResource {
                 .fromCurrentRequestUri().path("/{id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).body(obj);
     }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteVehicle(@PathVariable Integer id) {
+        vehicleRepository.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
 }
