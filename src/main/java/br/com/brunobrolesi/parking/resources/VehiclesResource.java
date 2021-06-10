@@ -3,6 +3,7 @@ package br.com.brunobrolesi.parking.resources;
 import br.com.brunobrolesi.parking.domain.Vehicle;
 import br.com.brunobrolesi.parking.repositories.VehicleRepository;
 import br.com.brunobrolesi.parking.resources.dto.VehicleDto;
+import br.com.brunobrolesi.parking.resources.form.UpdateVehicleForm;
 import br.com.brunobrolesi.parking.resources.form.VehicleForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -56,6 +57,18 @@ public class VehiclesResource {
         {
             vehicleRepository.deleteById(id);
             return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @PutMapping("/{id}")
+    @Transactional
+    public ResponseEntity<VehicleDto> updateVehicle(@PathVariable Integer id, @RequestBody @Valid UpdateVehicleForm form)
+    {
+        Optional<Vehicle> optional = vehicleRepository.findById(id);
+        if (optional.isPresent()){
+            Vehicle vehicle = form.update(id, vehicleRepository);
+            return ResponseEntity.ok().body(new VehicleDto(vehicle));
         }
         return ResponseEntity.notFound().build();
     }
