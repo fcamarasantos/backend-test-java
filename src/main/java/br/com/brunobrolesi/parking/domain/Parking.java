@@ -17,7 +17,7 @@ public class Parking implements Serializable {
     private String name;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "parking")
+    @OneToMany(mappedBy = "parking", orphanRemoval = true)
     private List<Address> addresses = new ArrayList<>();
 
     @ElementCollection
