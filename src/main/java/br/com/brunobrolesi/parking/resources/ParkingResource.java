@@ -38,4 +38,16 @@ public class ParkingResource {
         }
         return ResponseEntity.notFound().build();
     }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity<Void> deleteParking(@PathVariable Integer id) {
+        Optional<Parking> optional = parkingRepository.findById(id);
+        if (optional.isPresent())
+        {
+            parkingRepository.deleteById(id);
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
 }
