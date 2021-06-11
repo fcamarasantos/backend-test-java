@@ -1,5 +1,7 @@
 package br.com.brunobrolesi.parking.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
@@ -14,6 +16,7 @@ public class Parking implements Serializable {
     private String cnpj;
     private String name;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "parking")
     private List<Address> addresses = new ArrayList<>();
 

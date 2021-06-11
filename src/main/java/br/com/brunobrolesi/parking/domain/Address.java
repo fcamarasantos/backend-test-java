@@ -1,5 +1,7 @@
 package br.com.brunobrolesi.parking.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -15,6 +17,7 @@ public class Address implements Serializable {
     private String number;
     private String address_2;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "parking_id")
     private Parking parking;
