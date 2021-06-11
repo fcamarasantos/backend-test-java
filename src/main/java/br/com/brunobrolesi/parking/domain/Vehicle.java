@@ -8,7 +8,7 @@ import java.util.Objects;
 
 @Entity
 public class Vehicle implements Serializable {
-    private static final long SerialVersionUID = 1;
+    private static final long SerialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
