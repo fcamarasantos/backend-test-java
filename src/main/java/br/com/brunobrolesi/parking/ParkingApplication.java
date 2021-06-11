@@ -1,12 +1,7 @@
 package br.com.brunobrolesi.parking;
 
-import br.com.brunobrolesi.parking.domain.City;
-import br.com.brunobrolesi.parking.domain.State;
-import br.com.brunobrolesi.parking.domain.Vehicle;
-import br.com.brunobrolesi.parking.domain.VehicleType;
-import br.com.brunobrolesi.parking.repositories.CityRepository;
-import br.com.brunobrolesi.parking.repositories.StateRepository;
-import br.com.brunobrolesi.parking.repositories.VehicleRepository;
+import br.com.brunobrolesi.parking.domain.*;
+import br.com.brunobrolesi.parking.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -25,6 +20,12 @@ public class ParkingApplication implements CommandLineRunner {
 
 	@Autowired
 	private CityRepository cityRepository;
+
+	@Autowired
+	private AddressRepository addressRepository;
+
+	@Autowired
+	private ParkingRepository parkingRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ParkingApplication.class, args);
@@ -51,6 +52,16 @@ public class ParkingApplication implements CommandLineRunner {
 		stateRepository.saveAll(Arrays.asList(s1, s2));
 		cityRepository.saveAll(Arrays.asList(c1, c2, c3));
 
+		Parking p1 = new Parking(null,"555.555.555", "Estacionamento Central");
+		p1.getPhones().addAll(Arrays.asList("2231-4323", "33432-34234"));
+
+		Address a1 = new Address(null,"Avenida Brasil","333",null, p1, c1);
+		Address a2 = new Address(null,"Avenida Matos","3233",null, p1, c3);
+
+		p1.getAddresses().addAll(Arrays.asList(a1, a2));
+
+		parkingRepository.saveAll(Arrays.asList(p1));
+		addressRepository.saveAll(Arrays.asList(a1, a2));
 
 	}
 }
