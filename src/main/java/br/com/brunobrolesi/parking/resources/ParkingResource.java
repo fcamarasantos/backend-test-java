@@ -28,4 +28,14 @@ public class ParkingResource {
         List<Parking> parkings = parkingRepository.findAll();
         return ParkingDto.converter(parkings);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ParkingDto> findParkingById(@PathVariable Integer id) {
+        Optional<Parking> obj = parkingRepository.findById(id);
+        if(obj.isPresent())
+        {
+            return ResponseEntity.ok().body(new ParkingDto(obj.get()));
+        }
+        return ResponseEntity.notFound().build();
+    }
 }
