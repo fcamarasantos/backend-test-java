@@ -24,12 +24,24 @@ public class Parking implements Serializable {
     @CollectionTable(name = "phone")
     private Set<String> phones = new HashSet<>();
 
+    @JsonManagedReference
+    @OneToMany(mappedBy = "parking", orphanRemoval = true)
+    private List<ParkingSpace> parkingSpaces = new ArrayList<>();
+
     public Parking() {}
 
     public Parking(Integer id, String cnpj, String name) {
         this.id = id;
         this.cnpj = cnpj;
         this.name = name;
+    }
+
+    public List<ParkingSpace> getParkingSpaces() {
+        return parkingSpaces;
+    }
+
+    public void setParkingSpaces(List<ParkingSpace> parkingSpaces) {
+        this.parkingSpaces = parkingSpaces;
     }
 
     public Integer getId() {
