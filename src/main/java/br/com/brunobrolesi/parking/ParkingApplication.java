@@ -27,6 +27,9 @@ public class ParkingApplication implements CommandLineRunner {
 	@Autowired
 	private ParkingRepository parkingRepository;
 
+	@Autowired
+	private ParkingSpaceRepository parkingSpaceRepository;
+
 	public static void main(String[] args) {
 		SpringApplication.run(ParkingApplication.class, args);
 	}
@@ -63,5 +66,12 @@ public class ParkingApplication implements CommandLineRunner {
 		parkingRepository.saveAll(Arrays.asList(p1));
 		addressRepository.saveAll(Arrays.asList(a1, a2));
 
+		ParkingSpace ps1 = new ParkingSpace(null, VehicleType.CARRO, p1);
+		ParkingSpace ps2 = new ParkingSpace(null, VehicleType.CARRO, p1);
+		ParkingSpace ps3 = new ParkingSpace(null, VehicleType.MOTO, p1);
+
+		p1.getParkingSpaces().addAll(Arrays.asList(ps1, ps2, ps3));
+
+		parkingSpaceRepository.saveAll(Arrays.asList(ps1, ps2, ps3));
 	}
 }
