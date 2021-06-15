@@ -1,6 +1,8 @@
 package br.com.brunobrolesi.parking.resources;
 
+import br.com.brunobrolesi.parking.domain.Address;
 import br.com.brunobrolesi.parking.domain.Parking;
+import br.com.brunobrolesi.parking.repositories.AddressRepository;
 import br.com.brunobrolesi.parking.repositories.ParkingRepository;
 import br.com.brunobrolesi.parking.resources.dto.ParkingDto;
 import br.com.brunobrolesi.parking.resources.form.UpdateParkingForm;
@@ -22,6 +24,8 @@ public class ParkingResource {
 
     @Autowired
     private ParkingRepository parkingRepository;
+    @Autowired
+    private AddressRepository addressRepository;
 
     @GetMapping
     public List<ParkingDto> listParkings() {
@@ -61,5 +65,17 @@ public class ParkingResource {
             return ResponseEntity.ok().body(new ParkingDto(parking));
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @PostMapping
+    @Transactional
+    public ResponseEntity<ParkingDto> registerParking(@RequestBody @Valid ParkingForm form) {
+        Parking parking = form.converterParking();
+        Address address = parking.getAddresses().get(0);
+        parkingRepository.save(parking);
+        addressRepository.save(address);
+        URI uri = ServletUriComponentsBuilder
+                .fromCurrentRequestUri().path("/{id}").buildAndExpand(parking.getId()).toUri();
+        return ResponseEntity.created(uri).body(new ParkingDto(parking));
     }
 }
