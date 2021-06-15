@@ -50,4 +50,16 @@ public class ParkingResource {
         }
         return ResponseEntity.notFound().build();
     }
+
+    @PutMapping("/{id}")
+    @Transactional
+    public ResponseEntity<ParkingDto> updateParking(@PathVariable Integer id, @RequestBody @Valid UpdateParkingForm form)
+    {
+        Optional<Parking> optional = parkingRepository.findById(id);
+        if (optional.isPresent()){
+            Parking parking = form.update(id, parkingRepository);
+            return ResponseEntity.ok().body(new ParkingDto(parking));
+        }
+        return ResponseEntity.notFound().build();
+    }
 }
