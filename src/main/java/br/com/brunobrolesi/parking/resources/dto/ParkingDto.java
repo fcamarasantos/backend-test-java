@@ -15,11 +15,11 @@ public class ParkingDto {
     private String name;
     private List<Address> addresses = new ArrayList<>();
     private Set<String> phones = new HashSet<>();
-    private List<ParkingSpace> parkingSpaces = new ArrayList<>();
     private Integer carSpaces;
     private Integer motorcycleSpaces;
     private Integer freeCarSpaces;
     private Integer freeMotorcycleSpaces;
+    private List<ParkingSpace> parkingSpaces = new ArrayList<>();
 
     public ParkingDto(Parking parking) {
         this.id = parking.getId();
@@ -33,6 +33,14 @@ public class ParkingDto {
         this.freeCarSpaces = parking.getFreeVehicleSpaceQuantity(VehicleType.CARRO);
         this.motorcycleSpaces = parking.getVehicleSpaceQuantity(VehicleType.MOTO);
         this.freeMotorcycleSpaces = parking.getFreeVehicleSpaceQuantity(VehicleType.MOTO);
+    }
+
+    public List<ParkingSpace> getParkingSpaces() {
+        return parkingSpaces;
+    }
+
+    public void setParkingSpaces(List<ParkingSpace> parkingSpaces) {
+        this.parkingSpaces = parkingSpaces;
     }
 
     public Integer getCarSpaces() {
