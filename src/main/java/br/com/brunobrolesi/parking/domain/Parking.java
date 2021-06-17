@@ -96,4 +96,12 @@ public class Parking implements Serializable {
     public int hashCode() {
         return Objects.hash(id);
     }
+
+    public Integer getVehicleSpaceQuantity(VehicleType type) {
+        return Math.toIntExact(parkingSpaces.stream().filter(element -> element.getVehicleType() == type).count());
+    }
+    public Integer getFreeVehicleSpaceQuantity(VehicleType type) {
+        return Math.toIntExact(parkingSpaces.stream()
+                .filter(element -> (element.getState() == ParkingSpaceState.FREE && element.getVehicleType() == type)).count());
+    }
 }

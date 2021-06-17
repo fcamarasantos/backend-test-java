@@ -1,7 +1,6 @@
 package br.com.brunobrolesi.parking.resources.dto;
 
-import br.com.brunobrolesi.parking.domain.Address;
-import br.com.brunobrolesi.parking.domain.Parking;
+import br.com.brunobrolesi.parking.domain.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -16,14 +15,56 @@ public class ParkingDto {
     private String name;
     private List<Address> addresses = new ArrayList<>();
     private Set<String> phones = new HashSet<>();
+    private List<ParkingSpace> parkingSpaces = new ArrayList<>();
+    private Integer carSpaces;
+    private Integer motorcycleSpaces;
+    private Integer freeCarSpaces;
+    private Integer freeMotorcycleSpaces;
 
     public ParkingDto(Parking parking) {
-
         this.id = parking.getId();
         this.cnpj = parking.getCnpj();
         this.name = parking.getName();
         this.addresses = parking.getAddresses();
         this.phones = parking.getPhones();
+        this.parkingSpaces = parking.getParkingSpaces();
+
+        this.carSpaces =  parking.getVehicleSpaceQuantity(VehicleType.CARRO);
+        this.freeCarSpaces = parking.getFreeVehicleSpaceQuantity(VehicleType.CARRO);
+        this.motorcycleSpaces = parking.getVehicleSpaceQuantity(VehicleType.MOTO);
+        this.freeMotorcycleSpaces = parking.getFreeVehicleSpaceQuantity(VehicleType.MOTO);
+    }
+
+    public Integer getCarSpaces() {
+        return carSpaces;
+    }
+
+    public void setCarSpaces(Integer carSpaces) {
+        this.carSpaces = carSpaces;
+    }
+
+    public Integer getMotorcycleSpaces() {
+        return motorcycleSpaces;
+    }
+
+    public void setMotorcycleSpaces(Integer motorcycleSpaces) {
+        this.motorcycleSpaces = motorcycleSpaces;
+    }
+
+    public Integer getFreeCarSpaces() {
+        return freeCarSpaces;
+    }
+
+    public void setFreeCarSpaces(Integer freeCarSpaces) {
+        this.freeCarSpaces = freeCarSpaces;
+    }
+
+    public Integer getFreeMotorcycleSpaces() {
+        return freeMotorcycleSpaces;
+    }
+
+    public void setFreeMotorcycleSpaces(Integer freeMotorcycleSpaces) {
+        this.freeMotorcycleSpaces = freeMotorcycleSpaces;
     }
 
     public Integer getId() {
