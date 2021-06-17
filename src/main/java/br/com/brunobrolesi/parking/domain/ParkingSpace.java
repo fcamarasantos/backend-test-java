@@ -19,6 +19,8 @@ public class ParkingSpace {
     @JoinColumn(name = "parking_id")
     private Parking parking;
 
+    public ParkingSpace() {}
+
     public ParkingSpace(Integer id, VehicleType vehicleType, Parking parking) {
         this.id = id;
         this.vehicleType = vehicleType.getId();
