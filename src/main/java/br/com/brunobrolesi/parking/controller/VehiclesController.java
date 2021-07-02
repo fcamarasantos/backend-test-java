@@ -68,7 +68,8 @@ public class VehiclesController {
     {
         Optional<Vehicle> optional = Optional.ofNullable(service.findById(id));
         if (optional.isPresent()){
-            Vehicle vehicle = form.update(id);
+            Vehicle oldVehicle = service.findById(id);
+            Vehicle vehicle = form.update(oldVehicle);
             return ResponseEntity.ok().body(new VehicleDto(vehicle));
         }
         return ResponseEntity.notFound().build();
