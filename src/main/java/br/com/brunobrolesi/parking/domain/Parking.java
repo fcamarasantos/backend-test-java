@@ -25,7 +25,7 @@ public class Parking implements Serializable {
     private Set<String> phones = new HashSet<>();
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "parking", orphanRemoval = true)
+    @OneToMany(mappedBy = "parking", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ParkingSpace> parkingSpaces = new ArrayList<>();
 
     public Parking() {}
