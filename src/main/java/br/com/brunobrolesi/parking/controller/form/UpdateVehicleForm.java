@@ -71,15 +71,9 @@ public class UpdateVehicleForm {
         this.type = type;
     }
 
-    public Vehicle update(Vehicle vehicle) {
-
-        vehicle.setManufacturer(this.manufacturer);
-        vehicle.setModel(this.model);
-        vehicle.setYear(this.year);
-        vehicle.setColor(this.color);
-        vehicle.setLicensePlate(this.licensePlate);
-        vehicle.setType(VehicleType.toEnum(this.type));
-
+    public Vehicle converterVehicle () {
+        Vehicle vehicle = new Vehicle(null, manufacturer, model, year, color, licensePlate, VehicleType.toEnum(type));
         return vehicle;
     }
+
 }
