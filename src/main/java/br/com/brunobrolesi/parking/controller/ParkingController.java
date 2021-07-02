@@ -10,6 +10,7 @@ import br.com.brunobrolesi.parking.controller.dto.ParkingDto;
 import br.com.brunobrolesi.parking.controller.dto.ParkingResumedDto;
 import br.com.brunobrolesi.parking.controller.form.UpdateParkingForm;
 import br.com.brunobrolesi.parking.controller.form.ParkingForm;
+import br.com.brunobrolesi.parking.service.ParkingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,21 +27,20 @@ import java.util.Optional;
 public class ParkingController {
 
     @Autowired
-    private ParkingRepository parkingRepository;
+    private ParkingService service;
+
     @Autowired
     private AddressRepository addressRepository;
-    @Autowired
-    private ParkingSpaceRepository parkingSpaceRepository;
 
     @GetMapping
     public List<ParkingResumedDto> listParkings() {
-        List<Parking> parkings = parkingRepository.findAll();
+        List<Parking> parkings = service.findAll();
         return ParkingResumedDto.converter(parkings);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ParkingDto> findParkingById(@PathVariable Integer id) {
-        Optional<Parking> obj = parkingRepository.findById(id);
+        Optional<Parking> obj = Optional.ofNullable(service.findById(id));
         if(obj.isPresent())
         {
             return ResponseEntity.ok().body(new ParkingDto(obj.get()));
@@ -51,23 +51,11 @@ public class ParkingController {
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity<Void> deleteParking(@PathVariable Integer id) {
-        Optional<Parking> optional = parkingRepository.findById(id);
+        Optional<Parking> optional = Optional.ofNullable(service.findById(id));
         if (optional.isPresent())
         {
-            parkingRepository.deleteById(id);
+            service.delete(id);
             return ResponseEntity.ok().build();
-        }
-        return ResponseEntity.notFound().build();
-    }
-
-    @PutMapping("/{id}")
-    @Transactional
-    public ResponseEntity<ParkingDto> updateParking(@PathVariable Integer id, @RequestBody @Valid UpdateParkingForm form)
-    {
-        Optional<Parking> optional = parkingRepository.findById(id);
-        if (optional.isPresent()){
-            Parking parking = form.update(id, parkingRepository, parkingSpaceRepository);
-            return ResponseEntity.ok().body(new ParkingDto(parking));
         }
         return ResponseEntity.notFound().build();
     }
@@ -76,15 +64,20 @@ public class ParkingController {
     @Transactional
     public ResponseEntity<ParkingDto> registerParking(@RequestBody @Valid ParkingForm form) {
         Parking parking = form.converterParking();
-        Address address = parking.getAddresses().get(0);
-        List<ParkingSpace> parkingSpaces = parking.getParkingSpaces();
-
-        parkingRepository.save(parking);
-        addressRepository.save(address);
-        parkingSpaceRepository.saveAll(parkingSpaces);
-
+        Parking inserted = service.insert(parking);
         URI uri = ServletUriComponentsBuilder
-                .fromCurrentRequestUri().path("/{id}").buildAndExpand(parking.getId()).toUri();
-        return ResponseEntity.created(uri).body(new ParkingDto(parking));
+                .fromCurrentRequestUri().path("/{id}").buildAndExpand(inserted.getId()).toUri();
+        return ResponseEntity.created(uri).body(new ParkingDto(inserted));
+    }
+
+    @PutMapping("/{id}")
+    @Transactional
+    public ResponseEntity<ParkingDto> updateParking(@PathVariable Integer id, @RequestBody @Valid UpdateParkingForm form)
+    {
+        Optional<Parking> optional = Optional.ofNullable(service.update(id, form.converterParking()));
+        if (optional.isPresent()){
+            return ResponseEntity.ok().body(new ParkingDto(optional.get()));
+        }
+        return ResponseEntity.notFound().build();
     }
 }

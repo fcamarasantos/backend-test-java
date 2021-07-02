@@ -8,30 +8,16 @@ import br.com.brunobrolesi.parking.repositories.ParkingSpaceRepository;
 
 import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class UpdateParkingForm {
 
     @NotEmpty
     private String name;
-    private Integer carSpaces;
-    private Integer motorcycleSpaces;
 
-    public Integer getCarSpaces() {
-        return carSpaces;
-    }
-
-    public void setCarSpaces(Integer carSpaces) {
-        this.carSpaces = carSpaces;
-    }
-
-    public Integer getMotorcycleSpaces() {
-        return motorcycleSpaces;
-    }
-
-    public void setMotorcycleSpaces(Integer motorcycleSpaces) {
-        this.motorcycleSpaces = motorcycleSpaces;
-    }
+    private String phone1;
+    private String phone2;
 
     public String getName() {
         return name;
@@ -41,12 +27,20 @@ public class UpdateParkingForm {
         this.name = name;
     }
 
-    public Parking update(Integer id, ParkingRepository parkingRepository, ParkingSpaceRepository parkingSpaceRepository) {
-        Parking parking = parkingRepository.getById(id);
+    public String getPhone1() {
+        return phone1;
+    }
 
-        parking.setName(this.name);
+    public void setPhone1(String phone1) {
+        this.phone1 = phone1;
+    }
 
-        return parking;
+    public String getPhone2() {
+        return phone2;
+    }
+
+    public void setPhone2(String phone2) {
+        this.phone2 = phone2;
     }
 
     private List<ParkingSpace> generateParkingSpaces(VehicleType type, int number, Parking parking) {
@@ -55,5 +49,15 @@ public class UpdateParkingForm {
             parkingSpaces.add(new ParkingSpace(null, type, parking));
         }
         return parkingSpaces;
+    }
+
+    public Parking converterParking() {
+        Parking parking = new Parking(
+                null,
+                null,
+                this.name
+        );
+        parking.getPhones().addAll(Arrays.asList(phone1,phone2));
+        return  parking;
     }
 }
