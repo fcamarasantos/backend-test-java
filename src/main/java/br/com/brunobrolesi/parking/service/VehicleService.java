@@ -20,7 +20,8 @@ public class VehicleService {
 
     public Vehicle findById(Integer id) {
         Optional<Vehicle> obj = repository.findById(id);
-        return obj.get();
+        if(obj.isPresent()) return obj.get();
+        return null;
     }
 
     public Vehicle insert(Vehicle obj) {
