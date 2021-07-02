@@ -1,6 +1,6 @@
 package br.com.brunobrolesi.parking.repositories;
 
-import br.com.brunobrolesi.parking.domain.Address;
+import br.com.brunobrolesi.parking.model.Address;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

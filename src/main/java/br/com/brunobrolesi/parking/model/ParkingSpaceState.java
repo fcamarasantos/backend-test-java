@@ -1,4 +1,4 @@
-package br.com.brunobrolesi.parking.domain;
+package br.com.brunobrolesi.parking.model;
 
 public enum ParkingSpaceState {
     FREE(1, "livre"),

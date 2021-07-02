@@ -1,11 +1,9 @@
-package br.com.brunobrolesi.parking.resources.form;
+package br.com.brunobrolesi.parking.controller.form;
 
-import br.com.brunobrolesi.parking.domain.*;
+import br.com.brunobrolesi.parking.model.*;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 
 public class ParkingForm {

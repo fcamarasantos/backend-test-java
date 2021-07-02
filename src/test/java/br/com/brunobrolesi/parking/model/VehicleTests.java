@@ -1,4 +1,4 @@
-package br.com.brunobrolesi.parking.domain;
+package br.com.brunobrolesi.parking.model;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

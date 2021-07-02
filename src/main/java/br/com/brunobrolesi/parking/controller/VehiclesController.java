@@ -1,10 +1,10 @@
-package br.com.brunobrolesi.parking.resources;
+package br.com.brunobrolesi.parking.controller;
 
-import br.com.brunobrolesi.parking.domain.Vehicle;
+import br.com.brunobrolesi.parking.model.Vehicle;
 import br.com.brunobrolesi.parking.repositories.VehicleRepository;
-import br.com.brunobrolesi.parking.resources.dto.VehicleDto;
-import br.com.brunobrolesi.parking.resources.form.UpdateVehicleForm;
-import br.com.brunobrolesi.parking.resources.form.VehicleForm;
+import br.com.brunobrolesi.parking.controller.dto.VehicleDto;
+import br.com.brunobrolesi.parking.controller.form.UpdateVehicleForm;
+import br.com.brunobrolesi.parking.controller.form.VehicleForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +18,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/veiculos")
-public class VehiclesResource {
+public class VehiclesController {
 
     @Autowired
     private VehicleRepository vehicleRepository;

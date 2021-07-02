@@ -1,6 +1,6 @@
-package br.com.brunobrolesi.parking.resources.dto;
+package br.com.brunobrolesi.parking.controller.dto;
 
-import br.com.brunobrolesi.parking.domain.*;
+import br.com.brunobrolesi.parking.model.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;

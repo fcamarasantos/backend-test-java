@@ -1,8 +1,7 @@
-package br.com.brunobrolesi.parking.resources.form;
+package br.com.brunobrolesi.parking.controller.form;
 
-import br.com.brunobrolesi.parking.domain.Vehicle;
-import br.com.brunobrolesi.parking.domain.VehicleType;
-import br.com.brunobrolesi.parking.repositories.VehicleRepository;
+import br.com.brunobrolesi.parking.model.Vehicle;
+import br.com.brunobrolesi.parking.model.VehicleType;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;

@@ -1,4 +1,4 @@
-package br.com.brunobrolesi.parking.domain;
+package br.com.brunobrolesi.parking.model;
 
 public enum VehicleType {
     CARRO(1, "carro"),

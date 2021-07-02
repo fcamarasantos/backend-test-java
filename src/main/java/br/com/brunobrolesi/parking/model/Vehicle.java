@@ -1,4 +1,4 @@
-package br.com.brunobrolesi.parking.domain;
+package br.com.brunobrolesi.parking.model;
 
 import javax.persistence.*;
 import java.io.Serializable;

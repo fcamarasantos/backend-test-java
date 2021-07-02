@@ -1,6 +1,6 @@
 package br.com.brunobrolesi.parking;
 
-import br.com.brunobrolesi.parking.domain.*;
+import br.com.brunobrolesi.parking.model.*;
 import br.com.brunobrolesi.parking.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;

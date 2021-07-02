@@ -1,15 +1,15 @@
-package br.com.brunobrolesi.parking.resources;
+package br.com.brunobrolesi.parking.controller;
 
-import br.com.brunobrolesi.parking.domain.Address;
-import br.com.brunobrolesi.parking.domain.Parking;
-import br.com.brunobrolesi.parking.domain.ParkingSpace;
+import br.com.brunobrolesi.parking.model.Address;
+import br.com.brunobrolesi.parking.model.Parking;
+import br.com.brunobrolesi.parking.model.ParkingSpace;
 import br.com.brunobrolesi.parking.repositories.AddressRepository;
 import br.com.brunobrolesi.parking.repositories.ParkingRepository;
 import br.com.brunobrolesi.parking.repositories.ParkingSpaceRepository;
-import br.com.brunobrolesi.parking.resources.dto.ParkingDto;
-import br.com.brunobrolesi.parking.resources.dto.ParkingResumedDto;
-import br.com.brunobrolesi.parking.resources.form.UpdateParkingForm;
-import br.com.brunobrolesi.parking.resources.form.ParkingForm;
+import br.com.brunobrolesi.parking.controller.dto.ParkingDto;
+import br.com.brunobrolesi.parking.controller.dto.ParkingResumedDto;
+import br.com.brunobrolesi.parking.controller.form.UpdateParkingForm;
+import br.com.brunobrolesi.parking.controller.form.ParkingForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +23,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/estabelecimento")
-public class ParkingResource {
+public class ParkingController {
 
     @Autowired
     private ParkingRepository parkingRepository;
@@ -66,7 +66,7 @@ public class ParkingResource {
     {
         Optional<Parking> optional = parkingRepository.findById(id);
         if (optional.isPresent()){
-            Parking parking = form.update(id, parkingRepository);
+            Parking parking = form.update(id, parkingRepository, parkingSpaceRepository);
             return ResponseEntity.ok().body(new ParkingDto(parking));
         }
         return ResponseEntity.notFound().build();

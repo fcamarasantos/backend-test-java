@@ -1,13 +1,15 @@
-package br.com.brunobrolesi.parking.domain;
+package br.com.brunobrolesi.parking.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
-public class City implements Serializable {
+public class State implements Serializable {
     private static final long SerialVersionUID = 1L;
 
     @Id
@@ -15,17 +17,15 @@ public class City implements Serializable {
     private Integer id;
     private String name;
 
-    @JsonManagedReference
-    @ManyToOne
-    @JoinColumn(name = "state_id")
-    private State state;
+    @JsonBackReference
+    @OneToMany(mappedBy = "state")
+    private List<City> cities = new ArrayList<>();
 
-    public City() {};
+    private State() {};
 
-    public City(Integer id, String name, State state) {
+    public State(Integer id, String name) {
         this.id = id;
         this.name = name;
-        this.state = state;
     }
 
     public Integer getId() {
@@ -44,20 +44,20 @@ public class City implements Serializable {
         this.name = name;
     }
 
-    public State getState() {
-        return state;
+    public List<City> getCities() {
+        return cities;
     }
 
-    public void setState(State state) {
-        this.state = state;
+    public void setCities(List<City> cities) {
+        this.cities = cities;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        City city = (City) o;
-        return id.equals(city.id);
+        State state = (State) o;
+        return id.equals(state.id);
     }
 
     @Override
