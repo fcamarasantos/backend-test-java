@@ -5,6 +5,7 @@ import br.com.brunobrolesi.parking.repositories.VehicleRepository;
 import br.com.brunobrolesi.parking.controller.dto.VehicleDto;
 import br.com.brunobrolesi.parking.controller.form.UpdateVehicleForm;
 import br.com.brunobrolesi.parking.controller.form.VehicleForm;
+import br.com.brunobrolesi.parking.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,17 +22,17 @@ import java.util.Optional;
 public class VehiclesController {
 
     @Autowired
-    private VehicleRepository vehicleRepository;
+    private VehicleService service;
 
     @GetMapping
     public List<VehicleDto> listVehicles() {
-        List<Vehicle> vehicles = vehicleRepository.findAll();
+        List<Vehicle> vehicles = service.findAll();
         return VehicleDto.converter(vehicles);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<VehicleDto> findVehicleById(@PathVariable Integer id) {
-        Optional<Vehicle> obj = vehicleRepository.findById(id);
+        Optional<Vehicle> obj = Optional.ofNullable(service.findById(id));
         if(obj.isPresent())
         {
             return ResponseEntity.ok().body(new VehicleDto(obj.get()));
@@ -43,7 +44,7 @@ public class VehiclesController {
     @Transactional
     public ResponseEntity<VehicleDto> registerVehicle(@RequestBody @Valid VehicleForm form) {
         Vehicle vehicle = form.converter();
-        vehicleRepository.save(vehicle);
+        service.insert(vehicle);
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequestUri().path("/{id}").buildAndExpand(vehicle.getId()).toUri();
         return ResponseEntity.created(uri).body(new VehicleDto(vehicle));
@@ -52,10 +53,10 @@ public class VehiclesController {
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity<Void> deleteVehicle(@PathVariable Integer id) {
-        Optional<Vehicle> optional = vehicleRepository.findById(id);
+        Optional<Vehicle> optional = Optional.ofNullable(service.findById(id));
         if (optional.isPresent())
         {
-            vehicleRepository.deleteById(id);
+            service.delete(id);
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();
@@ -65,9 +66,9 @@ public class VehiclesController {
     @Transactional
     public ResponseEntity<VehicleDto> updateVehicle(@PathVariable Integer id, @RequestBody @Valid UpdateVehicleForm form)
     {
-        Optional<Vehicle> optional = vehicleRepository.findById(id);
+        Optional<Vehicle> optional = Optional.ofNullable(service.findById(id));
         if (optional.isPresent()){
-            Vehicle vehicle = form.update(id, vehicleRepository);
+            Vehicle vehicle = form.update(id);
             return ResponseEntity.ok().body(new VehicleDto(vehicle));
         }
         return ResponseEntity.notFound().build();

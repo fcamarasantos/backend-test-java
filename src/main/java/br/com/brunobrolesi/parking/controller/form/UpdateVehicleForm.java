@@ -3,11 +3,16 @@ package br.com.brunobrolesi.parking.controller.form;
 import br.com.brunobrolesi.parking.model.Vehicle;
 import br.com.brunobrolesi.parking.model.VehicleType;
 import br.com.brunobrolesi.parking.repositories.VehicleRepository;
+import br.com.brunobrolesi.parking.service.VehicleService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 public class UpdateVehicleForm {
+
+    @Autowired
+    VehicleService service;
 
     @NotNull @NotEmpty
     private String manufacturer;
@@ -70,8 +75,8 @@ public class UpdateVehicleForm {
         this.type = type;
     }
 
-    public Vehicle update(Integer id, VehicleRepository vehicleRepository) {
-        Vehicle vehicle = vehicleRepository.getById(id);
+    public Vehicle update(Integer id) {
+        Vehicle vehicle = service.findById(id);
 
         vehicle.setManufacturer(this.manufacturer);
         vehicle.setModel(this.model);
