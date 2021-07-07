@@ -1,5 +1,6 @@
 package br.com.brunobrolesi.parking.controller;
 
+import br.com.brunobrolesi.parking.controller.form.UpdateAddressForm;
 import br.com.brunobrolesi.parking.model.Address;
 import br.com.brunobrolesi.parking.model.Parking;
 import br.com.brunobrolesi.parking.controller.dto.ParkingDto;
@@ -37,10 +38,10 @@ public class ParkingController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ParkingDto> findParkingById(@PathVariable Integer id) {
-        Optional<Parking> obj = Optional.ofNullable(parkingService.findById(id));
-        if(obj.isPresent())
+        Optional<Parking> optional = Optional.ofNullable(parkingService.findById(id));
+        if(optional.isPresent())
         {
-            return ResponseEntity.ok().body(new ParkingDto(obj.get()));
+            return ResponseEntity.ok().body(new ParkingDto(optional.get()));
         }
         return ResponseEntity.notFound().build();
     }
@@ -86,4 +87,13 @@ public class ParkingController {
         return ResponseEntity.notFound().build();
     }
 
+    @PutMapping("/{parkingId}/endereco/{addressId}")
+    @Transactional
+    public ResponseEntity<Address> updateParking(@PathVariable Integer parkingId, @PathVariable Integer addressId, @RequestBody @Valid UpdateAddressForm form) {
+        Optional<Address> optional = Optional.ofNullable(addressService.update(parkingId, addressId, form.converterAddress()));
+        if (optional.isPresent()){
+            return ResponseEntity.ok().body(optional.get());
+        }
+        return ResponseEntity.notFound().build();
+    }
 }

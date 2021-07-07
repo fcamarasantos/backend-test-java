@@ -12,13 +12,22 @@ import java.util.Optional;
 public class AddressService {
 
     @Autowired
-    ParkingRepository parkingRepository;
-
-    @Autowired
     AddressRepository addressRepository;
 
     public Address findByParkingIdAndAddressId(Integer parkingId, Integer addressId) {
         Address obj = addressRepository.findByParkingIdAndAddressId(parkingId, addressId);
         return obj;
+    }
+
+    public Address update(Integer parkingId, Integer addressId, Address updatedAddress) {
+        Address entity = addressRepository.findByParkingIdAndAddressId(parkingId, addressId);
+
+        if (entity == null) return null;
+
+        entity.setStreet(updatedAddress.getStreet());
+        entity.setNumber(updatedAddress.getNumber());
+        entity.setAddress_2(updatedAddress.getAddress_2());
+
+        return addressRepository.save(entity);
     }
 }
