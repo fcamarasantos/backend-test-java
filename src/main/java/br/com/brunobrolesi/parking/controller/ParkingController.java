@@ -96,4 +96,15 @@ public class ParkingController {
         }
         return ResponseEntity.notFound().build();
     }
+
+    @DeleteMapping("/{parkingId}/endereco/{addressId}")
+    @Transactional
+    public ResponseEntity<Void> deleteAddress(@PathVariable Integer parkingId, @PathVariable Integer addressId) {
+        boolean result = addressService.delete(parkingId, addressId);
+        if (result)
+        {
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
 }

@@ -30,4 +30,14 @@ public class AddressService {
 
         return addressRepository.save(entity);
     }
+
+    public boolean delete(Integer parkingId, Integer addressId) {
+        Address obj = findByParkingIdAndAddressId(parkingId, addressId);
+
+        if (obj == null) return false;
+
+        addressRepository.deleteById(obj.getId());
+
+        return true;
+    }
 }
