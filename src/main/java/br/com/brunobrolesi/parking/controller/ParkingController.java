@@ -2,14 +2,11 @@ package br.com.brunobrolesi.parking.controller;
 
 import br.com.brunobrolesi.parking.model.Address;
 import br.com.brunobrolesi.parking.model.Parking;
-import br.com.brunobrolesi.parking.model.ParkingSpace;
-import br.com.brunobrolesi.parking.repositories.AddressRepository;
-import br.com.brunobrolesi.parking.repositories.ParkingRepository;
-import br.com.brunobrolesi.parking.repositories.ParkingSpaceRepository;
 import br.com.brunobrolesi.parking.controller.dto.ParkingDto;
 import br.com.brunobrolesi.parking.controller.dto.ParkingResumedDto;
 import br.com.brunobrolesi.parking.controller.form.UpdateParkingForm;
 import br.com.brunobrolesi.parking.controller.form.ParkingForm;
+import br.com.brunobrolesi.parking.service.AddressService;
 import br.com.brunobrolesi.parking.service.ParkingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,20 +24,20 @@ import java.util.Optional;
 public class ParkingController {
 
     @Autowired
-    private ParkingService service;
+    private ParkingService parkingService;
 
     @Autowired
-    private AddressRepository addressRepository;
+    private AddressService addressService;
 
     @GetMapping
     public List<ParkingResumedDto> listParkings() {
-        List<Parking> parkings = service.findAll();
+        List<Parking> parkings = parkingService.findAll();
         return ParkingResumedDto.converter(parkings);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ParkingDto> findParkingById(@PathVariable Integer id) {
-        Optional<Parking> obj = Optional.ofNullable(service.findById(id));
+        Optional<Parking> obj = Optional.ofNullable(parkingService.findById(id));
         if(obj.isPresent())
         {
             return ResponseEntity.ok().body(new ParkingDto(obj.get()));
@@ -51,10 +48,10 @@ public class ParkingController {
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity<Void> deleteParking(@PathVariable Integer id) {
-        Optional<Parking> optional = Optional.ofNullable(service.findById(id));
+        Optional<Parking> optional = Optional.ofNullable(parkingService.findById(id));
         if (optional.isPresent())
         {
-            service.delete(id);
+            parkingService.delete(id);
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();
@@ -64,7 +61,7 @@ public class ParkingController {
     @Transactional
     public ResponseEntity<ParkingDto> registerParking(@RequestBody @Valid ParkingForm form) {
         Parking parking = form.converterParking();
-        Parking inserted = service.insert(parking);
+        Parking inserted = parkingService.insert(parking);
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequestUri().path("/{id}").buildAndExpand(inserted.getId()).toUri();
         return ResponseEntity.created(uri).body(new ParkingDto(inserted));
@@ -74,10 +71,19 @@ public class ParkingController {
     @Transactional
     public ResponseEntity<ParkingDto> updateParking(@PathVariable Integer id, @RequestBody @Valid UpdateParkingForm form)
     {
-        Optional<Parking> optional = Optional.ofNullable(service.update(id, form.converterParking()));
+        Optional<Parking> optional = Optional.ofNullable(parkingService.update(id, form.converterParking()));
         if (optional.isPresent()){
             return ResponseEntity.ok().body(new ParkingDto(optional.get()));
         }
         return ResponseEntity.notFound().build();
     }
+
+    @GetMapping("/{parkingId}/endereco/{addressId}")
+    public ResponseEntity<Address> listAddress(@PathVariable Integer parkingId, @PathVariable Integer addressId)
+    {
+        Address obj = addressService.findByParkingIdAndAddressId(parkingId, addressId);
+        if(obj != null) return ResponseEntity.ok().body(obj);
+        return ResponseEntity.notFound().build();
+    }
+
 }
