@@ -8,8 +8,10 @@ import br.com.brunobrolesi.parking.controller.dto.ParkingDto;
 import br.com.brunobrolesi.parking.controller.dto.ParkingResumedDto;
 import br.com.brunobrolesi.parking.controller.form.UpdateParkingForm;
 import br.com.brunobrolesi.parking.controller.form.ParkingForm;
+import br.com.brunobrolesi.parking.model.ParkingSpace;
 import br.com.brunobrolesi.parking.service.AddressService;
 import br.com.brunobrolesi.parking.service.ParkingService;
+import br.com.brunobrolesi.parking.service.ParkingSpaceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +32,9 @@ public class ParkingController {
 
     @Autowired
     private AddressService addressService;
+
+    @Autowired
+    private ParkingSpaceService parkingSpaceService;
 
     @GetMapping
     public List<ParkingResumedDto> listParkings() {
@@ -90,7 +95,7 @@ public class ParkingController {
 
     @PutMapping("/{parkingId}/endereco/{addressId}")
     @Transactional
-    public ResponseEntity<Address> updateParking(@PathVariable Integer parkingId, @PathVariable Integer addressId, @RequestBody @Valid UpdateAddressForm form) {
+    public ResponseEntity<Address> updateAddress(@PathVariable Integer parkingId, @PathVariable Integer addressId, @RequestBody @Valid UpdateAddressForm form) {
         Optional<Address> optional = Optional.ofNullable(addressService.update(parkingId, addressId, form.converterAddress()));
         if (optional.isPresent()){
             return ResponseEntity.ok().body(optional.get());
@@ -121,4 +126,13 @@ public class ParkingController {
         return ResponseEntity.ok().body(result);
 
     }
+
+    @GetMapping("/{parkingId}/vaga/{parkingSpaceId}")
+    public ResponseEntity<ParkingSpace> findParkingSpaceById(@PathVariable Integer parkingId, @PathVariable Integer parkingSpaceId)
+    {
+        ParkingSpace obj = parkingSpaceService.findByParkingIdAndParkingSpaceId(parkingId, parkingSpaceId);
+        if(obj != null) return ResponseEntity.ok().body(obj);
+        return ResponseEntity.notFound().build();
+    }
+
 }
