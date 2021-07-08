@@ -1,5 +1,6 @@
 package br.com.brunobrolesi.parking.controller;
 
+import br.com.brunobrolesi.parking.controller.form.AddressForm;
 import br.com.brunobrolesi.parking.controller.form.UpdateAddressForm;
 import br.com.brunobrolesi.parking.model.Address;
 import br.com.brunobrolesi.parking.model.Parking;
@@ -106,5 +107,18 @@ public class ParkingController {
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @PostMapping("/{parkingId}/endereco")
+    @Transactional
+    public ResponseEntity<Address> registerAddress(@PathVariable Integer parkingId, @RequestBody @Valid AddressForm form) {
+        Address result = addressService.insert(parkingId, form.converterAddress());
+
+        if (result == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok().body(result);
+
     }
 }
