@@ -1,13 +1,10 @@
 package br.com.brunobrolesi.parking.controller;
 
-import br.com.brunobrolesi.parking.controller.form.AddressForm;
-import br.com.brunobrolesi.parking.controller.form.UpdateAddressForm;
+import br.com.brunobrolesi.parking.controller.form.*;
 import br.com.brunobrolesi.parking.model.Address;
 import br.com.brunobrolesi.parking.model.Parking;
 import br.com.brunobrolesi.parking.controller.dto.ParkingDto;
 import br.com.brunobrolesi.parking.controller.dto.ParkingResumedDto;
-import br.com.brunobrolesi.parking.controller.form.UpdateParkingForm;
-import br.com.brunobrolesi.parking.controller.form.ParkingForm;
 import br.com.brunobrolesi.parking.model.ParkingSpace;
 import br.com.brunobrolesi.parking.service.AddressService;
 import br.com.brunobrolesi.parking.service.ParkingService;
@@ -132,6 +129,16 @@ public class ParkingController {
     {
         ParkingSpace obj = parkingSpaceService.findByParkingIdAndParkingSpaceId(parkingId, parkingSpaceId);
         if(obj != null) return ResponseEntity.ok().body(obj);
+        return ResponseEntity.notFound().build();
+    }
+
+    @PutMapping("/{parkingId}/vaga/{parkingSpaceId}")
+    @Transactional
+    public ResponseEntity<ParkingSpace> updateParkingSpace(@PathVariable Integer parkingId, @PathVariable Integer parkingSpaceId, @RequestBody @Valid UpdateParkingSpaceForm form) {
+        ParkingSpace obj = parkingSpaceService.update(parkingId, parkingSpaceId, form.converterParkingSpace());
+        if (obj != null){
+            return ResponseEntity.ok().body(obj);
+        }
         return ResponseEntity.notFound().build();
     }
 

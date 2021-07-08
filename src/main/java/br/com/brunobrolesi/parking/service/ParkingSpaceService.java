@@ -14,7 +14,18 @@ public class ParkingSpaceService {
 
 
     public ParkingSpace findByParkingIdAndParkingSpaceId(Integer parkingId, Integer parkingSpaceId) {
-        ParkingSpace obj = parkingSpaceRepository.findByParkingIdAndAddressId(parkingId, parkingSpaceId);
+        ParkingSpace obj = parkingSpaceRepository.findByParkingIdAndParkingSpaceId(parkingId, parkingSpaceId);
         return obj;
+    }
+
+    public ParkingSpace update(Integer parkingId, Integer parkingSpaceId, ParkingSpace parkingSpace) {
+        ParkingSpace entity = parkingSpaceRepository.findByParkingIdAndParkingSpaceId(parkingId, parkingSpaceId);
+
+        if (entity == null) return null;
+
+        entity.setState(parkingSpace.getState());
+        entity.setType(parkingSpace.getVehicleType());
+
+        return parkingSpaceRepository.save(entity);
     }
 }

@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
 public interface ParkingSpaceRepository extends JpaRepository <ParkingSpace, Integer> {
 
     @Query("select a from ParkingSpace a where parking_id = ?1 and a.id = ?2")
-    ParkingSpace findByParkingIdAndAddressId(Integer parkingId, Integer parkingSpaceId);
+    ParkingSpace findByParkingIdAndParkingSpaceId(Integer parkingId, Integer parkingSpaceId);
 }
