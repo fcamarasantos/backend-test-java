@@ -1,16 +1,23 @@
 package br.com.brunobrolesi.parking.service;
 
 import br.com.brunobrolesi.parking.model.Address;
+import br.com.brunobrolesi.parking.model.Parking;
 import br.com.brunobrolesi.parking.model.ParkingSpace;
+import br.com.brunobrolesi.parking.repositories.ParkingRepository;
 import br.com.brunobrolesi.parking.repositories.ParkingSpaceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class ParkingSpaceService {
 
     @Autowired
     ParkingSpaceRepository parkingSpaceRepository;
+
+    @Autowired
+    ParkingRepository parkingRepository;
 
 
     public ParkingSpace findByParkingIdAndParkingSpaceId(Integer parkingId, Integer parkingSpaceId) {
@@ -36,5 +43,15 @@ public class ParkingSpaceService {
 
         parkingSpaceRepository.deleteById(parkingSpace.getId());
         return true;
+    }
+
+    public ParkingSpace insert(Integer parkingId, ParkingSpace parkingSpace) {
+        Optional<Parking> parking = parkingRepository.findById(parkingId);
+
+        if (parking.isEmpty()) return null;
+
+        parkingSpace.setParking(parking.get());
+        
+        return parkingSpaceRepository.save(parkingSpace);
     }
 }

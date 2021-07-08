@@ -153,4 +153,17 @@ public class ParkingController {
         return ResponseEntity.notFound().build();
     }
 
+    @PostMapping("/{parkingId}/vaga")
+    @Transactional
+    public ResponseEntity<ParkingSpace> insertParkingSpace(@PathVariable Integer parkingId, @RequestBody @Valid ParkingSpaceForm form) {
+        ParkingSpace obj = parkingSpaceService.insert(parkingId, form.converterParkingSpace());
+
+        if (obj == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok().body(obj);
+
+    }
+
 }

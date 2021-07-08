@@ -28,6 +28,14 @@ public class ParkingSpace {
         this.parking = parking;
     }
 
+    public Parking getParking() {
+        return parking;
+    }
+
+    public void setParking(Parking parking) {
+        this.parking = parking;
+    }
+
     public Integer getId() {
         return id;
     }
