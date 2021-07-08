@@ -1,13 +1,12 @@
-package br.com.brunobrolesi.parking.resources.form;
+package br.com.brunobrolesi.parking.controller.form;
 
-import br.com.brunobrolesi.parking.domain.Vehicle;
-import br.com.brunobrolesi.parking.domain.VehicleType;
-import br.com.brunobrolesi.parking.repositories.VehicleRepository;
+import br.com.brunobrolesi.parking.model.Vehicle;
+import br.com.brunobrolesi.parking.model.VehicleType;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-public class UpdateVehicleForm {
+public class VehicleForm {
 
     @NotNull @NotEmpty
     private String manufacturer;
@@ -70,16 +69,7 @@ public class UpdateVehicleForm {
         this.type = type;
     }
 
-    public Vehicle update(Integer id, VehicleRepository vehicleRepository) {
-        Vehicle vehicle = vehicleRepository.getById(id);
-
-        vehicle.setManufacturer(this.manufacturer);
-        vehicle.setModel(this.model);
-        vehicle.setYear(this.year);
-        vehicle.setColor(this.color);
-        vehicle.setLicensePlate(this.licensePlate);
-        vehicle.setType(VehicleType.toEnum(this.type));
-
-        return vehicle;
+    public Vehicle converter() {
+        return new Vehicle(null, manufacturer, model, year, color, licensePlate, VehicleType.toEnum(type));
     }
 }

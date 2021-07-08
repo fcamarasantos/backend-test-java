@@ -1,13 +1,14 @@
-package br.com.brunobrolesi.parking.resources.form;
+package br.com.brunobrolesi.parking.controller.form;
 
-import br.com.brunobrolesi.parking.domain.Vehicle;
-import br.com.brunobrolesi.parking.domain.VehicleType;
-import br.com.brunobrolesi.parking.repositories.VehicleRepository;
+import br.com.brunobrolesi.parking.model.Vehicle;
+import br.com.brunobrolesi.parking.model.VehicleType;
+import br.com.brunobrolesi.parking.service.VehicleService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-public class VehicleForm {
+public class UpdateVehicleForm {
 
     @NotNull @NotEmpty
     private String manufacturer;
@@ -70,7 +71,9 @@ public class VehicleForm {
         this.type = type;
     }
 
-    public Vehicle converter() {
-        return new Vehicle(null, manufacturer, model, year, color, licensePlate, VehicleType.toEnum(type));
+    public Vehicle converterVehicle () {
+        Vehicle vehicle = new Vehicle(null, manufacturer, model, year, color, licensePlate, VehicleType.toEnum(type));
+        return vehicle;
     }
+
 }

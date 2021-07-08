@@ -1,6 +1,6 @@
-package br.com.brunobrolesi.parking.resources.dto;
+package br.com.brunobrolesi.parking.controller.dto;
 
-import br.com.brunobrolesi.parking.domain.Vehicle;
+import br.com.brunobrolesi.parking.model.Vehicle;
 
 import java.util.List;
 import java.util.stream.Collectors;
