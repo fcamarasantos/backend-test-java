@@ -142,4 +142,15 @@ public class ParkingController {
         return ResponseEntity.notFound().build();
     }
 
+    @DeleteMapping("/{parkingId}/vaga/{parkingSpaceId}")
+    @Transactional
+    public ResponseEntity<Void> deleteParkingSpace(@PathVariable Integer parkingId, @PathVariable Integer parkingSpaceId) {
+        boolean result = parkingSpaceService.delete(parkingId, parkingSpaceId);
+        if (result)
+        {
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
+
 }

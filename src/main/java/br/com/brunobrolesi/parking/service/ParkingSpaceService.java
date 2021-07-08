@@ -28,4 +28,13 @@ public class ParkingSpaceService {
 
         return parkingSpaceRepository.save(entity);
     }
+
+    public boolean delete(Integer parkingId, Integer parkingSpaceId) {
+        ParkingSpace parkingSpace = findByParkingIdAndParkingSpaceId(parkingId, parkingSpaceId);
+
+        if (parkingSpace == null) return false;
+
+        parkingSpaceRepository.deleteById(parkingSpace.getId());
+        return true;
+    }
 }
