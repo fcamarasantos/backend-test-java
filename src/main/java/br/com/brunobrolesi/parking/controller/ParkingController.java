@@ -6,9 +6,11 @@ import br.com.brunobrolesi.parking.model.Parking;
 import br.com.brunobrolesi.parking.controller.dto.ParkingDto;
 import br.com.brunobrolesi.parking.controller.dto.ParkingResumedDto;
 import br.com.brunobrolesi.parking.model.ParkingSpace;
+import br.com.brunobrolesi.parking.model.Ticket;
 import br.com.brunobrolesi.parking.service.AddressService;
 import br.com.brunobrolesi.parking.service.ParkingService;
 import br.com.brunobrolesi.parking.service.ParkingSpaceService;
+import br.com.brunobrolesi.parking.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +34,9 @@ public class ParkingController {
 
     @Autowired
     private ParkingSpaceService parkingSpaceService;
+
+    @Autowired
+    private TicketService ticketService;
 
     @GetMapping
     public List<ParkingResumedDto> listParkings() {
@@ -157,6 +162,32 @@ public class ParkingController {
     @Transactional
     public ResponseEntity<ParkingSpace> insertParkingSpace(@PathVariable Integer parkingId, @RequestBody @Valid ParkingSpaceForm form) {
         ParkingSpace obj = parkingSpaceService.insert(parkingId, form.converterParkingSpace());
+
+        if (obj == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok().body(obj);
+
+    }
+
+    @PostMapping("/{parkingId}/entrar")
+    @Transactional
+    public ResponseEntity<Ticket> vehicleEntryRequest(@PathVariable Integer parkingId, @RequestBody EntryTicketForm form) {
+        Ticket obj = ticketService.entry(parkingId, form.getVehicleLicensePlate());
+
+        if (obj == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok().body(obj);
+
+    }
+
+    @PutMapping("/{parkingId}/sair")
+    @Transactional
+    public ResponseEntity<Ticket> vehicleExitRequest(@PathVariable Integer parkingId, @RequestBody ExitTicketForm form) {
+        Ticket obj = ticketService.exit(parkingId, form.getId());
 
         if (obj == null) {
             return ResponseEntity.notFound().build();
