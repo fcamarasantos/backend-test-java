@@ -13,6 +13,7 @@ public class Vehicle {
 
     private String color;
 
+    @Column(unique = true)
     private String licensePlate;
 
     @ManyToOne

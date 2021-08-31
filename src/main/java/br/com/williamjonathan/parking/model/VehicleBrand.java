@@ -1,7 +1,6 @@
 package br.com.williamjonathan.parking.model;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "vehicle_brands")
@@ -11,7 +10,7 @@ public class VehicleBrand {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nome;
+    private String name;
 
     public Long getId() {
         return id;
@@ -21,11 +20,11 @@ public class VehicleBrand {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setName(String nome) {
+        this.name = nome;
     }
 }
