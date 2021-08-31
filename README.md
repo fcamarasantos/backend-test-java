@@ -4,6 +4,10 @@
   sem perder a solidez de nossas raízes."*
 Conheça: www.fcamara.com.br
 
+### Modelagem de Dados
+
+<img src="https://i.imgur.com/GMGVVC7.png">
+
 ## Teste para vaga de Desenvolvedor Back-end
 Criar uma API REST para gerenciar um estacionamento de carros e motos.
 
