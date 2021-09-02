@@ -1,60 +1,40 @@
-package br.com.williamjonathan.parking.model;
+package br.com.williamjonathan.parking.model.form;
 
-import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
-@Entity
-@Table(name = "address")
-public class Address {
+public class AddressForm {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
+    @NotBlank @NotNull
+    @Pattern(regexp = "^\\d{5}-\\d{3}$")
     private String zipCode;
 
+    @NotBlank @NotNull
     private String state;
 
+    @NotBlank @NotNull
     private String city;
 
+    @NotBlank @NotNull
     private String neighborhood;
 
+    @NotBlank @NotNull
     private String street;
 
+    @NotBlank @NotNull
     private String number;
 
-    @OneToOne(mappedBy = "address")
-    private Parking parking;
-
-    public Address() {
+    public AddressForm() {
     }
 
-    public Address(String zipCode, String state, String city, String neighborhood, String street, String number, Parking parking) {
+    public AddressForm(String zipCode, String state, String city, String neighborhood, String street, String number) {
         this.zipCode = zipCode;
         this.state = state;
         this.city = city;
         this.neighborhood = neighborhood;
         this.street = street;
         this.number = number;
-        this.parking = parking;
-    }
-
-    public Address(Long id, String zipCode, String state, String city, String neighborhood, String street, String number) {
-        this.id = id;
-        this.zipCode = zipCode;
-        this.state = state;
-        this.city = city;
-        this.neighborhood = neighborhood;
-        this.street = street;
-        this.number = number;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getZipCode() {
@@ -104,5 +84,4 @@ public class Address {
     public void setNumber(String number) {
         this.number = number;
     }
-
 }

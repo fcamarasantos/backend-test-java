@@ -3,6 +3,7 @@ package br.com.williamjonathan.parking.model;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "phones")
 public class Phone {
 
     @Id
@@ -16,6 +17,20 @@ public class Phone {
     @ManyToOne
     @JoinColumn(name = "parking_id", referencedColumnName = "id")
     private Parking parking;
+
+    public Phone() {
+    }
+
+    public Phone(String ddd, String phoneNumber) {
+        this.ddd = ddd;
+        this.phoneNumber = phoneNumber;
+    }
+
+    public Phone(String ddd, String phoneNumber, Parking parking) {
+        this.ddd = ddd;
+        this.phoneNumber = phoneNumber;
+        this.parking = parking;
+    }
 
     public Long getId() {
         return id;

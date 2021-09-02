@@ -1,6 +1,6 @@
 package br.com.williamjonathan.parking.model;
 
-import org.springframework.data.repository.cdi.Eager;
+import br.com.williamjonathan.parking.model.form.PhoneForm;
 
 import javax.persistence.*;
 import java.util.List;
@@ -32,6 +32,19 @@ public class Parking {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "parking")
     private List<Vehicle> vehicles;
+
+    public Parking() {}
+
+    public Parking(Long id, String cnpj, String name, String password, Address address, List<Phone> phones, List<Vacancy> vacancies, List<Vehicle> vehicles) {
+        this.id = id;
+        this.cnpj = cnpj;
+        this.name = name;
+        this.password = password;
+        this.address = address;
+        this.phones = phones;
+        this.vacancies = vacancies;
+        this.vehicles = vehicles;
+    }
 
     public Long getId() {
         return id;
