@@ -119,4 +119,8 @@ public class ParkingServiceImpl implements ParkingService {
         return ResponseEntity.notFound().build();
     }
 
+    @Override
+    public Optional<Parking> searchById(Long id) {
+        return parkingRepository.findById(id);
+    }
 }

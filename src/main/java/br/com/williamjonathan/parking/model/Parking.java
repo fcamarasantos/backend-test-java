@@ -30,12 +30,12 @@ public class Parking {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "parking")
     private List<Vacancy> vacancies;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "parking")
-    private List<Vehicle> vehicles;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "vehicle")
+    private List<VehicleReport> vehicleReports;
 
     public Parking() {}
 
-    public Parking(Long id, String cnpj, String name, String password, Address address, List<Phone> phones, List<Vacancy> vacancies, List<Vehicle> vehicles) {
+    public Parking(Long id, String cnpj, String name, String password, Address address, List<Phone> phones, List<Vacancy> vacancies, List<VehicleReport> vehicleReports) {
         this.id = id;
         this.cnpj = cnpj;
         this.name = name;
@@ -43,7 +43,7 @@ public class Parking {
         this.address = address;
         this.phones = phones;
         this.vacancies = vacancies;
-        this.vehicles = vehicles;
+        this.vehicleReports = vehicleReports;
     }
 
     public Long getId() {
@@ -102,11 +102,11 @@ public class Parking {
         this.vacancies = vacancies;
     }
 
-    public List<Vehicle> getVehicles() {
-        return vehicles;
+    public List<VehicleReport> getVehicleReports() {
+        return vehicleReports;
     }
 
-    public void setVehicles(List<Vehicle> vehicles) {
-        this.vehicles = vehicles;
+    public void setVehicleReports(List<VehicleReport> vehicleReports) {
+        this.vehicleReports = vehicleReports;
     }
 }

@@ -22,6 +22,16 @@ public class Vacancy {
     @JoinColumn(name = "type_id", referencedColumnName = "id")
     private Type type;
 
+    public Vacancy() {
+    }
+
+    public Vacancy(Integer quantity, Integer quantityOcuppied, Parking parking, Type type) {
+        this.quantity = quantity;
+        this.quantityOcuppied = quantityOcuppied;
+        this.parking = parking;
+        this.type = type;
+    }
+
     public Long getId() {
         return id;
     }
@@ -48,14 +58,6 @@ public class Vacancy {
 
     public void setQuantityOcuppied(Integer quantityOcuppied) {
         this.quantityOcuppied = quantityOcuppied;
-    }
-
-    public Parking getParking() {
-        return parking;
-    }
-
-    public void setParking(Parking parking) {
-        this.parking = parking;
     }
 
     public void setType(Type type) {

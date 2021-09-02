@@ -6,8 +6,8 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "vehicles_entryandexit")
-public class VehicleEntryAndExit {
+@Table(name = "vehicles_reports")
+public class VehicleReport {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +22,10 @@ public class VehicleEntryAndExit {
     @ManyToOne
     @JoinColumn(name = "vehicle_id", referencedColumnName = "id")
     private Vehicle vehicle;
+
+    @ManyToOne
+    @JoinColumn(name = "parking_id", referencedColumnName = "id")
+    private Parking parking;
 
     public Long getId() {
         return id;
@@ -61,5 +65,13 @@ public class VehicleEntryAndExit {
 
     public void setVehicle(Vehicle vehicle) {
         this.vehicle = vehicle;
+    }
+
+    public Parking getParking() {
+        return parking;
+    }
+
+    public void setParking(Parking parking) {
+        this.parking = parking;
     }
 }

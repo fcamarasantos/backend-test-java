@@ -23,7 +23,7 @@ public class Vehicle {
     private VehicleModel vehicleModel;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "vehicle")
-    private List<VehicleEntryAndExit> vehicleEntryAndExits;
+    private List<VehicleReport> vehicleReports;
 
     public Long getId() {
         return id;
@@ -65,11 +65,11 @@ public class Vehicle {
         this.vehicleModel = vehicleModel;
     }
 
-    public List<VehicleEntryAndExit> getVehicleEntryAndExits() {
-        return vehicleEntryAndExits;
+    public List<VehicleReport> getVehicleEntryAndExits() {
+        return vehicleReports;
     }
 
-    public void setVehicleEntryAndExits(List<VehicleEntryAndExit> vehicleEntryAndExits) {
-        this.vehicleEntryAndExits = vehicleEntryAndExits;
+    public void setVehicleEntryAndExits(List<VehicleReport> vehicleReports) {
+        this.vehicleReports = vehicleReports;
     }
 }
