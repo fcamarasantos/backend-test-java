@@ -1,8 +1,12 @@
 package br.com.williamjonathan.parking.model;
 
 import br.com.williamjonathan.parking.model.form.PhoneForm;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -18,8 +22,6 @@ public class Parking {
 
     private String name;
 
-    private String password;
-
     @OneToOne
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
@@ -30,16 +32,18 @@ public class Parking {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "parking")
     private List<Vacancy> vacancies;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "vehicle")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "parking")
     private List<VehicleReport> vehicleReports;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "parking")
+    private List<Employee> employees;
 
     public Parking() {}
 
-    public Parking(Long id, String cnpj, String name, String password, Address address, List<Phone> phones, List<Vacancy> vacancies, List<VehicleReport> vehicleReports) {
+    public Parking(Long id, String cnpj, String name, Address address, List<Phone> phones, List<Vacancy> vacancies, List<VehicleReport> vehicleReports) {
         this.id = id;
         this.cnpj = cnpj;
         this.name = name;
-        this.password = password;
         this.address = address;
         this.phones = phones;
         this.vacancies = vacancies;
@@ -68,14 +72,6 @@ public class Parking {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public Address getAddress() {
@@ -108,5 +104,13 @@ public class Parking {
 
     public void setVehicleReports(List<VehicleReport> vehicleReports) {
         this.vehicleReports = vehicleReports;
+    }
+
+    public List<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
     }
 }

@@ -1,5 +1,6 @@
 package br.com.williamjonathan.parking.service;
 
+import br.com.williamjonathan.parking.model.Employee;
 import br.com.williamjonathan.parking.model.Parking;
 import br.com.williamjonathan.parking.model.Type;
 import br.com.williamjonathan.parking.model.Vacancy;
@@ -8,6 +9,7 @@ import br.com.williamjonathan.parking.repository.VacancyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -26,7 +28,8 @@ public class VacancyServiceImpl implements VacancyService {
 
     @Override
     public ResponseEntity<?> create(VacancyForm form) {
-        Optional<Parking> optionalParking = parkingService.searchById(form.getParking_id());
+        Employee employee = (Employee) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Optional<Parking> optionalParking = parkingService.searchById(employee.getParking().getId());
         Optional<Type> optionalType = typeService.searchByName(form.getType());
 
         if(optionalParking.isPresent() && optionalType.isPresent()) {
@@ -49,13 +52,43 @@ public class VacancyServiceImpl implements VacancyService {
     }
 
     @Override
+    public ResponseEntity<?> delete(Long vacancyId) {
+        Employee employee = (Employee) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Optional<Parking> optionalParking = parkingService.searchById(employee.getParking().getId());
+        Optional<Vacancy> optionalVacancy = vacancyRepository.findById(vacancyId);
+        if(optionalParking.isPresent() && optionalVacancy.isPresent()) {
+            if(!(optionalVacancy.get().getQuantityOcuppied() > 0)) {
+
+                vacancyRepository.deleteById(vacancyId);
+                return ResponseEntity.ok().build();
+            }
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @Override
     public Boolean parkingHasVacancyOfThisType(Parking parking, Type type) {
         for (Vacancy vacancy : parking.getVacancies()) {
-            if(vacancy.getType().getId().equals(type.getId())) {
+            if(vacancy.getType().getId().equals(type.getId()) && vacancy.getQuantity() > vacancy.getQuantityOcuppied()) {
                 return true;
             }
         }
         return false;
+    }
+
+    @Override
+    public void increaseQuantityOcuppiedByType(Parking parking, Type type) {
+        Vacancy vacancyByType = parkingService.getVacancyByType(parking, type);
+        vacancyByType.setQuantityOcuppied(vacancyByType.getQuantityOcuppied() + 1);
+        vacancyRepository.save(vacancyByType);
+    }
+
+    @Override
+    public void decreaseQuantityOcuppiedByType(Parking parking, Type type) {
+        Vacancy vacancyByType = parkingService.getVacancyByType(parking, type);
+        vacancyByType.setQuantityOcuppied(vacancyByType.getQuantityOcuppied() - 1);
+        vacancyRepository.save(vacancyByType);
     }
 
 

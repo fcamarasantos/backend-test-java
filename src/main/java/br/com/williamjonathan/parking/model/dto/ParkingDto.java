@@ -15,12 +15,12 @@ public class ParkingDto {
     private String name;
     private Address address;
     private List<PhoneDto> phones;
-    private List<Vacancy> vacancies;
+    private List<VacancyDto> vacancies;
 
     public ParkingDto() {
     }
 
-    public ParkingDto(Long id, String cnpj, String name, Address address, List<PhoneDto> phones, List<Vacancy> vacancies) {
+    public ParkingDto(Long id, String cnpj, String name, Address address, List<PhoneDto> phones, List<VacancyDto> vacancies) {
         this.id = id;
         this.cnpj = cnpj;
         this.name = name;
@@ -35,7 +35,7 @@ public class ParkingDto {
         this.name = parking.getName();
         this.address = parking.getAddress();
         this.phones = PhoneDto.convert(parking.getPhones());
-        this.vacancies = parking.getVacancies();
+        this.vacancies = VacancyDto.converter(parking.getVacancies());
     }
 
     public Long getId() {
@@ -78,11 +78,11 @@ public class ParkingDto {
         this.phones = phones;
     }
 
-    public List<Vacancy> getVacancies() {
+    public List<VacancyDto> getVacancies() {
         return vacancies;
     }
 
-    public void setVacancies(List<Vacancy> vacancies) {
+    public void setVacancies(List<VacancyDto> vacancies) {
         this.vacancies = vacancies;
     }
 }

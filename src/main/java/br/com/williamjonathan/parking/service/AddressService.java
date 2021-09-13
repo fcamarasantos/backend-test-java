@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 public interface AddressService {
 
     Address create(ParkingForm form);
-    ResponseEntity<?> read(Long id);
-    ResponseEntity<?> update(AddressForm form, Long id);
-    ResponseEntity<?> deleteById(Long id);
+    ResponseEntity<?> read();
+    ResponseEntity<?> update(AddressForm form);
+    ResponseEntity<?> delete();
 }

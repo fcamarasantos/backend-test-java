@@ -1,6 +1,11 @@
 package br.com.williamjonathan.parking.model;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -24,6 +29,15 @@ public class Vehicle {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "vehicle")
     private List<VehicleReport> vehicleReports;
+
+    public Vehicle() {
+    }
+
+    public Vehicle(String color, String licensePlate, VehicleModel vehicleModel) {
+        this.color = color;
+        this.licensePlate = licensePlate;
+        this.vehicleModel = vehicleModel;
+    }
 
     public Long getId() {
         return id;
@@ -65,11 +79,13 @@ public class Vehicle {
         this.vehicleModel = vehicleModel;
     }
 
-    public List<VehicleReport> getVehicleEntryAndExits() {
+    public List<VehicleReport> getVehicleReports() {
         return vehicleReports;
     }
 
-    public void setVehicleEntryAndExits(List<VehicleReport> vehicleReports) {
+    public void setVehicleReports(List<VehicleReport> vehicleReports) {
         this.vehicleReports = vehicleReports;
     }
+
+
 }

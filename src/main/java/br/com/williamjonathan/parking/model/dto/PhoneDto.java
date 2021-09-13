@@ -7,6 +7,8 @@ import java.util.List;
 
 public class PhoneDto {
 
+    private Long id;
+
     private String ddd;
 
     private String phoneNumber;
@@ -14,9 +16,18 @@ public class PhoneDto {
     private Long parkingId;
 
     public PhoneDto(Phone phone) {
+        this.id = phone.getId();
         this.ddd = phone.getDdd();
         this.phoneNumber = phone.getPhoneNumber();
         this.parkingId = phone.getParking().getId();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getDdd() {

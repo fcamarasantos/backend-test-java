@@ -2,6 +2,7 @@ package br.com.williamjonathan.parking.service;
 
 import br.com.williamjonathan.parking.config.handlers.JsonBodyHandler;
 import br.com.williamjonathan.parking.model.Address;
+import br.com.williamjonathan.parking.model.Employee;
 import br.com.williamjonathan.parking.model.dto.ViaCepDto;
 import br.com.williamjonathan.parking.model.form.AddressForm;
 import br.com.williamjonathan.parking.model.form.ParkingForm;
@@ -9,6 +10,7 @@ import br.com.williamjonathan.parking.repository.AddressRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.net.URI;
@@ -53,8 +55,10 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public ResponseEntity<?> update(AddressForm form, Long id) {
-        Optional<Address> optionalAddress = addressRepository.findById(id);
+    public ResponseEntity<?> update(AddressForm form) {
+        Employee employee = (Employee) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Optional<Address> optionalAddress = addressRepository.findById(employee.getParking().getAddress().getId());
+
         if(optionalAddress.isPresent()) {
             Address address = new Address(
                     optionalAddress.get().getId(),
@@ -73,8 +77,10 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public ResponseEntity<?> read(Long id) {
-        Optional<Address> optionalAddress = addressRepository.findById(id);
+    public ResponseEntity<?> read() {
+        Employee employee = (Employee) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Optional<Address> optionalAddress = addressRepository.findById(employee.getParking().getAddress().getId());
+
         if(optionalAddress.isPresent()) {
             return new ResponseEntity<Address>(optionalAddress.get(), HttpStatus.OK);
         }
@@ -83,10 +89,13 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public ResponseEntity<?> deleteById(Long id) {
-        Optional<Address> optionalAddress = addressRepository.findById(id);
+    public ResponseEntity<?> delete() {
+        Employee employee = (Employee) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Long addressId = employee.getParking().getAddress().getId();
+        Optional<Address> optionalAddress = addressRepository.findById(addressId);
+
         if(optionalAddress.isPresent()) {
-            addressRepository.deleteById(id);
+            addressRepository.deleteById(addressId);
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();

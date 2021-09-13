@@ -18,4 +18,5 @@ public interface PhoneService{
     ResponseEntity<?> update(PhoneForm form, Long id);
     ResponseEntity<?> deleteById(Long id);
     Boolean thisPhoneExistInThisParking(Phone phone, Parking parking);
+    Boolean thisPhoneBelongAThisParkingEmployee(Phone phone);
 }

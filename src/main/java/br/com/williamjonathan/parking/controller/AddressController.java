@@ -16,19 +16,19 @@ public class AddressController {
     @Autowired
     private AddressServiceImpl addressService;
 
-    @GetMapping(value = "/{id}/json", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> readJson(@PathVariable Long id) {
-        return addressService.read(id);
+    @GetMapping(value = "/json", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> readJson() {
+        return addressService.read();
     }
 
-    @GetMapping(value = "/{id}/xml", produces = MediaType.APPLICATION_XML_VALUE)
-    public ResponseEntity<?> readXml(@PathVariable Long id) {
-        return addressService.read(id);
+    @GetMapping(value = "xml", produces = MediaType.APPLICATION_XML_VALUE)
+    public ResponseEntity<?> readXml() {
+        return addressService.read();
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<?> update(@RequestBody @Valid AddressForm addressForm, @PathVariable Long id) {
-        return addressService.update(addressForm, id);
+    @PutMapping
+    public ResponseEntity<?> update(@RequestBody @Valid AddressForm addressForm) {
+        return addressService.update(addressForm);
     }
 
 }

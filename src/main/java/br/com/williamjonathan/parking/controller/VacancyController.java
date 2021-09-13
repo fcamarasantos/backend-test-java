@@ -9,14 +9,19 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/vacancy")
+@RequestMapping("/parking")
 public class VacancyController {
 
     @Autowired
     VacancyServiceImpl vacancyService;
 
-    @PostMapping
+    @PostMapping("/vacancy")
     public ResponseEntity<?> create(@RequestBody @Valid VacancyForm form) {
         return vacancyService.create(form);
+    }
+
+    @DeleteMapping("/vacancy/{vancancyId}")
+    public ResponseEntity<?> delete(@PathVariable Long vancancyId) {
+        return vacancyService.delete(vancancyId);
     }
 }

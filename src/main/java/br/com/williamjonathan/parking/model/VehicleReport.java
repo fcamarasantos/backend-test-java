@@ -17,7 +17,7 @@ public class VehicleReport {
 
     private LocalDateTime exitDate;
 
-    private LocalDateTime timeParked;
+    private Long timeParkedInMinutes;
 
     @ManyToOne
     @JoinColumn(name = "vehicle_id", referencedColumnName = "id")
@@ -26,6 +26,14 @@ public class VehicleReport {
     @ManyToOne
     @JoinColumn(name = "parking_id", referencedColumnName = "id")
     private Parking parking;
+
+    public VehicleReport() {
+    }
+
+    public VehicleReport(Vehicle vehicle, Parking parking) {
+        this.vehicle = vehicle;
+        this.parking = parking;
+    }
 
     public Long getId() {
         return id;
@@ -51,12 +59,12 @@ public class VehicleReport {
         this.exitDate = exitDate;
     }
 
-    public LocalDateTime getTimeParked() {
-        return timeParked;
+    public Long getTimeParkedInMinutes() {
+        return timeParkedInMinutes;
     }
 
-    public void setTimeParked(LocalDateTime timeParked) {
-        this.timeParked = timeParked;
+    public void setTimeParkedInMinutes(Long timeParkedInMinutes) {
+        this.timeParkedInMinutes = timeParkedInMinutes;
     }
 
     public Vehicle getVehicle() {

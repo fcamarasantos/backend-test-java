@@ -15,8 +15,6 @@ public class PhoneForm {
     @Pattern(regexp= "(\\d{5}|\\d{4})[- .]?\\d{4}$")
     private String phoneNumber;
 
-    private Long parkingId;
-
     public String getDdd() {
         return ddd;
     }
@@ -33,11 +31,4 @@ public class PhoneForm {
         this.phoneNumber = phoneNumber;
     }
 
-    public Long getParkingId() {
-        return parkingId;
-    }
-
-    public void setParkingId(Long parkingId) {
-        this.parkingId = parkingId;
-    }
 }

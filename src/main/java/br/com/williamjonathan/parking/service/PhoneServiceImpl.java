@@ -1,5 +1,6 @@
 package br.com.williamjonathan.parking.service;
 
+import br.com.williamjonathan.parking.model.Employee;
 import br.com.williamjonathan.parking.model.Parking;
 import br.com.williamjonathan.parking.model.Phone;
 import br.com.williamjonathan.parking.model.dto.PhoneDto;
@@ -10,6 +11,7 @@ import br.com.williamjonathan.parking.repository.PhoneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -25,7 +27,7 @@ public class PhoneServiceImpl implements PhoneService{
     private PhoneRepository phoneRepository;
 
     @Autowired
-    private ParkingRepository parkingRepository;
+    private ParkingServiceImpl parkingService;
 
     @Override
     public List<Phone> create(ParkingForm form, Parking parking) {
@@ -40,7 +42,8 @@ public class PhoneServiceImpl implements PhoneService{
 
     @Override
     public ResponseEntity<?> create(PhoneForm form) {
-        Optional<Parking> optionalParking = parkingRepository.findById(form.getParkingId());
+        Employee employee = (Employee) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Optional<Parking> optionalParking = parkingService.searchById(employee.getParking().getId());
         if(optionalParking.isPresent()) {
             Parking parking = optionalParking.get();
             Phone phone = new Phone(form.getDdd(), form.getPhoneNumber(), optionalParking.get());
@@ -61,26 +64,34 @@ public class PhoneServiceImpl implements PhoneService{
     public ResponseEntity<?> read(Long id) {
         Optional<Phone> optionalPhone = phoneRepository.findById(id);
         if(optionalPhone.isPresent()) {
-            Phone phoneBuild = optionalPhone.get();
-            PhoneDto phone = new PhoneDto(phoneBuild);
+            if(thisPhoneBelongAThisParkingEmployee(optionalPhone.get())) {
+                Phone phoneBuild = optionalPhone.get();
+                PhoneDto phone = new PhoneDto(phoneBuild);
 
-            return new ResponseEntity<PhoneDto>(phone, HttpStatus.OK);
+                return new ResponseEntity<PhoneDto>(phone, HttpStatus.OK);
+            }
+            return ResponseEntity.badRequest().build();
         }
-            return ResponseEntity.notFound().build();
+        return ResponseEntity.notFound().build();
         }
 
     @Override
     public ResponseEntity<?> update(PhoneForm form, Long id) {
         Optional<Phone> optionalPhone = phoneRepository.findById(id);
         if(optionalPhone.isPresent()) {
-            Phone phone = optionalPhone.get();
-            phone.setDdd(form.getDdd());
-            phone.setPhoneNumber(form.getPhoneNumber());
+            Parking parking = optionalPhone.get().getParking();
+            Phone phoneOfForm = new Phone(form.getDdd(), form.getPhoneNumber(), parking);
+            Boolean exists = thisPhoneExistInThisParking(phoneOfForm, parking);
+            if(!exists && thisPhoneBelongAThisParkingEmployee(optionalPhone.get())) {
+                Phone phone = optionalPhone.get();
+                phone.setDdd(form.getDdd());
+                phone.setPhoneNumber(form.getPhoneNumber());
+                phoneRepository.save(phone);
 
-            phoneRepository.save(phone);
-
-            PhoneDto phoneDto = new PhoneDto(phone);
-            return new ResponseEntity<PhoneDto>(phoneDto, HttpStatus.OK);
+                PhoneDto phoneDto = new PhoneDto(phone);
+                return new ResponseEntity<PhoneDto>(phoneDto, HttpStatus.OK);
+            }
+            return ResponseEntity.badRequest().build();
         }
         return ResponseEntity.notFound().build();
 
@@ -90,7 +101,11 @@ public class PhoneServiceImpl implements PhoneService{
     public ResponseEntity<?> deleteById(Long id) {
         Optional<Phone> optionalPhone = phoneRepository.findById(id);
         if(optionalPhone.isPresent()) {
-            phoneRepository.deleteById(id);
+            if(thisPhoneBelongAThisParkingEmployee(optionalPhone.get())) {
+                phoneRepository.deleteById(id);
+                return ResponseEntity.ok().build();
+            }
+            return ResponseEntity.badRequest().build();
         }
         return ResponseEntity.notFound().build();
     }
@@ -107,4 +122,12 @@ public class PhoneServiceImpl implements PhoneService{
         return true;
     }
 
+    @Override
+    public Boolean thisPhoneBelongAThisParkingEmployee(Phone phone) {
+        Employee employee = (Employee) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(phone.getParking().getId().equals(employee.getParking().getId())) {
+            return true;
+        }
+        return false;
+     }
 }
