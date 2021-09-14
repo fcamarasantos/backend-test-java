@@ -4,6 +4,7 @@ import br.com.williamjonathan.parking.model.Employee;
 import br.com.williamjonathan.parking.model.Parking;
 import br.com.williamjonathan.parking.model.Type;
 import br.com.williamjonathan.parking.model.Vacancy;
+import br.com.williamjonathan.parking.model.dto.VacancyDto;
 import br.com.williamjonathan.parking.model.form.VacancyForm;
 import br.com.williamjonathan.parking.repository.VacancyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import java.util.Optional;
 
@@ -24,7 +28,25 @@ public class VacancyServiceImpl implements VacancyService {
     ParkingServiceImpl parkingService;
 
     @Autowired
+    EmployeeServiceImpl employeeService;
+
+    @Autowired
     TypeServiceImpl typeService;
+
+    @Override
+    public ResponseEntity<?> read() {
+        Optional<Parking> optionalParking = parkingService.searchById(employeeService.getParkingIdByEmployeeLogged());
+        if(optionalParking.isPresent()) {
+            List<VacancyDto> vacancies = new ArrayList<>();
+            List<Vacancy> vacanciesForDto = optionalParking.get().getVacancies();
+            vacanciesForDto.forEach( v -> {
+                VacancyDto vacancyDto = new VacancyDto(v);
+                vacancies.add(vacancyDto);
+            });
+            return new ResponseEntity<List<VacancyDto>>(vacancies, HttpStatus.OK);
+        }
+        return ResponseEntity.notFound().build();
+    }
 
     @Override
     public ResponseEntity<?> create(VacancyForm form) {

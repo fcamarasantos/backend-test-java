@@ -8,11 +8,11 @@ public class PhoneForm {
 
     @NotBlank
     @NotNull
-    @Pattern(regexp = "[0-9]{2}")
+    @Pattern(regexp = "[0-9]{2}", message = "The ddd need to have this structure XX")
     private String ddd;
 
     @NotNull @NotBlank
-    @Pattern(regexp= "(\\d{5}|\\d{4})[- .]?\\d{4}$")
+    @Pattern(regexp= "^(\\d{5}|\\d{4})[- .]?\\d{4}$", message = "The phone number need to have this structure XXXX-XXXX or XXXXX-XXXX")
     private String phoneNumber;
 
     public String getDdd() {

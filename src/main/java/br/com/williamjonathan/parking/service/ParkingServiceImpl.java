@@ -5,13 +5,17 @@ import br.com.williamjonathan.parking.model.dto.ParkingAllDto;
 import br.com.williamjonathan.parking.model.dto.ParkingDto;
 import br.com.williamjonathan.parking.model.form.ParkingForm;
 import br.com.williamjonathan.parking.model.form.ParkingUpdateForm;
+import br.com.williamjonathan.parking.model.form.exception.CnpjDuplicateEntryException;
 import br.com.williamjonathan.parking.repository.ParkingRepository;
+import org.hibernate.tool.schema.ast.SqlScriptParserException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -34,6 +38,11 @@ public class ParkingServiceImpl implements ParkingService {
 
     @Override
     public ResponseEntity<ParkingDto> create(ParkingForm form) {
+        Optional<Parking> optionalParking = parkingRepository.findByCnpj(form.getCnpj());
+        if (optionalParking.isPresent()) {
+            throw new CnpjDuplicateEntryException();
+        }
+
         Parking parking = new Parking();
         parking.setCnpj(form.getCnpj());
         parking.setName(form.getName());

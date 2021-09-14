@@ -7,7 +7,7 @@ import javax.validation.constraints.Pattern;
 public class AddressForm {
 
     @NotBlank @NotNull
-    @Pattern(regexp = "^\\d{5}-\\d{3}$")
+    @Pattern(regexp = "^\\d{5}-\\d{3}$", message = "The zipcode need to have this structure XXXXX-XXX")
     private String zipCode;
 
     @NotBlank @NotNull

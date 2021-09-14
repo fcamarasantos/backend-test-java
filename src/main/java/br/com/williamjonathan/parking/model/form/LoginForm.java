@@ -2,11 +2,12 @@ package br.com.williamjonathan.parking.model.form;
 
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.AuthenticationException;
+
 
 public class LoginForm {
 
     private String email;
+
     private String password;
 
     public String getEmail() {

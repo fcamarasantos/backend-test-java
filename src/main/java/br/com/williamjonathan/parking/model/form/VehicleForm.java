@@ -14,16 +14,12 @@ public class VehicleForm {
 
     @NotNull
     @NotBlank
-    @Pattern(regexp = "[A-Z]{3}[0-9][0-9A-Z][0-9]{2}")
+    @Pattern(regexp = "[A-Z]{3}[0-9][0-9A-Z][0-9]{2}", message = "The license plate need have this structure XXX-XXXX OR XXXXXXX")
     private String licensePlate;
 
     @NotNull
     @NotBlank
     private String vehicleModelName;
-
-    //@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=*])(?=\\S+$).{8,20}$")
-    @NotNull @NotBlank
-    private String password;
 
     public String getColor() {
         return color;
@@ -49,16 +45,4 @@ public class VehicleForm {
         this.vehicleModelName = vehicleModelName;
     }
 
-    public String getPassword() {
-        return encryptPassword(password);
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    static String encryptPassword(String password) {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        return encoder.encode(password);
-    }
 }

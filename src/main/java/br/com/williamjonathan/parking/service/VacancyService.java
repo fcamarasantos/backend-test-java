@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 @Service
 public interface VacancyService {
 
+    ResponseEntity<?> read();
+
     ResponseEntity<?> create(VacancyForm form);
 
     ResponseEntity<?> delete(Long vancancyId);

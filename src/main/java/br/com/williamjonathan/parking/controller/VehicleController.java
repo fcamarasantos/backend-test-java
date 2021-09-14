@@ -41,7 +41,7 @@ public class VehicleController {
         return vehicleService.park(parkingId, licensePlate);
     }
 
-    @DeleteMapping("/{licensePlate}")
+    @PutMapping("/{licensePlate}")
     public ResponseEntity<?> unpark(@PathVariable String licensePlate) {
         return vehicleService.unpark(licensePlate);
     }

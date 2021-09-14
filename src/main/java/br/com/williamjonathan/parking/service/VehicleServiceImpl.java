@@ -6,6 +6,8 @@ import br.com.williamjonathan.parking.model.Vehicle;
 import br.com.williamjonathan.parking.model.VehicleModel;
 import br.com.williamjonathan.parking.model.dto.VehicleDto;
 import br.com.williamjonathan.parking.model.form.VehicleForm;
+import br.com.williamjonathan.parking.model.form.exception.LicenseplateDuplicateEntryException;
+import br.com.williamjonathan.parking.model.form.exception.handlers.LicenseplateDuplicateEntryHandler;
 import br.com.williamjonathan.parking.repository.VehicleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -53,7 +55,7 @@ public class VehicleServiceImpl implements VehicleService{
                 VehicleDto vehicle = new VehicleDto(vehicleForm);
                 return new ResponseEntity<VehicleDto>(vehicle, HttpStatus.OK);
             }
-            return ResponseEntity.badRequest().build(); // Exception because already have a vehicle with this license plate
+            throw new LicenseplateDuplicateEntryException();
         }
         return ResponseEntity.notFound().build();
     }

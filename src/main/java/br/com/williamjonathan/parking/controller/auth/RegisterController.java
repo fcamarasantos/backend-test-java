@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
@@ -36,7 +37,7 @@ public class RegisterController {
     private EmployeeRepository employeeRepository;
 
     @PostMapping
-    public ResponseEntity<?> register(@RequestBody RegisterForm form) {
+    public ResponseEntity<?> register(@RequestBody @Valid RegisterForm form) {
         Optional<Parking> optionalParking = parkingService.searchById(form.getParkingId());
         Optional<Role> optionalRole = roleService.searchByName("ROLE_" + form.getRoleName());
         Optional<Employee> optionalEmployee = employeeRepository.findByEmail(form.getEmail());

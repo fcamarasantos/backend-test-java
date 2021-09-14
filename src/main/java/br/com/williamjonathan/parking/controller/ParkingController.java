@@ -35,7 +35,7 @@ public class ParkingController {
     }
 
     @PutMapping
-    private ResponseEntity<?> update(@RequestBody ParkingUpdateForm form) {
+    private ResponseEntity<?> update(@RequestBody @Valid ParkingUpdateForm form) {
         return parkingService.update(form);
     }
 
