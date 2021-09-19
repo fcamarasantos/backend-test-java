@@ -16,10 +16,10 @@ public class RegisterForm {
 
     @NotBlank
     @NotNull
-    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$")
+    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$",
+    message = "The password must have at least one uppercase letter, one lowercase letter, one special character and more than 8 character")
     private String password;
 
-    @NotBlank
     @NotNull
     private Long parkingId;
 

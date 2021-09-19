@@ -1,7 +1,7 @@
 package br.com.williamjonathan.parking.repository;
 
+
 import br.com.williamjonathan.parking.model.Address;
-import br.com.williamjonathan.parking.model.Vehicle;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,27 +19,28 @@ import static org.junit.Assert.assertTrue;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ActiveProfiles("test")
-public class VehicleRepositoryTest {
+public class AddressRepositoryTest {
 
     @Autowired
-    private VehicleRepository vehicleRepository;
+    private AddressRepository addressRepository;
 
-    @org.junit.Test
-    public void shouldFindAVehicleById() {
-        Vehicle vehicle = new Vehicle();
-        vehicle.setId(1L);
+    @Test
+    public void shouldFindAAddressById() {
+        Address address = new Address();
+        address.setId(1L);
 
-        vehicleRepository.save(vehicle);
-        Optional<Vehicle> optionalVehicle = vehicleRepository.findById(vehicle.getId());
+        addressRepository.save(address);
+        Optional<Address> optionalAddress = addressRepository.findById(address.getId());
 
-        assertTrue(optionalVehicle.isPresent());
-        assertEquals(vehicle.getId(), optionalVehicle.get().getId());
+        assertTrue(optionalAddress.isPresent());
+        assertEquals(address.getId(), optionalAddress.get().getId());
     }
 
     @Test
-    public void shouldNotFindAVehicleBecauseDontExist() {
-        Optional<Vehicle> optionalVehicle = vehicleRepository.findById(1L);
+    public void shouldNotFindAAddressBecauseDontExist() {
+        Optional<Address> optionalAddress = addressRepository.findById(2L);
 
-        assertTrue(optionalVehicle.isPresent());
+        assertTrue(optionalAddress.isEmpty());
     }
+
 }

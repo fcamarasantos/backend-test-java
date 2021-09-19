@@ -6,6 +6,7 @@ import br.com.williamjonathan.parking.model.Employee;
 import br.com.williamjonathan.parking.model.dto.ViaCepDto;
 import br.com.williamjonathan.parking.model.form.AddressForm;
 import br.com.williamjonathan.parking.model.form.ParkingForm;
+import br.com.williamjonathan.parking.model.form.exception.ZipCodeException;
 import br.com.williamjonathan.parking.repository.AddressRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -50,7 +51,7 @@ public class AddressServiceImpl implements AddressService {
 
             return address;
         } catch (Exception ex) {
-            throw new RuntimeException(); // Make a exception for zip code invalid
+            throw new ZipCodeException();
         }
     }
 
