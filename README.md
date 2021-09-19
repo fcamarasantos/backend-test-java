@@ -1,62 +1,30 @@
-### FCamara 🚀
-*"Queremos ser como uma árvore, 
-  crescer um pouco todos os dias e tentar tocar o céu, 
-  sem perder a solidez de nossas raízes."*
-Conheça: www.fcamara.com.br
+## Teste para vaga de Desenvolvedor Back-end
+Criar uma API REST para gerenciar um estacionamento de carros e motos criado pela FCamara
 
 ### Modelagem de Dados
 
-<img src="https://i.imgur.com/GMGVVC7.png">
+<img src="https://i.imgur.com/n7TsL06.png">
 
-## Teste para vaga de Desenvolvedor Back-end
-Criar uma API REST para gerenciar um estacionamento de carros e motos.
+## Tecnologia utilizadas
 
-## Cadastro de estabelecimento
-
-Criar um cadastro da empresa com os seguintes campos:
-- Nome;
-- CNPJ;
-- Endereço;
-- Telefone;
-- Quantidade de vagas para motos;
-- Quantidade de vagas para carros.
-
-**Todos** os campos são de preenchimento obrigatório.
-
-## Cadastro de veículos
-
-Criar um cadastro de veículos com os seguintes campos:
-- Marca;
-- Modelo;
-- Cor;
-- Placa;
-- Tipo.
-
-**Todos** os campos são de preenchimento obrigatório.
-
-## Funcionalidades
-
-   - **Estabelecimento:** CRUD;
-   - **Veículos:** CRUD;
-   - **Controle de entrada e saída de veículos.**
+- Java 11
+- Spring Framework
+  - Spring Security
+  - Spring Data
+  - Spring Validation
+- Authentication JWT
+- Documentação no Postman
 
 ## Requisitos
 
-   - Modelagem de dados;
-   - O retorno deverá ser em formato JSON e XML;
-   - Requisições GET, POST, PUT ou DELETE, conforme a melhor prática;
-   - A persistência dos dados pode ser realizada da maneira que preferir;
-   - Criar README do projeto descrevendo as tecnologias utilizadas, chamadas dos serviços e configurações necessário para executar a aplicação.
-   
-## Ganha mais pontos
-   - Desenvolver utilizando TDD;
-   - Criar API de relatório;
-   - Sumário da quantidade de entrada e saída;
-   - Sumário da quantidade de entrada e saída de veículos por hora;
-   - Criar uma solução de autenticação.
+Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas: JDK-11 e Maven. Uma boa IDE para utilizar o projeto é a IntellJ mas podendo usar VSCode.
 
-## Submissão
-Crie um fork do teste para acompanharmos o seu desenvolvimento através dos seus commits.
+## Como rodar o projeto
 
-## Obrigado!
-Agradecemos sua participação no teste. Boa sorte! 😄
+- Baixe o projeto ou o clone o repositorio
+- Crie o banco de dados parking e parking-test e popule o banco de dados com o arquivo data.sql
+- Mude as variaveis do bancos de dados se for preferir em src/main/resources/application-properties
+- Acesse a pasta do projeto por meio da linha de comando
+- Na pasta do projeto use os comandos <code>mvn install</code> e depois <code>mvn clean package</code>
+- Para rodar a aplicação use o comando <code>java -jar <arquivo.jar com a versao atual></code>
+- A aplicação será iniciada na rota localhost:8080
