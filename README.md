@@ -22,8 +22,8 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
 ## Como rodar o projeto
 
 - Baixe o projeto ou o clone o repositorio
-- Crie o banco de dados parking e popule o banco de dados com o arquivo data.sql
-- Mude as variaveis dos bancos de dados se diferir em src/main/resources/application-properties
+- Crie o banco de dados parking e parking-test e popule o banco de dados com o arquivo data.sql
+- Mude as variaveis do bancos de dados se for preferir em src/main/resources/application-properties
 - Acesse a pasta do projeto por meio da linha de comando
 - Na pasta do projeto use os comandos <code>mvn install</code> e depois <code>mvn clean package</code>
 - Para rodar a aplicação use o comando <code>java -jar <arquivo.jar com a versao atual></code>
