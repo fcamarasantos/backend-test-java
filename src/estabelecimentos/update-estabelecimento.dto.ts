@@ -21,7 +21,7 @@ type Cep = {
   rua_id: number
 }
 
-export class CreateEstabelecimentoDto {
+export class UpdateEstabelecimentoDto {
   readonly cnpj: string;
   readonly nome: string;
   readonly total_vagas_carros: number;
