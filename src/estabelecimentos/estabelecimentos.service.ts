@@ -13,7 +13,6 @@ export class EstabelecimentosService {
     private estabelecimentoRepository: Repository<Estabelecimento>,
   ) { }
 
-
   async create(data: CreateEstabelecimentoDto): Promise<resultEstabelecimentoDto> {
     const estabelecimento = new Estabelecimento()
     estabelecimento.cnpj = data.cnpj
