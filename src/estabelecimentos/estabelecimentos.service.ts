@@ -15,15 +15,7 @@ export class EstabelecimentosService {
   ) { }
 
   async create(data: CreateEstabelecimentoDto): Promise<resultEstabelecimentoDto> {
-
-    const estabelecimento = new Estabelecimento()
-    estabelecimento.cnpj = data.cnpj
-    estabelecimento.nome = data.nome
-    estabelecimento.endereco = data.endereco
-    estabelecimento.telefone_estabelecimento = data.telefone_estabelecimento
-    estabelecimento.total_vagas_carros = data.total_vagas_carros
-    estabelecimento.total_vagas_motos = data.total_vagas_motos
-    return this.estabelecimentoRepository.save(estabelecimento)
+    return this.estabelecimentoRepository.save(data)
       .then((result) => {
         return <resultEstabelecimentoDto>{
           status: true,
