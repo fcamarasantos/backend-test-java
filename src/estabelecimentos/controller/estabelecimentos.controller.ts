@@ -22,9 +22,9 @@ export class EstabelecimentosController {
     return this.estabelecimentosService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateEstabelecimentoDto: UpdateEstabelecimentoDto) {
-    return this.estabelecimentosService.update(+id, updateEstabelecimentoDto);
+  @Patch(':cnpj')
+  update(@Param('cnpj') cnpj: string, @Body() updateEstabelecimentoDto: UpdateEstabelecimentoDto) {
+    return this.estabelecimentosService.update(cnpj, updateEstabelecimentoDto);
   }
 
   @Delete(':id')

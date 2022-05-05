@@ -3,8 +3,8 @@ import { Entity, Column, PrimaryColumn } from 'typeorm';
 
 @Entity()
 export class Estabelecimento {
-  @PrimaryColumn()
-  cnpj: number;
+  @PrimaryColumn({ type: "varchar", length: 14 })
+  cnpj: string;
 
   @Column()
   nome: string;
@@ -19,9 +19,5 @@ export class Estabelecimento {
   endereco: string;
 
   @Column()
-  endereco_id: number;
-
-  @Column()
-  telefone_estabelecimento: number;
-
+  telefone_estabelecimento: string;
 }
