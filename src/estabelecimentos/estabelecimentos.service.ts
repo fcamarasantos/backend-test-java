@@ -45,8 +45,19 @@ export class EstabelecimentosService {
     return this.estabelecimentoRepository.findOne(cnpj);
   }
 
-  async remove(cnpj: number): Promise<void> {
-    await this.estabelecimentoRepository.delete(cnpj);
+  async remove(cnpj: number): Promise<resultEstabelecimentoDto> {
+    return this.estabelecimentoRepository.delete(cnpj)
+      .then((result) => {
+        return <resultEstabelecimentoDto>{
+          status: true,
+          mensagem: "Estabelecimento deletado"
+        };
+      }).catch((error) => {
+        return <resultEstabelecimentoDto>{
+          status: false,
+          mensagem: `Erro ao tentar deletar estabelecimento. ${error}`
+        };
+      })
   }
 
   update(id: number, updateEstabelecimentoDto: UpdateEstabelecimentoDto) {
