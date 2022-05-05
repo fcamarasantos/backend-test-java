@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Estabelecimento } from 'src/estabelecimentos/entities/estabelecimento.entity';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 
 
 @Entity()
@@ -6,19 +7,22 @@ export class Veiculo {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ nullable: false })
   placa: string;
 
-  @Column()
+  @Column({ nullable: false })
   tipo: string;
 
-  @Column()
+  @Column({ nullable: false })
   marca: string;
 
-  @Column()
+  @Column({ nullable: false })
   modelo: string;
 
-  @Column()
+  @Column({ nullable: false })
   cor: string;
 
+
+  @ManyToOne(type => Estabelecimento, veiculos => Veiculo)
+  estabelecimento: Estabelecimento
 }

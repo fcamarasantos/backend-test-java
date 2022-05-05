@@ -1,3 +1,4 @@
+import { Veiculo } from 'src/veiculos/entities/veiculo.entity';
 import { Injectable, Inject } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { CreateEstabelecimentoDto } from './dto/create-estabelecimento.dto';
@@ -14,6 +15,7 @@ export class EstabelecimentosService {
   ) { }
 
   async create(data: CreateEstabelecimentoDto): Promise<resultEstabelecimentoDto> {
+
     const estabelecimento = new Estabelecimento()
     estabelecimento.cnpj = data.cnpj
     estabelecimento.nome = data.nome

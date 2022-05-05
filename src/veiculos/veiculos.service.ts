@@ -13,7 +13,6 @@ export class VeiculosService {
     private veiculoRepository: Repository<Veiculo>,
   ) { }
 
-
   async create(data: CreateVeiculoDto): Promise<resultVeiculoDto> {
 
     const veiculo = new Veiculo()
@@ -40,12 +39,12 @@ export class VeiculosService {
     return this.veiculoRepository.find();
   }
 
-  findOne(cnpj: number): Promise<Veiculo> {
-    return this.veiculoRepository.findOne(cnpj);
+  findOne(id: number): Promise<Veiculo> {
+    return this.veiculoRepository.findOne(id);
   }
 
-  async remove(cnpj: number): Promise<resultVeiculoDto> {
-    return this.veiculoRepository.delete(cnpj)
+  async remove(id: number): Promise<resultVeiculoDto> {
+    return this.veiculoRepository.delete(id)
       .then((result) => {
         return <resultVeiculoDto>{
           status: true,
@@ -59,7 +58,34 @@ export class VeiculosService {
       })
   }
 
-  update(id: number, updateVeiculoDto: UpdateVeiculoDto) {
-    return `This action updates a #${id} veiculo`;
+  update(id: number, data: UpdateVeiculoDto) {
+    const veiculoUpdate = new Veiculo()
+    veiculoUpdate.id = id
+    veiculoUpdate.placa = data.placa
+    veiculoUpdate.tipo = data.tipo
+    veiculoUpdate.marca = data.marca
+    veiculoUpdate.modelo = data.modelo
+    veiculoUpdate.cor = data.cor
+    return this.veiculoRepository.save(veiculoUpdate)
+      .then((result) => {
+        return <resultVeiculoDto>{
+          status: true,
+          mensagem: "Veiculo atualizado"
+        };
+      }).catch((error) => {
+        return <resultVeiculoDto>{
+          status: false,
+          mensagem: `Erro ao tentar cadastrar veiculo. ${error}`
+        };
+      })
+  }
+}
+
+/CNPJ/id
+
+const estacionamento_veiculos = {
+  cnpj: "XXXXX",
+  veiculos: {
+
   }
 }

@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryColumn } from 'typeorm';
+import { Veiculo } from 'src/veiculos/entities/veiculo.entity';
+import { Entity, Column, PrimaryColumn, OneToMany } from 'typeorm';
 
 
 @Entity()
@@ -6,18 +7,21 @@ export class Estabelecimento {
   @PrimaryColumn({ type: "varchar", length: 14 })
   cnpj: string;
 
-  @Column()
+  @Column({ nullable: false })
   nome: string;
 
-  @Column()
+  @Column({ nullable: false })
   total_vagas_carros: number;
 
-  @Column()
+  @Column({ nullable: false })
   total_vagas_motos: number;
 
-  @Column()
+  @Column({ nullable: false })
   endereco: string;
 
-  @Column()
+  @Column({ nullable: false })
   telefone_estabelecimento: string;
+
+  @OneToMany(type => Veiculo, estabelecimento => Estabelecimento)
+  veiculos: Veiculo[];
 }
