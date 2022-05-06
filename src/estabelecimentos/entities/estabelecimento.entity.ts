@@ -6,7 +6,6 @@ import {
   OneToMany
 } from 'typeorm';
 
-
 @Entity()
 export class Estabelecimento {
   @PrimaryColumn({ type: "varchar", length: 14 })

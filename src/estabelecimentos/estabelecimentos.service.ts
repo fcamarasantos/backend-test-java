@@ -33,44 +33,67 @@ export class EstabelecimentosService {
     return this.estabelecimentoRepository.find();
   }
 
-  findOne(cnpj: number): Promise<Estabelecimento> {
-    return this.estabelecimentoRepository.findOne(cnpj);
+  async findOne(cnpj: number): Promise<Estabelecimento | resultEstabelecimentoDto> {
+    const estabelecimento = await this.estabelecimentoRepository.findOne(cnpj)
+    if (!estabelecimento) {
+      return <resultEstabelecimentoDto>{
+        status: false,
+        mensagem: `Estabelecimento não encontrado.`
+      }
+    } else {
+      return this.estabelecimentoRepository.findOne(cnpj);
+    }
   }
 
   async remove(cnpj: number): Promise<resultEstabelecimentoDto> {
-    return this.estabelecimentoRepository.delete(cnpj)
-      .then((result) => {
-        return <resultEstabelecimentoDto>{
-          status: true,
-          mensagem: "Estabelecimento deletado"
-        };
-      }).catch((error) => {
-        return <resultEstabelecimentoDto>{
-          status: false,
-          mensagem: `Erro ao tentar deletar estabelecimento. ${error}`
-        };
-      })
+    const estabelecimentoRemove = await this.estabelecimentoRepository.findOne(cnpj)
+    if (!estabelecimentoRemove) {
+      return <resultEstabelecimentoDto>{
+        status: false,
+        mensagem: `Estabelecimento não encontrado.`
+      }
+    } else {
+      return this.estabelecimentoRepository.delete(cnpj)
+        .then((result) => {
+          return <resultEstabelecimentoDto>{
+            status: true,
+            mensagem: "Estabelecimento deletado"
+          };
+        }).catch((error) => {
+          return <resultEstabelecimentoDto>{
+            status: false,
+            mensagem: `Erro ao tentar deletar estabelecimento. ${error}`
+          };
+        })
+    }
   }
 
-  update(cnpj: string, data: UpdateEstabelecimentoDto) {
-    const estabelecimentoUpdate = new Estabelecimento()
-    estabelecimentoUpdate.cnpj = cnpj
-    estabelecimentoUpdate.nome = data.nome
-    estabelecimentoUpdate.endereco = data.endereco
-    estabelecimentoUpdate.telefone_estabelecimento = data.telefone_estabelecimento
-    estabelecimentoUpdate.total_vagas_carros = data.total_vagas_carros
-    estabelecimentoUpdate.total_vagas_motos = data.total_vagas_motos
-    return this.estabelecimentoRepository.save(estabelecimentoUpdate)
-      .then((result) => {
-        return <resultEstabelecimentoDto>{
-          status: true,
-          mensagem: "Estabelecimento atualizado"
-        };
-      }).catch((error) => {
-        return <resultEstabelecimentoDto>{
-          status: false,
-          mensagem: `Erro ao tentar cadastrar estabelecimento. ${error}`
-        };
-      })
+  async update(cnpj: string, data: UpdateEstabelecimentoDto) {
+    const estabelecimentoUpdate = await this.estabelecimentoRepository.findOne(cnpj)
+    if (!estabelecimentoUpdate) {
+      return <resultEstabelecimentoDto>{
+        status: false,
+        mensagem: `Estabelecimento não encontrado.`
+      }
+    } else {
+      estabelecimentoUpdate.cnpj = cnpj
+      estabelecimentoUpdate.nome = data.nome
+      estabelecimentoUpdate.endereco = data.endereco
+      estabelecimentoUpdate.telefone_estabelecimento = data.telefone_estabelecimento
+      estabelecimentoUpdate.total_vagas_carros = data.total_vagas_carros
+      estabelecimentoUpdate.total_vagas_motos = data.total_vagas_motos
+      return this.estabelecimentoRepository.save(estabelecimentoUpdate)
+        .then((result) => {
+          return <resultEstabelecimentoDto>{
+            status: true,
+            mensagem: "Estabelecimento atualizado"
+          };
+        }).catch((error) => {
+          return <resultEstabelecimentoDto>{
+            status: false,
+            mensagem: `Erro ao tentar cadastrar estabelecimento. ${error}`
+          };
+        })
+    }
   }
 }

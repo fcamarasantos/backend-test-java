@@ -33,37 +33,61 @@ export class VeiculosService {
     return this.veiculoRepository.find();
   }
 
-  findOne(placa: string): Promise<Veiculo> {
-    return this.veiculoRepository.findOne(placa);
+  async findOne(placa: string): Promise<Veiculo | resultVeiculoDto> {
+    const veiculo = await this.veiculoRepository.findOne(placa)
+    if (!veiculo) {
+      return <resultVeiculoDto>{
+        status: false,
+        mensagem: `Veículo não encontrado.`
+      }
+    } else {
+      return this.veiculoRepository.findOne(placa);
+    }
   }
 
   async remove(placa: string): Promise<resultVeiculoDto> {
-    return this.veiculoRepository.delete(placa)
-      .then((result) => {
-        return <resultVeiculoDto>{
-          status: true,
-          mensagem: "Veiculo deletado"
-        };
-      }).catch((error) => {
-        return <resultVeiculoDto>{
-          status: false,
-          mensagem: `Erro ao tentar deletar veiculo. ${error}`
-        };
-      })
+    const veiculoRemove = await this.veiculoRepository.findOne(placa)
+    if (!veiculoRemove) {
+      return <resultVeiculoDto>{
+        status: false,
+        mensagem: `Veículo não encontrado.`
+      }
+    } else {
+      return this.veiculoRepository.delete(placa)
+        .then((result) => {
+          return <resultVeiculoDto>{
+            status: true,
+            mensagem: "Veiculo deletado"
+          };
+        }).catch((error) => {
+          return <resultVeiculoDto>{
+            status: false,
+            mensagem: `Erro ao tentar deletar veiculo. ${error}`
+          };
+        })
+    }
   }
 
-  update(placa: string, data: UpdateVeiculoDto) {
-    return this.veiculoRepository.save(data)
-      .then((result) => {
-        return <resultVeiculoDto>{
-          status: true,
-          mensagem: "Veiculo atualizado"
-        };
-      }).catch((error) => {
-        return <resultVeiculoDto>{
-          status: false,
-          mensagem: `Erro ao tentar cadastrar veiculo. ${error}`
-        };
-      })
+  async update(placa: string, data: UpdateVeiculoDto) {
+    const veiculoUpdate = await this.veiculoRepository.findOne(placa)
+    if (!veiculoUpdate) {
+      return <resultVeiculoDto>{
+        status: false,
+        mensagem: `Veículo não encontrado.`
+      }
+    } else {
+      return this.veiculoRepository.save(data)
+        .then((result) => {
+          return <resultVeiculoDto>{
+            status: true,
+            mensagem: "Veiculo atualizado"
+          };
+        }).catch((error) => {
+          return <resultVeiculoDto>{
+            status: false,
+            mensagem: `Erro ao tentar cadastrar veiculo. ${error}`
+          };
+        })
+    }
   }
 }
