@@ -17,18 +17,18 @@ export class VeiculosController {
     return this.veiculosService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.veiculosService.findOne(+id);
+  @Get(':placa')
+  findOne(@Param('placa') placa: string) {
+    return this.veiculosService.findOne(placa);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateEstabelecimentoDto: UpdateVeiculoDto) {
-    return this.veiculosService.update(+id, updateEstabelecimentoDto);
+  @Patch(':placa')
+  update(@Param('placa') placa: string, @Body() updateEstabelecimentoDto: UpdateVeiculoDto) {
+    return this.veiculosService.update(placa, updateEstabelecimentoDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.veiculosService.remove(+id);
+  @Delete(':placa')
+  remove(@Param('placa') placa: string) {
+    return this.veiculosService.remove(placa);
   }
 }

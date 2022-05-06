@@ -3,17 +3,14 @@ import { Estabelecimento } from 'src/estabelecimentos/entities/estabelecimento.e
 import {
   Entity,
   Column,
-  PrimaryGeneratedColumn,
+  PrimaryColumn,
   OneToMany
 } from 'typeorm';
 
 
 @Entity()
 export class Veiculo {
-  @PrimaryGeneratedColumn()
-  id: number;
-
-  @Column({ nullable: false })
+  @PrimaryColumn()
   placa: string;
 
   @Column({ nullable: false })

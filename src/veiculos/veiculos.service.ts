@@ -33,12 +33,12 @@ export class VeiculosService {
     return this.veiculoRepository.find();
   }
 
-  findOne(id: number): Promise<Veiculo> {
-    return this.veiculoRepository.findOne(id);
+  findOne(placa: string): Promise<Veiculo> {
+    return this.veiculoRepository.findOne(placa);
   }
 
-  async remove(id: number): Promise<resultVeiculoDto> {
-    return this.veiculoRepository.delete(id)
+  async remove(placa: string): Promise<resultVeiculoDto> {
+    return this.veiculoRepository.delete(placa)
       .then((result) => {
         return <resultVeiculoDto>{
           status: true,
@@ -52,7 +52,7 @@ export class VeiculosService {
       })
   }
 
-  update(id: number, data: UpdateVeiculoDto) {
+  update(placa: string, data: UpdateVeiculoDto) {
     return this.veiculoRepository.save(data)
       .then((result) => {
         return <resultVeiculoDto>{
