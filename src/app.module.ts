@@ -1,3 +1,4 @@
+import { LogsModule } from './logs/Logs.module';
 import { VeiculosModule } from './veiculos/veiculos.module';
 import { EstabelecimentosModule } from './estabelecimentos/estabelecimentos.module';
 import { Module } from '@nestjs/common';
@@ -7,7 +8,8 @@ import { AppService } from './app.service';
 @Module({
   imports: [
     EstabelecimentosModule,
-    VeiculosModule],
+    VeiculosModule,
+    LogsModule],
   controllers: [AppController],
   providers: [AppService],
 })

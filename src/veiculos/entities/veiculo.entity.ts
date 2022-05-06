@@ -1,5 +1,11 @@
+import { Log } from 'src/logs/entities/log.entity'
 import { Estabelecimento } from 'src/estabelecimentos/entities/estabelecimento.entity';
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToMany
+} from 'typeorm';
 
 
 @Entity()
@@ -22,7 +28,6 @@ export class Veiculo {
   @Column({ nullable: false })
   cor: string;
 
-
-  @ManyToOne(type => Estabelecimento, veiculos => Veiculo)
-  estabelecimento: Estabelecimento
+  @OneToMany(() => Log, veiculos => Veiculo)
+  log: Log;
 }

@@ -1,5 +1,11 @@
-import { Veiculo } from 'src/veiculos/entities/veiculo.entity';
-import { Entity, Column, PrimaryColumn, OneToMany } from 'typeorm';
+import { Log } from 'src/logs/entities/log.entity';
+import {
+  Entity,
+  Column,
+  PrimaryColumn,
+  JoinColumn,
+  OneToMany
+} from 'typeorm';
 
 
 @Entity()
@@ -22,6 +28,6 @@ export class Estabelecimento {
   @Column({ nullable: false })
   telefone_estabelecimento: string;
 
-  @OneToMany(type => Veiculo, estabelecimento => Estabelecimento)
-  veiculos: Veiculo[];
+  @OneToMany(type => Log, estabelecimento => Estabelecimento)
+  logs: Log[];
 }

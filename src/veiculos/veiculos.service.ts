@@ -15,13 +15,7 @@ export class VeiculosService {
 
   async create(data: CreateVeiculoDto): Promise<resultVeiculoDto> {
 
-    const veiculo = new Veiculo()
-    veiculo.placa = data.placa
-    veiculo.tipo = data.tipo
-    veiculo.marca = data.marca
-    veiculo.modelo = data.modelo
-    veiculo.cor = data.cor
-    return this.veiculoRepository.save(veiculo)
+    return this.veiculoRepository.save(data)
       .then((result) => {
         return <resultVeiculoDto>{
           status: true,
@@ -59,14 +53,7 @@ export class VeiculosService {
   }
 
   update(id: number, data: UpdateVeiculoDto) {
-    const veiculoUpdate = new Veiculo()
-    veiculoUpdate.id = id
-    veiculoUpdate.placa = data.placa
-    veiculoUpdate.tipo = data.tipo
-    veiculoUpdate.marca = data.marca
-    veiculoUpdate.modelo = data.modelo
-    veiculoUpdate.cor = data.cor
-    return this.veiculoRepository.save(veiculoUpdate)
+    return this.veiculoRepository.save(data)
       .then((result) => {
         return <resultVeiculoDto>{
           status: true,
@@ -78,14 +65,5 @@ export class VeiculosService {
           mensagem: `Erro ao tentar cadastrar veiculo. ${error}`
         };
       })
-  }
-}
-
-/CNPJ/id
-
-const estacionamento_veiculos = {
-  cnpj: "XXXXX",
-  veiculos: {
-
   }
 }
