@@ -25,4 +25,6 @@ public class CompanyDAO extends DAO{
 			System.out.println(e.getMessage());
 		}
 	}
+	
+
 }

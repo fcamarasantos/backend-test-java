@@ -1,18 +1,18 @@
-package br.com.parking.service.actions;
+package br.com.parking.service.actions.employee;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.parking.service.actions.Action;
 import messages.Message;
 
-public class Company implements Action{
-
+public class DeleteEmployeeAction implements Action{
 	@Override
 	public Message execute(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
-		return null;
+		Message msg = new Message();
+		
+		msg.setTitle("Ok");
+		
+		return msg;
 	}
-
-	
-
 }

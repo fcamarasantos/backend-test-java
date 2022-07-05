@@ -9,6 +9,10 @@ public class Message {
 		this.message = message;
 	}
 
+	public Message() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getTitle() {
 		return title;
 	}
@@ -23,6 +27,13 @@ public class Message {
 
 	public void setMessage(String message) {
 		this.message = message;
+	}
+	
+	@Override
+	public String toString() {
+		return (
+			"[title: " + this.title + ", message: " + this.message + "]"
+		);
 	}
 	
 	
