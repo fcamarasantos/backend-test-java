@@ -62,4 +62,11 @@ public class Company extends Model{
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+	
+	@Override
+	public String toString() {
+		return (
+			"{name: " + this.name + ", phone: " + this.phone + ", cnpj: " + this.cnpj + ", id: " + this.id + "}"	
+		);
+	}
 }

@@ -9,4 +9,22 @@
     <welcome-file>default.jsp</welcome-file>
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
+  
+  <filter>
+    <filter-name>AF</filter-name>
+    <filter-class>br.com.parking.controller.AuthorizationFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>AF</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  <servlet>
+    <servlet-name>Controller</servlet-name>
+    <servlet-class>br.com.parking.controller.Controller</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Controller</servlet-name>
+    <url-pattern>/*</url-pattern>
+  </servlet-mapping>
 </web-app>
