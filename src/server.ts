@@ -1,6 +1,6 @@
 import express from "express";
 import { routes } from "./routes";
-import { runDb } from "./services/connection";
+import { runDb } from "./config/dbConnection";
 
 const app = express();
 const port = 8080;
