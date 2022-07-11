@@ -1,7 +1,7 @@
-import { EstablishmentRepository } from "../repositories/EstablishmentRepository";
+import { EstablishmentModel } from "../models/EstablishmentModel";
 
-class EstablishmentService {
-    create(
+class EstablishmentRepository {
+    async create(
         name: string,
         cnpj: string,
         address: string,
@@ -9,17 +9,18 @@ class EstablishmentService {
         qtmotospace: number,
         qtcarspace: number
     ) {
-        const establishment = new EstablishmentRepository();
-
-        return establishment.create(
+        const establishment = new EstablishmentModel({
             name,
             cnpj,
             address,
             phonenumber,
             qtmotospace,
             qtcarspace
-        );
+        });
+
+        await establishment.save();
+        return establishment;
     }
 }
 
-export { EstablishmentService };
+export { EstablishmentRepository };

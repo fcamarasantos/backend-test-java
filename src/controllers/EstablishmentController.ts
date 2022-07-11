@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { EstablishmentService } from "../services/EstablishmentService";
 
 class EstablishmentController {
-    async create(req: Request, res: Response) {
+    async createEstablishment(req: Request, res: Response) {
         try {
             const {
                 name,
@@ -14,7 +14,7 @@ class EstablishmentController {
             } = req.body;
 
             const service = new EstablishmentService();
-            const establishment = service.execute(
+            const establishment = await service.create(
                 name,
                 cnpj,
                 address,
@@ -23,10 +23,9 @@ class EstablishmentController {
                 qtcarspace
             );
 
-            await establishment.save();
-            res.status(201).send({ data: establishment });
+            return res.status(201).send({ data: establishment });
         } catch (error) {
-            res.status(500).send(error);
+            return res.status(500).send(error);
         }
     }
 }
