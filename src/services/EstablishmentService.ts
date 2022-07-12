@@ -20,6 +20,12 @@ class EstablishmentService {
             qtcarspace
         );
     }
+
+    listAll() {
+        const establishment = new EstablishmentRepository();
+
+        return establishment.findAll();
+    }
 }
 
 export { EstablishmentService };

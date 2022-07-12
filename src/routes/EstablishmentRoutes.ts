@@ -9,3 +9,7 @@ establishmentRoutes.post(
     "/establishments",
     establishmentController.createEstablishment
 );
+establishmentRoutes.get(
+    "/establishments",
+    establishmentController.listAllEstablishments
+);

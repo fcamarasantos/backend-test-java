@@ -21,6 +21,12 @@ class EstablishmentRepository {
         await establishment.save();
         return establishment;
     }
+
+    async findAll() {
+        const allEstablishments = await EstablishmentModel.find();
+
+        return allEstablishments;
+    }
 }
 
 export { EstablishmentRepository };
