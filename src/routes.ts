@@ -9,4 +9,4 @@ const vehicleController = new VehicleController();
 
 routes.post("/establishments", establishmentController.createEstablishment);
 
-routes.post("/vehicles", vehicleController.create);
+routes.post("/vehicles", vehicleController.createVehicle);
