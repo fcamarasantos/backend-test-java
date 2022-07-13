@@ -40,6 +40,36 @@ class EstablishmentController {
             return res.status(500).send(error);
         }
     }
+
+    async updateEstablishment(req: Request, res: Response) {
+        try {
+            const { id } = req.params;
+            const {
+                name,
+                cnpj,
+                address,
+                phonenumber,
+                qtmotospace,
+                qtcarspace
+            } = req.body;
+
+            const service = new EstablishmentService();
+
+            await service.update(
+                id,
+                name,
+                cnpj,
+                address,
+                phonenumber,
+                qtmotospace,
+                qtcarspace
+            );
+
+            return res.status(201).send({ status: "Atualizado com sucesso." });
+        } catch (error) {
+            return res.status(500).send({ error });
+        }
+    }
 }
 
 export { EstablishmentController };

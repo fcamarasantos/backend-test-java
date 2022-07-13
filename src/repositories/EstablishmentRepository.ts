@@ -27,6 +27,28 @@ class EstablishmentRepository {
 
         return allEstablishments;
     }
+
+    async updateOne(
+        id: string,
+        name: string,
+        cnpj: string,
+        address: string,
+        phonenumber: string,
+        qtmotospace: number,
+        qtcarspace: number
+    ) {
+        const establishment = await EstablishmentModel.updateOne({
+            id,
+            name,
+            cnpj,
+            address,
+            phonenumber,
+            qtmotospace,
+            qtcarspace
+        });
+
+        return establishment;
+    }
 }
 
 export { EstablishmentRepository };
