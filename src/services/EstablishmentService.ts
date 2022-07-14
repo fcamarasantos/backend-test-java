@@ -48,6 +48,12 @@ class EstablishmentService {
             qtcarspace
         );
     }
+
+    delete(id: string) {
+        const establishment = new EstablishmentRepository();
+
+        return establishment.deleteOne(id);
+    }
 }
 
 export { EstablishmentService };

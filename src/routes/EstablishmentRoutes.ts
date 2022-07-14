@@ -17,3 +17,7 @@ establishmentRoutes.put(
     "/establishments/:id",
     establishmentController.updateEstablishment
 );
+establishmentRoutes.delete(
+    "/establishments/:id",
+    establishmentController.deleteEstablishment
+);

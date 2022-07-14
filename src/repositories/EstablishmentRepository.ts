@@ -49,6 +49,12 @@ class EstablishmentRepository {
 
         return establishment;
     }
+
+    async deleteOne(id: string) {
+        const establishment = await EstablishmentModel.deleteOne({ id });
+
+        return establishment;
+    }
 }
 
 export { EstablishmentRepository };

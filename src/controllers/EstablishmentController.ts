@@ -70,6 +70,20 @@ class EstablishmentController {
             return res.status(500).send({ error });
         }
     }
+
+    async deleteEstablishment(req: Request, res: Response) {
+        try {
+            const { id } = req.params;
+
+            const service = new EstablishmentService();
+
+            await service.delete(id);
+
+            return res.status(200).send({ status: "Excluído com sucesso." });
+        } catch (error) {
+            return res.status(500).send({ error });
+        }
+    }
 }
 
 export { EstablishmentController };
