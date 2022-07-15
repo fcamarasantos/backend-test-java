@@ -52,7 +52,7 @@ class EstablishmentRepository {
     }
 
     async deleteOne(id: string) {
-        const establishment = await EstablishmentModel.deleteOne({ id });
+        const establishment = await EstablishmentModel.deleteOne({ _id: id });
 
         return establishment;
     }
