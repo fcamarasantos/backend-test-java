@@ -37,8 +37,9 @@ class EstablishmentRepository {
         qtmotospace: number,
         qtcarspace: number
     ) {
-        const establishment = await EstablishmentModel.updateOne({
-            id,
+        const establishment = await EstablishmentModel.where({
+            _id: id
+        }).updateOne({
             name,
             cnpj,
             address,
