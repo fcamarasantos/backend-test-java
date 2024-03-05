@@ -1,14 +1,19 @@
 package com.desafioFcamara.model;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lombok.Builder;
 
-@Builder
+
 @Entity
 @Table(name = "Estabelecimento")
 
@@ -41,7 +46,13 @@ public class Estabelecimento {
     @Column (name = "qtdMotosEstacionadas", nullable = false)
     private int qtdMotosEstacionadas;
 
-    public Estabelecimento(int id, String nome, int cnpj, String endereco, int telefone, int vagasMotos, int vagasCarros, int qtdCarrosEstacionados, int qtdMotosEstacionadas){
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "veiculos",
+            joinColumns = {@JoinColumn(name = "estabelecimento_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "veiculo_id", referencedColumnName = "id")})
+    private List<Veiculo> veiculos;
+
+    public Estabelecimento(int id, String nome, int cnpj, String endereco, int telefone, int vagasMotos, int vagasCarros, int qtdCarrosEstacionados, int qtdMotosEstacionadas, List <Veiculo> veiculos){
         this.id = id;
         this.nome = nome;
         this.cnpj = cnpj;
@@ -51,6 +62,7 @@ public class Estabelecimento {
         this.vagasCarros = vagasCarros;
         this.qtdCarrosEstacionados = qtdCarrosEstacionados;
         this.qtdMotosEstacionadas = qtdMotosEstacionadas;
+        this.veiculos = veiculos;
     }
 
     //getters
