@@ -19,15 +19,15 @@ public class ParkingLot {
     @Setter
     @Column(name = "name", nullable = false) private String name;
     @Setter
-    @Column(name = "cnpj", nullable = false, unique = true, length = 14) private int cnpj;
+    @Column(name = "cnpj", nullable = false, unique = true, length = 14) private String cnpj;
     @Setter
     @Column(name = "address", nullable = false) private String address;
     @Setter
-    @Column(name = "phonenumber", nullable = false, unique = true, length = 11) private int phoneNumber;
+    @Column(name = "phonenumber", nullable = false, unique = true, length = 11) private String phoneNumber;
     @Setter
-    @Column(name = "vacancymotorcycle", nullable = false) private int vacancyMotorcycle;
+    @Column(name = "motorcycleSpaces", nullable = false) private int motorcycleSpaces;
     @Setter
-    @Column(name = "vacancycar", nullable = false) private int vacancyCar;
+    @Column(name = "carSpaces", nullable = false) private int carSpaces;
     @Setter
     @Column(name = "totalparkedmotorcycle") private int totalParkedMotorcycle;
     @Setter

@@ -15,11 +15,17 @@ public class Vehicle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Setter private String brand;
-    @Setter private String model;
-    @Setter private String color;
-    @Setter private LicensePlate licensePlate;
-    @Setter private VehicleType vehicleType;
+    @Setter
+    @Column(name = "brand", nullable = false) private String brand;
+    @Setter
+    @Column(name = "model", nullable = false) private String model;
+    @Setter
+    @Column(name = "color", nullable = false) private String color;
+    @Setter
+    @Column(name = "licensePlate", nullable = false, unique = true) private String licensePlate;
+    @Setter
+    @Column(name = "vehicleType", nullable = false) private VehicleType vehicleType;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parkinglot_id")
