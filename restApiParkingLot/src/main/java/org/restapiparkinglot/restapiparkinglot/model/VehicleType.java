@@ -1,4 +1,6 @@
 package org.restapiparkinglot.restapiparkinglot.model;
 
-public class VehicleType {
+public enum VehicleType {
+    CAR,
+    MOTORCYCLE
 }
