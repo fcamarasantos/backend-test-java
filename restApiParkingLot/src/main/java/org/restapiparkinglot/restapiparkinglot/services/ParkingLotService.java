@@ -6,14 +6,14 @@ import org.restapiparkinglot.restapiparkinglot.exception.NotFoundException;
 import org.restapiparkinglot.restapiparkinglot.model.ParkingLot;
 import org.restapiparkinglot.restapiparkinglot.repository.ParkingLotRepository;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ParkingLotService {
-    final
+    @Autowired
     ParkingLotRepository parkingLotRepository;
 
     public ParkingLotService(ParkingLotRepository parkingLotRepository) {
