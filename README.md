@@ -1,58 +1,22 @@
-### FCamara 🚀
-*"Queremos ser como uma árvore, 
-  crescer um pouco todos os dias e tentar tocar o céu, 
-  sem perder a solidez de nossas raízes."*
-Conheça: www.fcamara.com.br
+# Estacionamento API REST 🅿️🚗 (em construção)
+<p align="justify">
+A fim de aprimorar meus conhecimentos na àrea de Back-End, escolhi este desafio para criar um API Rest em Java, utilizando Spring-Boot framework. A aplicação fora construída através de pesquisa de documentação disponível on-line, aulas on-line, sugestões, e análise de outros códigos. Considere ser esta minha primeira aplicação em Java e Spring-Boot, havendo espaço para melhorias, estando à dispoção para sugestões, as quais as recebo de bom grado. Alias, estou tendo dificuldade em configurar o Swagger, acarrentando em erro ao rodar a aplicação, o que não ocorre quando o código do arquivo SwaggerConfig.java é comentado. Deixarei prints caso ajude a avaliar. Caso alguém saiba a razão, agradeço de coração. Abaixo seguem as especifidades do projeto.
+</p>
 
-## Teste para vaga de Desenvolvedor Back-end
-Criar uma API REST para gerenciar um estacionamento de carros e motos.
+## Funcionalidades 
 
-## Cadastro de estabelecimento
+☑️Cadastrar, pesquisar, alterar e deletar estabelecimentos com seus nomes, CNPJs, endereços, telefones, quantidade de vagas para carros e quantidade de vagas para motos.<br> 
+☑️Cadastrar, pesquisar, alterar e deletar veículos com suas marcas, modelos, cores, placas e tipo.<br>
+☑️Controle de entrada e saída de veículos.<br>
 
-Criar um cadastro da empresa com os seguintes campos:
-- Nome;
-- CNPJ;
-- Endereço;
-- Telefone;
-- Quantidade de vagas para motos;
-- Quantidade de vagas para carros.
+## Tecnologias
 
-**Todos** os campos são de preenchimento obrigatório.
+- [Intellij IDEA](https://www.jetbrains.com/pt-br/idea/)
+- [Maven](https://maven.apache.org/)
+- [Spring Boot](https://spring.io/projects/spring-boot)
+- [PostgreSQL](https://www.postgresql.org)
 
-## Cadastro de veículos
+## Diagrama
 
-Criar um cadastro de veículos com os seguintes campos:
-- Marca;
-- Modelo;
-- Cor;
-- Placa;
-- Tipo.
 
-**Todos** os campos são de preenchimento obrigatório.
-
-## Funcionalidades
-
-   - **Estabelecimento:** CRUD;
-   - **Veículos:** CRUD;
-   - **Controle de entrada e saída de veículos.**
-
-## Requisitos
-
-   - Modelagem de dados;
-   - O retorno deverá ser em formato JSON e XML;
-   - Requisições GET, POST, PUT ou DELETE, conforme a melhor prática;
-   - A persistência dos dados pode ser realizada da maneira que preferir;
-   - Criar README do projeto descrevendo as tecnologias utilizadas, chamadas dos serviços e configurações necessário para executar a aplicação.
-   
-## Ganha mais pontos
-   - Desenvolver utilizando TDD;
-   - Criar API de relatório;
-   - Sumário da quantidade de entrada e saída;
-   - Sumário da quantidade de entrada e saída de veículos por hora;
-   - Criar uma solução de autenticação.
-
-## Submissão
-Crie um fork do teste para acompanharmos o seu desenvolvimento através dos seus commits.
-
-## Obrigado!
-Agradecemos sua participação no teste. Boa sorte! 😄
+## Como testar
