@@ -16,10 +16,6 @@ public class ParkingLotService {
     @Autowired
     ParkingLotRepository parkingLotRepository;
 
-    public ParkingLotService(ParkingLotRepository parkingLotRepository) {
-        this.parkingLotRepository = parkingLotRepository;
-    }
-
     public List<ParkingLot> findAll() {
         return parkingLotRepository.findAll();
     }

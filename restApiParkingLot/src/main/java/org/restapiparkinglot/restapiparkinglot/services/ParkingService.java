@@ -13,8 +13,9 @@ import org.springframework.stereotype.Service;
 public class ParkingService {
     @Autowired
     private VehicleRepository vehicleRepository;
-    private ParkingLotRepository parkingLotRepository;
 
+    @Autowired
+    private ParkingLotRepository parkingLotRepository;
 
     public String entry(int parkingLotId, int vehicleId) throws NotFoundException{
         ParkingLot parkingLot = parkingLotRepository.findById(parkingLotId)

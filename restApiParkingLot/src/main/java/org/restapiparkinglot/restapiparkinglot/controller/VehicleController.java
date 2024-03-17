@@ -20,17 +20,17 @@ public class VehicleController {
     private VehicleService vehicleService;
 
     @GetMapping
-    public ResponseEntity<List<Vehicle>> findAll(){
+    public ResponseEntity<List<Vehicle>> findAllVehicles(){
         return ResponseEntity.status(HttpStatus.OK).body(vehicleService.findAll());
     }
 
     @GetMapping (value = "/{id}")
-    public ResponseEntity<Object> findVehicleById(@PathVariable(value = "id") int id) throws NotFoundException {
+    public ResponseEntity<Object> findVehicleById(@PathVariable("id") int id) throws NotFoundException {
         return ResponseEntity.status(HttpStatus.OK).body(vehicleService.retrieveById(id));
     }
 
     @GetMapping (value = "/{licensePlate}")
-    public ResponseEntity<Object> findVehicleByLicensePlate(@PathVariable(value = "licensePlate") String licensePlate) throws NotFoundException{
+    public ResponseEntity<Object> findVehicleByLicensePlate(@PathVariable("licensePlate") String licensePlate) throws NotFoundException{
         return ResponseEntity.status(HttpStatus.OK).body(vehicleService.retrieveByLicensePlate(licensePlate));
     }
 
@@ -40,7 +40,7 @@ public class VehicleController {
     }
 
     @PutMapping (value = "/{id}")
-    public ResponseEntity<Object> updateVehicle(@RequestBody @Valid VehicleDTO vehicleDTO, @PathVariable(value = "id") int id) throws NotFoundException{
+    public ResponseEntity<Object> updateVehicle(@RequestBody @Valid VehicleDTO vehicleDTO, @PathVariable("id") int id) throws NotFoundException{
         Vehicle vehicle = vehicleService.retrieveById(id);
         
         BeanUtils.copyProperties(vehicleDTO,vehicle);
@@ -48,7 +48,7 @@ public class VehicleController {
     }
 
     @DeleteMapping (value = "/{id}")
-    public ResponseEntity<String> deleteVehicle(@PathVariable(value = "id") int id) throws NotFoundException{
+    public ResponseEntity<String> deleteVehicle(@PathVariable("id") int id) throws NotFoundException{
         return ResponseEntity.status(HttpStatus.OK).body(vehicleService.delete(id));
 
     }

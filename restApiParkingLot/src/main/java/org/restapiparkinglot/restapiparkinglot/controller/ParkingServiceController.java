@@ -14,12 +14,12 @@ public class ParkingServiceController {
     private ParkingService parkingService;
 
     @PostMapping(path = "/{parkingLot}/entry/{vehicle}")
-    public ResponseEntity<String> entryVehicle(@PathVariable int parkingLotId, @PathVariable int vehicleId){
+    public ResponseEntity<String> entryVehicle(@PathVariable("parkingLot") int parkingLotId, @PathVariable("vehicle") int vehicleId){
         return ResponseEntity.status(HttpStatus.OK).body(parkingService.entry(parkingLotId, vehicleId));
     }
 
     @PostMapping(path = "/{parkingLot}/exit/{vehicle}")
-    public ResponseEntity<String> exitVehicle(@PathVariable int parkingLotId, @PathVariable int vehicleId){
+    public ResponseEntity<String> exitVehicle(@PathVariable("parkingLot") int parkingLotId, @PathVariable("vehicle") int vehicleId){
         return ResponseEntity.status(HttpStatus.OK).body(parkingService.exit(parkingLotId, vehicleId));
     }
 
