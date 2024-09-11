@@ -26,7 +26,7 @@ public class EstablishmentController {
     @Autowired
     private EstablishmentService establishmentService;
 
-    @Operation(summary = "Create a new establishment")
+    @Operation(summary = "Criar novo Estabelecimento", description = "Enviando um objeto EstablishmentData, um novo estabelecimento será criado")
     @PostMapping
     @Transactional
     public ResponseEntity<EstablishmentDataDetails> createEstablishment(@RequestBody @Valid EstablishmentData establishmentData, UriComponentsBuilder uriBuilder) {
@@ -36,18 +36,21 @@ public class EstablishmentController {
         return ResponseEntity.created(uri).body(new EstablishmentDataDetails(establishment));
     }
 
+    @Operation(summary = "Listar todos os estabelecimentos", description = "Listar todos os estabelecimentos ordenados por nome")
     @GetMapping("/{size}")
     public ResponseEntity<Page<EstablishmentList>> getEstablishments(@PageableDefault(size = 10) Pageable page, @PathVariable Integer size) {
         Pageable pageable = PageRequest.of(page.getPageNumber(), size);
         return ResponseEntity.ok(establishmentService.getEstablishments(pageable));
     }
 
+    @Operation(summary = "Obter um estabelecimento por ID", description = "Obter um estabelecimento por ID")
     @GetMapping("getById/{id}")
     public ResponseEntity<EstablishmentData> getEstablishmentById(@PathVariable Long id) {
         var establishment = establishmentService.getById(id);
         return ResponseEntity.ok(new EstablishmentData(establishment));
     }
 
+    @Operation(summary = "Atualizar um estabelecimento", description = "Atualizar um estabelecimento")
     @PutMapping
     public ResponseEntity<EstablishmentDataDetails> updateEstablishment(@RequestBody EstablishmentDataDetails establishmentData) {
         var establishment = establishmentService.getById(establishmentData.id());
@@ -55,6 +58,7 @@ public class EstablishmentController {
         return ResponseEntity.ok(new EstablishmentDataDetails(establishment));
     }
 
+    @Operation(summary = "Deletar um estabelecimento", description = "Deletar um estabelecimento")
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity<Void> deleteEstablishment(@PathVariable Long id) {
