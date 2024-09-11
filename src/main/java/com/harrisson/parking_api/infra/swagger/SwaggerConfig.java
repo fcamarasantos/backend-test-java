@@ -24,7 +24,7 @@ public class SwaggerConfig {
                 .info(new Info()
                         .title("API Parking")
                         .version("v1")
-                        .description("Documentação da API para Estacionamento\n\nURL Base: ")
+                        .description("Documentação da API para Estacionamento\n\nURL Base: parkingapi-production-0b39.up.railway.app ")
                         .termsOfService("http://swagger.io/terms/")
                         .license(new License().name("Apache 2.0").url("http://springdoc.org")));
     }
