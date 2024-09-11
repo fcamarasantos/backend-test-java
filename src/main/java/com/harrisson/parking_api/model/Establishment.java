@@ -16,7 +16,6 @@ import lombok.NoArgsConstructor;
 public class Establishment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
     private Long id;
 
     private String name;
@@ -37,7 +36,6 @@ public class Establishment {
         this.carQuantity = establishmentData.carQuantity();
     }
 
-
     public void updateEstablishment(Establishment establishmenUpdateData) {
         if (establishmenUpdateData.name != null) this.name = establishmenUpdateData.name;
         if (establishmenUpdateData.cnpj != null) this.cnpj = establishmenUpdateData.cnpj;
@@ -46,6 +44,5 @@ public class Establishment {
         if (establishmenUpdateData.motorcycleQuantity != null)
             this.motorcycleQuantity = establishmenUpdateData.motorcycleQuantity;
         if (establishmenUpdateData.carQuantity != null) this.carQuantity = establishmenUpdateData.carQuantity;
-
     }
 }

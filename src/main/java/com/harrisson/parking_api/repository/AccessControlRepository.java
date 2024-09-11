@@ -48,4 +48,7 @@ public interface AccessControlRepository extends JpaRepository<AccessControl, Lo
     @Query("SELECT YEAR(a.entryTime) as year, COUNT(a) as count FROM AccessControl a WHERE a.establishment.id = :establishmentId GROUP BY YEAR(a.entryTime)")
     List<Object[]> countVehiclesByYear(Long establishmentId);
 
+    @Query("SELECT e.establishment.name FROM AccessControl e WHERE e.id = :establishmentId")
+    String findEstablishmentNameById(Long establishmentId);
+
 }

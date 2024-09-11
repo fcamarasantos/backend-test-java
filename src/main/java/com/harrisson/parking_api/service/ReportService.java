@@ -1,5 +1,6 @@
 package com.harrisson.parking_api.service;
 
+import com.harrisson.parking_api.enums.Type;
 import com.harrisson.parking_api.model.Report;
 import com.harrisson.parking_api.repository.AccessControlRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,19 +18,30 @@ public class ReportService {
     private AccessControlRepository accessControlRepository;
 
     public Report generateReport(Long establishmentId) {
-        // Lógica para gerar o relatório
-        String establishmentName = "Nome do Estabelecimento"; // Obtenha o nome do estabelecimento
-        int totalVehicles = accessControlRepository.countByEstablishmentId(establishmentId);
-        int totalMotorcycles = accessControlRepository.countByEstablishmentIdAndVehicleType(establishmentId, "MOTORCYCLE");
-        int totalCars = accessControlRepository.countByEstablishmentIdAndVehicleType(establishmentId, "CAR");
+        String establishmentName = accessControlRepository.findEstablishmentNameById(establishmentId);
 
+        int totalMotorcycles;
+        int totalCars;
+        int totalVehicles;
+        try {
+            totalMotorcycles = accessControlRepository.countByEstablishmentIdAndVehicleType(establishmentId, Type.MOTORCYCLE.toString());
+            totalCars = accessControlRepository.countByEstablishmentIdAndVehicleType(establishmentId, Type.CAR.toString());
+            totalVehicles = totalMotorcycles + totalCars;
+        } catch (Exception e) {
+            totalMotorcycles = 0;
+            totalCars = 0;
+            totalVehicles = 0;
+        }
         return new Report(establishmentName, totalVehicles, totalMotorcycles, totalCars, LocalDateTime.now());
     }
+
     public Map<Integer, Long> getVehicleCountByHour(Long establishmentId, LocalDateTime startTime, LocalDateTime endTime) {
         List<Object[]> results = accessControlRepository.countVehiclesByHour(establishmentId, startTime, endTime);
         return results.stream().collect(Collectors.toMap(
                 result -> (Integer) result[0],
-                result -> (Long) result[1]
+                result -> (Long) result[1],
+                (oldValue, newValue) -> oldValue,
+                () -> new java.util.HashMap<>(Map.of(0, 0L))
         ));
     }
 
@@ -37,7 +49,9 @@ public class ReportService {
         List<Object[]> results = accessControlRepository.countVehiclesByDay(establishmentId);
         return results.stream().collect(Collectors.toMap(
                 result -> (LocalDateTime) result[0],
-                result -> (Long) result[1]
+                result -> (Long) result[1],
+                (oldValue, newValue) -> oldValue,
+                () -> new java.util.HashMap<>(Map.of(LocalDateTime.MIN, 0L))
         ));
     }
 
@@ -45,7 +59,9 @@ public class ReportService {
         List<Object[]> results = accessControlRepository.countVehiclesByType(establishmentId);
         return results.stream().collect(Collectors.toMap(
                 result -> (String) result[0],
-                result -> (Long) result[1]
+                result -> (Long) result[1],
+                (oldValue, newValue) -> oldValue,
+                () -> new java.util.HashMap<>(Map.of("", 0L))
         ));
     }
 
@@ -55,7 +71,9 @@ public class ReportService {
                 result -> (String) result[1],
                 Collectors.toMap(
                         result -> (Integer) result[0],
-                        result -> (Long) result[2]
+                        result -> (Long) result[2],
+                        (oldValue, newValue) -> oldValue,
+                        () -> new java.util.HashMap<>(Map.of(0, 0L))
                 )
         ));
     }
@@ -72,7 +90,9 @@ public class ReportService {
         List<Object[]> results = accessControlRepository.countEntriesByHour(establishmentId, startTime, endTime);
         return results.stream().collect(Collectors.toMap(
                 result -> (Integer) result[0],
-                result -> (Long) result[1]
+                result -> (Long) result[1],
+                (oldValue, newValue) -> oldValue,
+                () -> new java.util.HashMap<>(Map.of(0, 0L))
         ));
     }
 
@@ -80,7 +100,9 @@ public class ReportService {
         List<Object[]> results = accessControlRepository.countExitsByHour(establishmentId, startTime, endTime);
         return results.stream().collect(Collectors.toMap(
                 result -> (Integer) result[0],
-                result -> (Long) result[1]
+                result -> (Long) result[1],
+                (oldValue, newValue) -> oldValue,
+                () -> new java.util.HashMap<>(Map.of(0, 0L))
         ));
     }
 
@@ -88,7 +110,9 @@ public class ReportService {
         List<Object[]> results = accessControlRepository.countVehiclesByMonth(establishmentId, year);
         return results.stream().collect(Collectors.toMap(
                 result -> (Integer) result[0],
-                result -> (Long) result[1]
+                result -> (Long) result[1],
+                (oldValue, newValue) -> oldValue,
+                () -> new java.util.HashMap<>(Map.of(0, 0L))
         ));
     }
 
@@ -96,7 +120,9 @@ public class ReportService {
         List<Object[]> results = accessControlRepository.countVehiclesByYear(establishmentId);
         return results.stream().collect(Collectors.toMap(
                 result -> (Integer) result[0],
-                result -> (Long) result[1]
+                result -> (Long) result[1],
+                (oldValue, newValue) -> oldValue,
+                () -> new java.util.HashMap<>(Map.of(0, 0L))
         ));
     }
 }

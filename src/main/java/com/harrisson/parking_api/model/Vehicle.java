@@ -36,11 +36,11 @@ public class Vehicle {
     }
 
     public void updateVehicle(Vehicle vehicle) {
-        if (vehicle.brand != null) this.brand = vehicle.brand;
-        if (vehicle.model != null) this.model = vehicle.model;
-        if (vehicle.color != null) this.color = vehicle.color;
-        if (vehicle.plate != null) this.plate = vehicle.plate;
-        if (vehicle.type != null) this.type = vehicle.type;
+        if (vehicle.getBrand() != null) this.brand = vehicle.getBrand();
+        if (vehicle.getModel() != null) this.model = vehicle.getModel();
+        if (vehicle.getColor() != null) this.color = vehicle.getColor();
+        if (vehicle.getPlate() != null) this.plate = vehicle.getPlate();
+        if (vehicle.getType() != null) this.type = vehicle.getType();
     }
 }
 

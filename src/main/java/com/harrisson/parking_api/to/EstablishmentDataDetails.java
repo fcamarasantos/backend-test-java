@@ -12,7 +12,7 @@ public record EstablishmentDataDetails(
         Integer motorcycleQuantity, // Quantidade de vagas para motos.
         Integer carQuantity, // Quantidade de vagas para carros.
         Boolean active
-        ) {
+) {
     public EstablishmentDataDetails(Establishment establishment) {
         this(establishment.getId(),
                 establishment.getName(),
@@ -22,5 +22,17 @@ public record EstablishmentDataDetails(
                 establishment.getMotorcycleQuantity(),
                 establishment.getCarQuantity(),
                 establishment.getActive());
+    }
+
+    public Establishment toEntity() {
+        Establishment establishment = new Establishment();
+        establishment.setId(this.id);
+        establishment.setName(this.name);
+        establishment.setCnpj(this.cnpj);
+        establishment.setAddress(this.address);
+        establishment.setPhone(this.phone);
+        establishment.setMotorcycleQuantity(this.motorcycleQuantity);
+        establishment.setCarQuantity(this.carQuantity);
+        return establishment;
     }
 }

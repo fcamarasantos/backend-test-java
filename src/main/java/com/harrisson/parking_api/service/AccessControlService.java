@@ -27,7 +27,7 @@ public class AccessControlService {
         Establishment establishment = establishmentService.getById(establishmentId);
 
         if (vehicle.getType().equals(Type.CAR)) {
-            int currentCarCount = accessControlRepository.countByEstablishmentIdAndVehicleType(establishmentId, "CAR");
+            int currentCarCount = accessControlRepository.countByEstablishmentIdAndVehicleType(establishmentId, "MOTORCYCLE");
             if (currentCarCount >= establishment.getCarQuantity()) {
                 throw new RuntimeException("Limite de vagas para carros atingido");
             }

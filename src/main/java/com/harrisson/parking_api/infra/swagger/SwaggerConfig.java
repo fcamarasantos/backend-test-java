@@ -8,6 +8,9 @@ import org.springdoc.core.customizers.OpenApiCustomizer;
 import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
@@ -33,7 +36,7 @@ public class SwaggerConfig {
     public GroupedOpenApi api(RequestMappingHandlerMapping handlerMapping) {
         return GroupedOpenApi.builder()
                 .group("api")
-                .pathsToMatch("/establishments/**", "/access-controls/**", "/reports/**", "/access-controls/**","/vehicles/**")
+                .pathsToMatch("/establishments/**", "/access-controls/**", "/reports/**", "/access-controls/**", "/vehicles/**")
                 .packagesToScan("com.harrisson.parking_api.controller")
                 .addOpenApiCustomizer(filterControllers(handlerMapping))
                 .build();
@@ -53,6 +56,16 @@ public class SwaggerConfig {
             });
         };
     }
+
+    @Bean
+    public CorsFilter corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true);
+        config.addAllowedOriginPattern("*"); // Allow all origins
+        config.addAllowedHeader("*");
+        config.addAllowedMethod("*");
+        source.registerCorsConfiguration("/**", config);
+        return new CorsFilter(source);
+    }
 }
-
-

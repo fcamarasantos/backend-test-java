@@ -14,6 +14,17 @@ public record EstablishmentData(
     public EstablishmentData(Establishment establishment) {
         this(establishment.getName(), establishment.getCnpj(), establishment.getAddress(), establishment.getPhone(), establishment.getMotorcycleQuantity(), establishment.getCarQuantity());
     }
+
+    public Establishment toEntity() {
+        Establishment establishment = new Establishment();
+        establishment.setName(this.name);
+        establishment.setCnpj(this.cnpj);
+        establishment.setAddress(this.address);
+        establishment.setPhone(this.phone);
+        establishment.setMotorcycleQuantity(this.motorcycleQuantity);
+        establishment.setCarQuantity(this.carQuantity);
+        return establishment;
+    }
 }
 
 
