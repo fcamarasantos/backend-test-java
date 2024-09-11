@@ -36,7 +36,7 @@ public class SwaggerConfig {
     public GroupedOpenApi api(RequestMappingHandlerMapping handlerMapping) {
         return GroupedOpenApi.builder()
                 .group("api")
-                .pathsToMatch("/establishments/**", "/access-controls/**", "/reports/**", "/access-controls/**", "/vehicles/**")
+                .pathsToMatch("/**")
                 .packagesToScan("com.harrisson.parking_api.controller")
                 .addOpenApiCustomizer(filterControllers(handlerMapping))
                 .build();
@@ -56,7 +56,6 @@ public class SwaggerConfig {
             });
         };
     }
-
     @Bean
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
