@@ -33,7 +33,7 @@ public class SwaggerConfig {
     public GroupedOpenApi api(RequestMappingHandlerMapping handlerMapping) {
         return GroupedOpenApi.builder()
                 .group("api")
-                .pathsToMatch("/establishments/**", "/access-controls/**, ", "/reports/**", "/access-controls/**")
+                .pathsToMatch("/establishments/**", "/access-controls/**", "/reports/**", "/access-controls/**","/vehicles/**")
                 .packagesToScan("com.harrisson.parking_api.controller")
                 .addOpenApiCustomizer(filterControllers(handlerMapping))
                 .build();
