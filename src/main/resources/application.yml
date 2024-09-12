@@ -21,8 +21,3 @@ spring:
         show_sql: false
   jackson:
     time-zone: America/Sao_Paulo
-
-api:
-  security:
-    token:
-      secret: ${JWT_TOKEN:secret-key}
