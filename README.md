@@ -1,79 +1,244 @@
-### FCamara 🚀
+## Projeto Spring Boot - Sistema de Gestão de Estacionamento
+API REST para gerecenciamento de estacionamento de veículos (carros e motos), com funcionalidades de cadastro de estabelecimentos, veículos e controle de entrada e saída.
+Também foi adicionada funcionalidades de autenticação básica do Spring Security e geração de relatório básico em PDF, com detalhes e sumário de entrada e saída de veículos.
 
-*"Queremos ser como uma árvore, crescer um pouco todos os dias e tentar tocar o céu, sem perder a solidez de nossas raízes."*
-Conheça: www.fcamara.com.br
+## Tecnologias Utilizadas
+- Java 17
+- Spring Boot 3.3.3
+    - Spring Data JPA
+    - Spring Validation
+    - Spring Web
+    - Spring Security
+- Postgres
+- Lombok
+- IText para geração de PDFs.
 
-## Teste para vaga de Desenvolvedor Back-end
-Criar uma API REST para gerenciar um estacionamento de carros e motos.
+## Endpoints da API
+## Autenticação
+http://localhost:8080/parking-api/login
+user comum: pedro.lucas
+password: 1234
+user admin: admin
+password: 9876
 
-## Cadastro de estabelecimento
-Criar um cadastro da empresa com os seguintes campos:
-   - Nome;
-   - CNPJ;
-   - Endereço;
-   - Telefone;
-   - Quantidade de vagas para motos;
-   - Quantidade de vagas para carros.
+## Swagger
+http://localhost:8080/vehicle-api/swagger-ui/index.html
 
-**Todos** os campos são de preenchimento obrigatório.
+## Listar Estabelecimentos
+`GET /establishments`
+Retorna todos os estabelecimentos cadastrados caso não passe nenhum parametro no @RequestParam
+
+`GET /establishments/1`
+Retorna o estabelecimento por id
+
+
+`GET /establishments/cnpj/40245027000169`
+Retorna o estabelecimento por cnpj
+
+        `curl --location 'http://localhost:8080/establishments/cnpj/40245027000169' \
+        --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJiYWNrZW5kLXRlc3QtamF2YSIsInN1YiI6ImNpZHJhbyIsImV4cCI6MTcyNTQwMjM5OH0.tzwqHXPgZAuxycrMPaYOoZ7fDSrxUtjE0c60V9gRkLU' \
+        --header 'Cookie: JSESSIONID=B263D8C31DE84FC86B3A000503B8C9A6'`
+
+
+## Atualiza Estabelecimento
+
+`PUT 'http://localhost:8080/establishments/9e5f5223-ead1-4a7f-9bce-2dbd0ad63b13`
+
+        `curl --location --request PUT 'http://localhost:8080/establishments/9e5f5223-ead1-4a7f-9bce-2dbd0ad63b13' \
+        --header 'Content-Type: application/json' \
+        --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJiYWNrZW5kLXRlc3QtamF2YSIsInN1YiI6ImNpZHJhbyIsImV4cCI6MTcyNTQwMjM5OH0.tzwqHXPgZAuxycrMPaYOoZ7fDSrxUtjE0c60V9gRkLU' \
+        --header 'Cookie: JSESSIONID=B263D8C31DE84FC86B3A000503B8C9A6' \
+        --data '{
+            "name": "ESTACIONAMENTO DO FALCAO",
+            "cnpj": "40245027000169",
+            "address": {
+                "street": "RUA CORONEL JOAO CORDEIRO",
+                "number": "67",
+                "city": "CAPITAL DO CEARÁ"
+            },
+            "phone": "85998654679",
+            "numberCarSpaces": 10,
+            "numberMotorcycleSpaces": 10
+        }'`
+
+
+## Deleta Estabelecimento
+      `DELETE 'http://localhost:8080/establishments/3de98d93-c14e-4004-9842-a5844103578c`  
+          
+        
+        `curl --location --request DELETE 'http://localhost:8080/establishments/3de98d93-c14e-4004-9842-a5844103578c' \
+        --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJiYWNrZW5kLXRlc3QtamF2YSIsInN1YiI6ImNpZHJhbyIsImV4cCI6MTcyNTQwNzY2Nn0.udu8g7KpZzlxWglGVpvVXsLIEbwg02NjxvlKaAko0bI' \
+        --header 'Cookie: JSESSIONID=B263D8C31DE84FC86B3A000503B8C9A6'`
+
+* Alterar token da request passando o token gerado no `POST /auth/login`
+
 
 ## Cadastro de veículos
-Criar um cadastro de veículos com os seguintes campos:
-   - Marca;
-   - Modelo;
-   - Cor;
-   - Placa;
-   - Tipo.
+`POST /vehicles`
+- Exemplo de body da request:
+  #CARRO:
 
-**Todos** os campos são de preenchimento obrigatório.
+  `{
+  "brand": "FIAT",
+  "model": "CRONOS",
+  "color": "BRANCO",
+  "licencePlate": "ORT25B9",
+  "type": "CAR"
+  }`
 
-## Funcionalidades
-   - **Estabelecimento:** CRUD;
-   - **Veículos:** CRUD;
-   - **Controle de entrada e saída de veículos.**
+#MOTO:
+`{
+"brand": "YAMAHA",
+"model": "FACTOR 150",
+"color": "PRETO",
+"licencePlate": "HCG4T88",
+"type": "MOTORCYCLE"
+}`
 
-## Requisitos
-   - Modelagem de dados;
-   - O retorno deverá ser em formato JSON e XML;
-   - Requisições GET, POST, PUT ou DELETE, conforme a melhor prática;
-   - A persistência dos dados pode ser realizada da maneira que preferir;
-   - Criar README do projeto descrevendo as tecnologias utilizadas, chamadas dos serviços e configurações necessário para executar a aplicação.
-   
-## Ganha mais pontos
-   - Desenvolver utilizando TDD;
-   - Criar API de relatório;
-   - Sumário da quantidade de entrada e saída;
-   - Sumário da quantidade de entrada e saída de veículos por hora;
-   - Criar uma solução de autenticação.
 
-## Questionário para Avaliação de Competências
+      `curl --location 'http://localhost:8080/vehicles' \
+      --header 'Content-Type: application/json' \
+      --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJiYWNrZW5kLXRlc3QtamF2YSIsInN1YiI6ImNpZHJhbyIsImV4cCI6MTcyNTQwNjU2Nn0.FiS_A3QzP0893lb4IGbRO5JVmuaKPio5siE0Db_agSc' \
+      --header 'Cookie: JSESSIONID=B263D8C31DE84FC86B3A000503B8C9A6' \
+      --data '{
+          "brand": "FIAT",
+          "model": "CRONOS",
+          "color": "BRANCO",
+          "licencePlate": "ORT25B9",
+          "type": "CAR"
+      }'`
 
-### 1. GraphQL (Implementação BFF - Backend For Frontend)
-   - **Implementação:** Crie um BFF com GraphQL localmente para permitir as operações de CRUD e controle de entrada e saída de veículos. O BFF deve expor as operações e lidar com as interações entre o front-end e o back-end.
-   - **Disponibilização:** Após implementar o BFF, disponibilize o projeto publicamente no GitHub, com um link no README para o repositório.
-   - **Documentação:** Explique no README os benefícios de usar GraphQL no contexto do projeto, descrevendo também como configurar e rodar o BFF localmente.
-   - **Questões:** Além da implementação, responda às seguintes perguntas no README:
-      - **Pergunta 1**: Explique o que é o GraphQL e como ele se diferencia de uma API REST tradicional.
-      - **Pergunta 2**: Descreva como você implementaria o uso do GraphQL como BFF (Backend for Frontend) neste projeto de gerenciamento de estacionamento. Forneça exemplos práticos.
-      - **Pergunta 3**: Quais são os benefícios de utilizar GraphQL em relação à flexibilidade das consultas? Cite possíveis desafios ao utilizá-lo.
+* Alterar token da request passando o token gerado no `POST /auth/login`
 
-### 2. Banco de Dados (Nível Básico)
-   - **Pergunta 1**: Explique os principais conceitos de um banco de dados relacional, como tabelas, chaves primárias e estrangeiras.
-   - **Pergunta 2**: No contexto de uma aplicação de gerenciamento de estacionamento, como você organizaria a modelagem de dados para suportar as funcionalidades de controle de entrada e saída de veículos?
-   - **Pergunta 3**: Quais seriam as vantagens e desvantagens de utilizar um banco de dados NoSQL neste projeto?
 
-### 3. Agilidade (Nível Básico)
-   - **Pergunta 1**: Explique o conceito de metodologias ágeis e como elas impactam o desenvolvimento de software.
-   - **Pergunta 2**: No desenvolvimento deste projeto, como você aplicaria princípios ágeis para garantir entregas contínuas e com qualidade?
-   - **Pergunta 3**: Qual a importância da comunicação entre as equipes em um ambiente ágil? Dê exemplos de boas práticas.
+## Listar Veículos
+`GET http://localhost:8080/vehicles`
+Retorna todos os veículos cadastrados caso não passe nenhum parametro no @RequestParam
 
-### 4. DevOps (Nível Básico)
-   - **Pergunta 1**: O que é DevOps e qual a sua importância para o ciclo de vida de uma aplicação?
-   - **Pergunta 2**: Descreva como você integraria práticas de DevOps no desenvolvimento desta aplicação de estacionamento. Inclua exemplos de CI/CD.
-   - **Pergunta 3**: Cite as ferramentas que você usaria para automatizar o processo de deploy e monitoramento da aplicação.
 
-## Submissão
-Crie um fork do teste para acompanharmos o seu desenvolvimento através dos seus commits.
+        `curl --location 'http://localhost:8080/vehicles' \
+        --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJiYWNrZW5kLXRlc3QtamF2YSIsInN1YiI6ImNpZHJhbyIsImV4cCI6MTcyNTQwMjM5OH0.tzwqHXPgZAuxycrMPaYOoZ7fDSrxUtjE0c60V9gRkLU' \
+        --header 'Cookie: JSESSIONID=B263D8C31DE84FC86B3A000503B8C9A6'`
 
-## Obrigado!
-Agradecemos sua participação no teste. Boa sorte! 😄
+
+`GET http://localhost:8080/vehicles?brand=FIAT&model=CRONOS&color=BRANCO&type=CAR`
+Retorna todos os veículos cadastrados com os parametros fornecidos no @RequestParam
+
+        `curl --location 'http://localhost:8080/vehicles?brand=FIAT&model=CRONOS&color=BRANCO&type=CAR' \
+        --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJiYWNrZW5kLXRlc3QtamF2YSIsInN1YiI6ImNpZHJhbyIsImV4cCI6MTcyNTQwMjM5OH0.tzwqHXPgZAuxycrMPaYOoZ7fDSrxUtjE0c60V9gRkLU' \
+        --header 'Cookie: JSESSIONID=B263D8C31DE84FC86B3A000503B8C9A6'`
+
+`GET 'http://localhost:8080/vehicles/OCR5YBC'`
+Retorna um veículo buscando por placa
+
+      `curl --location 'http://localhost:8080/vehicles/OCR5YBC' \
+      --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJiYWNrZW5kLXRlc3QtamF2YSIsInN1YiI6ImNpZHJhbyIsImV4cCI6MTcyNTQwMjM5OH0.tzwqHXPgZAuxycrMPaYOoZ7fDSrxUtjE0c60V9gRkLU' \
+      --header 'Cookie: JSESSIONID=B263D8C31DE84FC86B3A000503B8C9A6'`
+
+
+## Atualiza veículo
+`PUT 'http://localhost:8080/vehicles/98bb3a2e-1dac-402b-9c58-ffdad2d54450`
+
+        `curl --location --request PUT 'http://localhost:8080/vehicles/98bb3a2e-1dac-402b-9c58-ffdad2d54450' \
+        --header 'Content-Type: application/json' \
+        --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJiYWNrZW5kLXRlc3QtamF2YSIsInN1YiI6ImNpZHJhbyIsImV4cCI6MTcyNTQwMjM5OH0.tzwqHXPgZAuxycrMPaYOoZ7fDSrxUtjE0c60V9gRkLU' \
+        --header 'Cookie: JSESSIONID=B263D8C31DE84FC86B3A000503B8C9A6' \
+        --data '{
+            "brand": "FIAT",
+            "model": "CRONOS",
+            "color": "BRANCO",
+            "licencePlate": "ORT25B9",
+            "type": "CAR"
+        }'`
+
+
+## Deleta um veículo
+`DELETE 'http://localhost:8080/vehicles/4d860137-3d34-4a00-a58c-3dce07b807c4`
+
+        `curl --location --request DELETE 'http://localhost:8080/vehicles/4d860137-3d34-4a00-a58c-3dce07b807c4' \
+        --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJiYWNrZW5kLXRlc3QtamF2YSIsInN1YiI6ImNpZHJhbyIsImV4cCI6MTcyNTQwMjM5OH0.tzwqHXPgZAuxycrMPaYOoZ7fDSrxUtjE0c60V9gRkLU' \
+        --header 'Cookie: JSESSIONID=B263D8C31DE84FC86B3A000503B8C9A6'`
+
+
+## Funcionalidade de Entrada/Saída e veículos:
+- Entrada: no body da request enviar placa do veículo e id do estabelecimento
+
+          `curl --location 'http://localhost:8080/parking/getIn' \
+        --header 'Content-Type: application/json' \
+        --header 'Cookie: JSESSIONID=B263D8C31DE84FC86B3A000503B8C9A6' \
+        --data '{
+            "licensePlate": "OTT8T98",
+            "establishmentId": "7c9f1b17-e965-4cdc-a7ca-a70e95723e1a"
+        }'`
+
+- Saída: no body da request enviar placa de veiculo e id do estabelecimento
+
+          `curl --location 'http://localhost:8080/parking/getOut' \
+        --header 'Content-Type: application/json' \
+        --header 'Cookie: JSESSIONID=B263D8C31DE84FC86B3A000503B8C9A6' \
+        --data '{
+            "licensePlate": "OTR4B26",
+            "establishmentId": "416683fa-b44f-4289-bb29-ca8d302cfccf"
+        }'`
+
+
+## Relatórios
+- Gerar Relatório de Estacionamento
+
+`GET /reports/parking/3de98d93-c14e-4004-9842-a5844103578c`
+Gera um relatório em PDF com todas as entradas e saídas de veículos de um estacionamento.
+
+`GET /reports/parking/3de98d93-c14e-4004-9842-a5844103578c?dateTimeInitial=2024-09-03T05:30:00&dateTimeFinal=2024-09-03T05:30:00`
+Gera um relatório em PDF com as entradas e saídas de veículos de um estacionamento filtrando por horario (formato `yyyy-MM0ddThh:mm:ss`).
+
+        `curl --location 'http://localhost:8080/reports/parking/fe43f547-eb4f-4691-ba7d-4653661da680' \
+        --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJiYWNrZW5kLXRlc3QtamF2YSIsInN1YiI6ImNpZHJhbyIsImV4cCI6MTcyNTQwNzY2Nn0.udu8g7KpZzlxWglGVpvVXsLIEbwg02NjxvlKaAko0bI' \
+        --header 'Cookie: JSESSIONID=B263D8C31DE84FC86B3A000503B8C9A6'`
+
+
+## Configuração para Execução
+## Pré-requisitos
+- Java 21
+- Gradle
+
+## Como Executar
+- Clone o repositório:
+  `git clone https://github.com/mrenancidrao/backend-test-java.git`
+  `cd backend-test-java`
+
+- Build o projeto:
+  `./gradlew build`
+
+- Rode a aplicação:
+  `./gradlew bootRun`
+
+
+## Como executar 2:
+- Também é possível executar diretamente pela IDE (Intellij, Eclipse, etc.)
+- Clicar com botão direito na classe BackendTestJavaApplication.java e selecionar 'Run BackendTestJavaApplication.main()'
+
+
+## Acesse o H2 Console no browser:
+
+- URL: http://localhost:8080/h2-console
+- JDBC URL: jdbc:h2:mem:testjava
+- Usuário: sa
+- Senha: 123456
+
+
+## Autenticação JWT
+- Após registrar um usuário, use o endpoint /auth/login para obter o token JWT. Inclua esse token no header Authorization para acessar endpoints protegidos:
+  `Authorization: Bearer <token>`
+
+
+## Considerações Finais
+
+Este projeto é uma implementação básica de um sistema de gestão de estacionamento com autenticação JWT e geração de relatórios em PDF.
+Como melhorias posso destacar:
+- A inclusão de camadas de handle de errors específicos para melhorar o retorno de erros para os clientes da API;
+- As implementações de ParkingService (CarParkingServiceImpl e MotorcycleParkingServiceImpl) possuem código que se repete. Seria uma boa abordagem utilizar um padrão Template Method para deixar o codigo mais limpo e reutilizável.
+- Adicionar id do estabelecimento no token para pegar essa informação automaticamente, ao invés de passar no body da request
+- Usar uma api de autenticação mais robusta como um keycloack
+- separar em microserviços
+- adicionar duração de permanencia no relatório
+- swagger para documentar a API
