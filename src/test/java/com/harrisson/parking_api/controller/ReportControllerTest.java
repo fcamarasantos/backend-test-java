@@ -2,166 +2,119 @@ package com.harrisson.parking_api.controller;
 
 import com.harrisson.parking_api.model.Report;
 import com.harrisson.parking_api.service.ReportService;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.http.MediaType;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
+import java.time.format.DateTimeFormatter;
 import java.util.Map;
+import java.util.stream.Collectors;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+@Tag(name = "Reports", description = "Reports API")
+@RestController
+@RequestMapping("/reports")
+public class ReportController {
 
-public class ReportControllerTest {
-
-    private MockMvc mockMvc;
-
-    @Mock
+    @Autowired
     private ReportService reportService;
 
-    @InjectMocks
-    private ReportController reportController;
-
-    @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.openMocks(this);
-        mockMvc = MockMvcBuilders.standaloneSetup(reportController).build();
+    @Operation(summary = "Generate report", description = "Generate report")
+    @GetMapping("/{establishmentId}")
+    public ResponseEntity<Report> getReport(@PathVariable Long establishmentId) {
+        Report report = reportService.generateReport(establishmentId);
+        return ResponseEntity.ok(report);
     }
 
-    @Test
-    public void testGetVehicleCountByHour() throws Exception {
-        Map<Integer, Long> report = new HashMap<>();
-        report.put(1, 10L);
-        when(reportService.getVehicleCountByHour(eq(1L), any(LocalDateTime.class), any(LocalDateTime.class))).thenReturn(report);
-
-        mockMvc.perform(get("/reports/1/hourly")
-                .param("startTime", "2023-01-01T00:00:00")
-                .param("endTime", "2023-01-01T23:59:59"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.1").value(10L));
+    @Operation(summary = "Generate report by date", description = "Generate report by date")
+    @GetMapping("/{establishmentId}/hourly")
+    public ResponseEntity<Map<Integer, Long>> getVehicleCountByHour(
+            @PathVariable Long establishmentId,
+            @RequestParam LocalDateTime startTime,
+            @RequestParam LocalDateTime endTime) {
+        Map<Integer, Long> report = reportService.getVehicleCountByHour(establishmentId, startTime, endTime);
+        return ResponseEntity.ok(report);
     }
 
-    @Test
-    public void testGetVehicleCountByDay() throws Exception {
-        Map<LocalDateTime, Long> report = new HashMap<>();
-        report.put(LocalDateTime.of(2023, 1, 1, 0, 0), 10L);
-        when(reportService.getVehicleCountByDay(1L)).thenReturn(report);
-
-        mockMvc.perform(get("/reports/1/daily"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$['2023-01-01T00:00:00']").value(10L));
+    @Operation(summary = "Generate report by day", description = "Generate report by day")
+    @GetMapping("/{id}/daily")
+    public ResponseEntity<Map<String, Long>> getVehicleCountByDay(@PathVariable Long id) {
+        Map<LocalDateTime, Long> report = reportService.getVehicleCountByDay(id);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+        Map<String, Long> formattedReport = report.entrySet().stream()
+                .collect(Collectors.toMap(
+                        entry -> entry.getKey().format(formatter),
+                        Map.Entry::getValue
+                ));
+        return ResponseEntity.ok(formattedReport);
     }
 
-    @Test
-    public void testGetVehicleCountByType() throws Exception {
-        Map<String, Long> report = new HashMap<>();
-        report.put("Car", 10L);
-        when(reportService.getVehicleCountByType(1L)).thenReturn(report);
-
-        mockMvc.perform(get("/reports/1/type"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.Car").value(10L));
+    @Operation(summary = "Generate report by type", description = "Generate report by type")
+    @GetMapping("/{establishmentId}/type")
+    public ResponseEntity<Map<String, Long>> getVehicleCountByType(@PathVariable Long establishmentId) {
+        Map<String, Long> report = reportService.getVehicleCountByType(establishmentId);
+        return ResponseEntity.ok(report);
     }
 
-    @Test
-    public void testGetVehicleCountByTypeAndHour() throws Exception {
-        Map<String, Map<Integer, Long>> report = new HashMap<>();
-        Map<Integer, Long> hourlyReport = new HashMap<>();
-        hourlyReport.put(1, 10L);
-        report.put("Car", hourlyReport);
-        when(reportService.getVehicleCountByTypeAndHour(eq(1L), any(LocalDateTime.class), any(LocalDateTime.class))).thenReturn(report);
-
-        mockMvc.perform(get("/reports/1/type-hourly")
-                .param("startTime", "2023-01-01T00:00:00")
-                .param("endTime", "2023-01-01T23:59:59"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.Car.1").value(10L));
+    @Operation(summary = "Generate report by type and hour", description = "Generate report by type and hour")
+    @GetMapping("/{establishmentId}/type-hourly")
+    public ResponseEntity<Map<String, Map<Integer, Long>>> getVehicleCountByTypeAndHour(
+            @PathVariable Long establishmentId,
+            @RequestParam LocalDateTime startTime,
+            @RequestParam LocalDateTime endTime) {
+        Map<String, Map<Integer, Long>> report = reportService.getVehicleCountByTypeAndHour(establishmentId, startTime, endTime);
+        return ResponseEntity.ok(report);
     }
 
-    @Test
-    public void testGetEntryCount() throws Exception {
-        when(reportService.getEntryCount(1L)).thenReturn(10);
-
-        mockMvc.perform(get("/reports/1/entries"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$").value(10));
+    @Operation(summary = "Generate report by type and day", description = "Generate report by type and day")
+    @GetMapping("/{establishmentId}/entries")
+    public ResponseEntity<Integer> getEntryCount(@PathVariable Long establishmentId) {
+        int count = reportService.getEntryCount(establishmentId);
+        return ResponseEntity.ok(count);
     }
 
-    @Test
-    public void testGetExitCount() throws Exception {
-        when(reportService.getExitCount(1L)).thenReturn(10);
-
-        mockMvc.perform(get("/reports/1/exits"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$").value(10));
+    @Operation(summary = "Generate exits by type and day", description = "Generate exits by type and day")
+    @GetMapping("/{establishmentId}/exits")
+    public ResponseEntity<Integer> getExitCount(@PathVariable Long establishmentId) {
+        int count = reportService.getExitCount(establishmentId);
+        return ResponseEntity.ok(count);
     }
 
-    @Test
-    public void testGetEntryCountByHour() throws Exception {
-        Map<Integer, Long> report = new HashMap<>();
-        report.put(1, 10L);
-        when(reportService.getEntryCountByHour(eq(1L), any(LocalDateTime.class), any(LocalDateTime.class))).thenReturn(report);
-
-        mockMvc.perform(get("/reports/1/entries/hourly")
-                .param("startTime", "2023-01-01T00:00:00")
-                .param("endTime", "2023-01-01T23:59:59"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.1").value(10L));
+    @Operation(summary = "Generate report by entry hour", description = "Generate report by entry hour")
+    @GetMapping("/{establishmentId}/entries/hourly")
+    public ResponseEntity<Map<Integer, Long>> getEntryCountByHour(
+            @PathVariable Long establishmentId,
+            @RequestParam LocalDateTime startTime,
+            @RequestParam LocalDateTime endTime) {
+        Map<Integer, Long> report = reportService.getEntryCountByHour(establishmentId, startTime, endTime);
+        return ResponseEntity.ok(report);
     }
 
-    @Test
-    public void testGetExitCountByHour() throws Exception {
-        Map<Integer, Long> report = new HashMap<>();
-        report.put(1, 10L);
-        when(reportService.getExitCountByHour(eq(1L), any(LocalDateTime.class), any(LocalDateTime.class))).thenReturn(report);
-
-        mockMvc.perform(get("/reports/1/exits/hourly")
-                .param("startTime", "2023-01-01T00:00:00")
-                .param("endTime", "2023-01-01T23:59:59"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.1").value(10L));
+@Operation(summary = "Generate report by exist entry hour", description = "Generate report by exist entry hour")
+    @GetMapping("/{establishmentId}/exits/hourly")
+    public ResponseEntity<Map<Integer, Long>> getExitCountByHour(
+            @PathVariable Long establishmentId,
+            @RequestParam LocalDateTime startTime,
+            @RequestParam LocalDateTime endTime) {
+        Map<Integer, Long> report = reportService.getExitCountByHour(establishmentId, startTime, endTime);
+        return ResponseEntity.ok(report);
     }
 
-    @Test
-    public void testGetVehicleCountByMonth() throws Exception {
-        Map<Integer, Long> report = new HashMap<>();
-        report.put(1, 10L);
-        when(reportService.getVehicleCountByMonth(1L, 2023)).thenReturn(report);
-
-        mockMvc.perform(get("/reports/1/monthly")
-                .param("year", "2023"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.1").value(10L));
+    @Operation(summary = "Generate Vehicle  report by month", description = "Generate Vehicle report by month")
+    @GetMapping("/{establishmentId}/monthly")
+    public ResponseEntity<Map<Integer, Long>> getVehicleCountByMonth(
+            @PathVariable Long establishmentId,
+            @RequestParam int year) {
+        Map<Integer, Long> report = reportService.getVehicleCountByMonth(establishmentId, year);
+        return ResponseEntity.ok(report);
     }
 
-    @Test
-    public void testGetVehicleCountByYear() throws Exception {
-        Map<Integer, Long> report = new HashMap<>();
-        report.put(2023, 10L);
-        when(reportService.getVehicleCountByYear(1L)).thenReturn(report);
-
-        mockMvc.perform(get("/reports/1/yearly"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.2023").value(10L));
+    @Operation(summary = "Generate Vehicle  report by year", description = "Generate Vehicle report by year")
+    @GetMapping("/{establishmentId}/yearly")
+    public ResponseEntity<Map<Integer, Long>> getVehicleCountByYear(@PathVariable Long establishmentId) {
+        Map<Integer, Long> report = reportService.getVehicleCountByYear(establishmentId);
+        return ResponseEntity.ok(report);
     }
 }
