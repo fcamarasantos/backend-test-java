@@ -24,6 +24,11 @@ public record EstablishmentDataDetails(
                 establishment.getActive());
     }
 
+    public EstablishmentDataDetails() {
+        this(null, null, null, null, null, null, null, null);
+
+    }
+
     public Establishment toEntity() {
         Establishment establishment = new Establishment();
         establishment.setId(this.id);

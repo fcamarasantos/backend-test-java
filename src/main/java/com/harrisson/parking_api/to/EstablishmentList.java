@@ -1,7 +1,6 @@
 package com.harrisson.parking_api.to;
 
 import com.harrisson.parking_api.model.Establishment;
-import com.harrisson.parking_api.model.Vehicle;
 
 public record EstablishmentList(
         String name,
@@ -20,4 +19,7 @@ public record EstablishmentList(
                 establishment.getActive());
     }
 
+    public EstablishmentList() {
+        this(null, null, null, null, null, null);
+    }
 }

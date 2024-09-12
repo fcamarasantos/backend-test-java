@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -42,11 +43,14 @@ public class VehicleController {
         return ResponseEntity.ok(vehiclesPage.getContent());
     }
 
-    @Operation(summary = "Get a vehicle by ID", description = "Get a vehicle by ID")
-    @GetMapping("getById/{id}")
-    public ResponseEntity<VehicleData> getVehicleById(@PathVariable Long id) {
-        var vehicle = service.getById(id);
-        return ResponseEntity.ok(new VehicleData(vehicle));
+    @GetMapping(value = "/getById/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<VehicleDataDetails> getVehicleById(@PathVariable Long id) {
+        Vehicle vehicle = service.getById(id);
+        if (vehicle == null) {
+            return ResponseEntity.notFound().build();
+        }
+        VehicleDataDetails vehicleDataDetails = new VehicleDataDetails(vehicle);
+        return ResponseEntity.ok(vehicleDataDetails);
     }
 
     @Operation(summary = "Update a vehicle", description = "Update a vehicle")
