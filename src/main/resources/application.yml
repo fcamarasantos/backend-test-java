@@ -1,0 +1,23 @@
+server:
+  port: 8080
+  servlet:
+    context-path: '/parking-api/'
+
+spring:
+  application:
+    name: parking-api
+  datasource:
+    url: jdbc:postgresql://localhost:5432/fcamara
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: update
+      dialect: org.hibernate.dialect.PostgreSQLDialect
+      jdbc:
+        lob.non-contextual-creation: true
+    properties:
+      hibernate:
+        show_sql: false
+  jackson:
+    time-zone: America/Sao_Paulo
