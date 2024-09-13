@@ -32,8 +32,9 @@ public class EstablishmentControllerTest {
 
     @Test
     public void testCreateEstablishment() throws Exception {
+        Long id = 15L;
         EstablishmentData establishmentData = new EstablishmentData("Test Establishment", "123456789", null, "1234567890", 10, 20);
-        EstablishmentDataDetails establishmentDataDetails = new EstablishmentDataDetails(1L, "Test Establishment", "123456789", null, "1234567890", 10, 20, true);
+        EstablishmentDataDetails establishmentDataDetails = new EstablishmentDataDetails(id +1, "Test Establishment", "123456789", null, "1234567890", 10, 20, true);
         Establishment establishment = establishmentDataDetails.toEntity();
         Mockito.when(establishmentService.save(Mockito.any(EstablishmentData.class))).thenReturn(establishment);
 
@@ -41,7 +42,7 @@ public class EstablishmentControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"name\":\"Test Establishment\", \"cnpj\":\"123456789\", \"phone\":\"1234567890\", \"motorcycleQuantity\":10, \"carQuantity\":20}"))
                 .andExpect(status().isCreated())
-                .andExpect(header().string("Location", "http://localhost/establishment/getById/1"))
+                .andExpect(header().string("Location", "http://localhost/establishments/" + (id+1)))
                 .andExpect(jsonPath("$.name").value("Test Establishment"));
     }
 

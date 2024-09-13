@@ -5,6 +5,7 @@ import com.harrisson.parking_api.service.VehicleService;
 import com.harrisson.parking_api.to.VehicleData;
 import com.harrisson.parking_api.to.VehicleDataDetails;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import java.util.List;
 @Tag(name = "Vehicle", description = "Vehicle API")
 @RestController
 @RequestMapping("/vehicles")
+@SecurityRequirement(name = "bearer-key")
 public class VehicleController {
 
     @Autowired

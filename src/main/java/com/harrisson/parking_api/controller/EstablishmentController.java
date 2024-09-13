@@ -5,6 +5,7 @@ import com.harrisson.parking_api.to.EstablishmentData;
 import com.harrisson.parking_api.to.EstablishmentDataDetails;
 import com.harrisson.parking_api.to.EstablishmentList;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -21,6 +22,7 @@ import java.util.List;
 @Tag(name = "Establishment", description = "Establishment API")
 @RestController
 @RequestMapping("/establishments")
+@SecurityRequirement(name = "bearer-key")
 public class EstablishmentController {
 
     @Autowired
@@ -31,7 +33,7 @@ public class EstablishmentController {
     @Transactional
     public ResponseEntity<EstablishmentDataDetails> createEstablishment(@RequestBody @Valid EstablishmentData establishmentData, UriComponentsBuilder uriBuilder) {
         var establishment = establishmentService.save(establishmentData);
-        var uri = uriBuilder.path("/establishment/getById/{id}").buildAndExpand(establishment.getId()).toUri();
+        var uri = uriBuilder.path("/establishments/{id}").buildAndExpand(establishment.getId()).toUri();
         return ResponseEntity.created(uri).body(new EstablishmentDataDetails(establishment));
     }
 

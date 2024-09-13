@@ -39,5 +39,5 @@ server:
 api:
   security:
     jwt:
-      secret: ${JWT_SECRET}
+      secret: ${JWT_SECRET:123456}
       expiration: ${JWT_EXPIRATION}

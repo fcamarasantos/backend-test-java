@@ -1,6 +1,77 @@
 
 # <img align="center" alt="Java" height="80" width="100" src="https://pngimg.com/uploads/parking/parking_PNG71.png"> Api Parking
 
+### ***Entidades:*** <br />
+Estabelecimentos<br />
+Veículos<br />
+Controle de Acesso<br />
+Endpoints para Dashboard ou Relatórios<br />
+<br />
+
+## ***Webservices:***
+
+***Estabelecimentos:***
+- Cadadastro
+- Busca principal filtrada
+- Buscas filtrada por id
+- "Soft delete" Para exclusão de estabelecimento
+<br />
+
+***Veículos:*** <br />
+- Cadastro
+- Alteração
+- Delete
+- Busca geral
+- Busca por Id
+- Busca por Placa
+- Autenticação
+<br />
+
+***Controle de Acesso:*** <br />
+- Controle de entrada/Saída
+<br />
+
+***Relatório:*** <br />
+- Contagem Total de Veículos
+- Contagem de Veículos por Tipo
+- Contagem de Veículos por Dia
+- Contagem de Veículos por Hora
+- Contagem de Veículos por Tipo e Hora
+- Contagem de Entradas de Veículos
+- Contagem de Saídas de Veículos
+- Contagem de Entradas de Veículos por Hora
+- Contagem de Saídas de Veículos por Hora
+- Quantidade de veículos por Mês
+- Quantidade de veículos por Ano
+<br />
+
+*Documentação online - testes liberados com autenticação:* <br />
+[Documentação da API via Swagger Aqui](https://parkingapi-production-0b39.up.railway.app/swagger-ui/index.html)<br /><br />
+*Em caso de execução em ambiente local, gentileza utilizar: http://localhost:8080/swagger-ui/index.html*
+
+
+### ***Tecnologias utilizadas:***
+- Linguagem Java  <br />
+- Framework Spring
+- Postgres  <br />
+- Deploy: Railway <br />
+- Documentação via Swagger
+
+
+<div style="display: inline_block">
+   <img align="center" alt="Java" height="70" width="40" src="https://seeklogo.com/images/J/java-logo-7833D1D21A-seeklogo.com.png">
+   <img align="center" alt="Spring" height="40" width="40" src="https://github.com/harrissondutra/harrissondutra/blob/main/.img/logo-spring.png">
+   <img align="center" alt="Postgres" height="40" width="40" src="https://github.com/harrissondutra/harrissondutra/blob/main/.img/postgresql_logo_icon_170835.png">
+   <img align="center" alt="Railway" height="50" width="50" src="https://images.crunchbase.com/image/upload/c_pad,f_auto,q_auto:eco,dpr_1/h3m0hmstlq9maq7t8tyc">
+   <img align="center" alt="Swagger" height="40" width="180" src="https://raw.githubusercontent.com/swagger-api/swagger.io/wordpress/images/assets/SWE-logo-clr.png"> 
+</div>
+
+---
+
+## *Respostas dos questionamentos*
+
+---
+
 ### 1. GraphQL (Implementação BFF - Backend For Frontend)
 Este projeto, neste ponto é somente utilizando API Rest, será refeito de forma à utilizar o GraphQL. <br />
 Toda documentação desta API está no Swagger para testes em:  <br />
@@ -48,68 +119,6 @@ A comunicação eficaz é crucial em um ambiente ágil para garantir alinhamento
 DevOps é uma abordagem que integra desenvolvimento (Dev) e operações (Ops) para melhorar a colaboração, automação e eficiência no ciclo de vida de uma aplicação, desde o desenvolvimento até a produção. Para integrar práticas de DevOps no desenvolvimento da aplicação de estacionamento, eu utilizaria integração contínua (CI) e entrega contínua (CD) com ferramentas como Jenkins ou GitHub Actions para automatizar testes e deploys, garantindo entregas rápidas e de alta qualidade. Ferramentas como Docker e Kubernetes seriam usadas para containerização e orquestração, enquanto Prometheus e Grafana seriam empregadas para monitoramento e alertas, assegurando a estabilidade e desempenho da aplicação em produção.
 Aqui estou utilizando o Railway como pipeline de desenvolvimento, porém em outras estruturas gratuitas, utilizo Docker para fazer o deploy em um conteiner.
 
-### ***Entidades:*** <br />
-Estabelecimentos<br />
-Veículos<br />
-Controle de Acesso<br />
-Relatórios<br />
-<br />
-
-## ***Webservices:***
-
-***Estabelecimentos:***
-- Cadadastro
-- Busca principal filtrada
-- Buscas filtrada por id
-- "Soft delete" Para exclusão de estabelecimento
-<br />
-
-***Veículos:*** <br />
-- Cadastro
-- Alteração
-- Delete
-- Busca geral
-- Busca por Id
-- Busca por Placa
-- Autenticação
-<br />
-
-***Controle de Acesso:*** <br />
-- Controle de entrada/Saída
-<br />
-
-***Relatório:*** <br />
-- Contagem Total de Veículos
-- Contagem de Veículos por Tipo
-- Contagem de Veículos por Dia
-- Contagem de Veículos por Hora
-- Contagem de Veículos por Tipo e Hora
-- Contagem de Entradas de Veículos
-- Contagem de Saídas de Veículos
-- Contagem de Entradas de Veículos por Hora
-- Contagem de Saídas de Veículos por Hora
-- Quantidade de veículos por Mês
-- Quantidade de veículos por Ano
-<br />
-
-[Documentação da API via Swagger Aqui](https://parkingapi-production-0b39.up.railway.app/swagger-ui/index.html)
-
-
-### ***Tecnologias utilizadas:***
-- Linguagem Java  <br />
-- Framework Spring
-- Postgres  <br />
-- Deploy: Railway <br />
-- Documentação via Swagger
-
-
-<div style="display: inline_block">
-   <img align="center" alt="Java" height="70" width="40" src="https://seeklogo.com/images/J/java-logo-7833D1D21A-seeklogo.com.png">
-   <img align="center" alt="Spring" height="40" width="40" src="https://github.com/harrissondutra/harrissondutra/blob/main/.img/logo-spring.png">
-   <img align="center" alt="Postgres" height="40" width="40" src="https://github.com/harrissondutra/harrissondutra/blob/main/.img/postgresql_logo_icon_170835.png">
-   <img align="center" alt="Railway" height="50" width="50" src="https://images.crunchbase.com/image/upload/c_pad,f_auto,q_auto:eco,dpr_1/h3m0hmstlq9maq7t8tyc">
-   <img align="center" alt="Swagger" height="40" width="180" src="https://raw.githubusercontent.com/swagger-api/swagger.io/wordpress/images/assets/SWE-logo-clr.png"> 
-</div>
 
 
 

@@ -3,6 +3,7 @@ package com.harrisson.parking_api.controller;
 import com.harrisson.parking_api.model.Report;
 import com.harrisson.parking_api.service.ReportService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import java.util.Map;
 @Tag(name = "Reports", description = "Reports API")
 @RestController
 @RequestMapping("/reports")
+@SecurityRequirement(name = "bearer-key")
 public class ReportController {
 
     @Autowired
