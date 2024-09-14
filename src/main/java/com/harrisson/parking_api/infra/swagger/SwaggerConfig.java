@@ -22,7 +22,7 @@ public class SwaggerConfig {
                                         .bearerFormat("JWT")))
                 .info(new Info()
                         .title("Parking API")
-                        .description("API Rest para gerencia de estacionamentos\n\n Siga até Authentication, e utilize o usuário padrão descrito na documentação")
+                        .description("API Rest para gerência de estacionamentos\n\n Siga até Authentication, e utilize o usuário padrão descrito na documentação")
                         .contact(new Contact()
                                 .email("harrissondutra@gmail.com"))
                         .license(new License()
