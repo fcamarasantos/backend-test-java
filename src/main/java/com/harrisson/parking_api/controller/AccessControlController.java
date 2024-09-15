@@ -1,5 +1,6 @@
 package com.harrisson.parking_api.controller;
 
+import com.harrisson.parking_api.enums.Type;
 import com.harrisson.parking_api.model.AccessControl;
 import com.harrisson.parking_api.service.AccessControlService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -24,8 +25,8 @@ public class AccessControlController {
 
     @Operation(summary = "Register entry", description = "Register entry")
     @PostMapping
-    public ResponseEntity<AccessControl> registerEntry(@RequestParam Long vehicleId, @RequestParam Long establishmentId) {
-        AccessControl accessControl = accessControlService.registerEntry(vehicleId, establishmentId);
+    public ResponseEntity<AccessControl> registerEntry(@RequestParam String plate, @RequestParam Type type, @RequestParam Long establishmentId) {
+        AccessControl accessControl = accessControlService.registerEntry(plate, type, establishmentId);
         return ResponseEntity.ok(accessControl);
     }
 

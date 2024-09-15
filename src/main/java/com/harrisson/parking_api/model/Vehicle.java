@@ -35,6 +35,11 @@ public class Vehicle {
         this.type = vehicleData.type();
     }
 
+    public Vehicle(String plate, Type type) {
+        this.plate = plate;
+        this.type = type;
+    }
+
     public void updateVehicle(Vehicle vehicle) {
         if (vehicle.getBrand() != null) this.brand = vehicle.getBrand();
         if (vehicle.getModel() != null) this.model = vehicle.getModel();

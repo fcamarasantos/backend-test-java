@@ -1,5 +1,6 @@
 package com.harrisson.parking_api.controller;
 
+import com.harrisson.parking_api.enums.Type;
 import com.harrisson.parking_api.model.AccessControl;
 import com.harrisson.parking_api.service.AccessControlService;
 import org.junit.jupiter.api.Test;
@@ -26,7 +27,7 @@ public class AccessControlControllerTest {
     @Test
     public void testRegisterEntry() throws Exception {
         AccessControl accessControl = new AccessControl();
-        Mockito.when(accessControlService.registerEntry(1L, 1L)).thenReturn(accessControl);
+        Mockito.when(accessControlService.registerEntry("1L", Type.CAR, 1L)).thenReturn(accessControl);
 
         mockMvc.perform(post("/access-controls")
                 .param("vehicleId", "1")
