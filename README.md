@@ -1,6 +1,16 @@
 
 # <img align="center" alt="Java" height="80" width="100" src="https://pngimg.com/uploads/parking/parking_PNG71.png"> Api Parking
 
+## Versão Graphql:
+
+ - Sem relatório momentâneamente
+# [Graphiql Playground aqui](https://parkinggraphql-production.up.railway.app/graphiql) <br />
+
+---
+
+---
+## Versão Api Rest:
+
 ### ***Entidades:*** <br />
 Estabelecimentos<br />
 Veículos<br />
@@ -73,10 +83,33 @@ Endpoints para Dashboard ou Relatórios<br />
 ---
 
 ### 1. GraphQL (Implementação BFF - Backend For Frontend)
-Este projeto, neste ponto é somente utilizando API Rest, será refeito de forma à utilizar o GraphQL. <br />
-Toda documentação desta API está no Swagger para testes em:  <br />
-[Documentação da API Aqui](https://parkingapi-production-0b39.up.railway.app/swagger-ui/index.html) <br />
-Utilizei o padrão DTO para modelagens de Request/Response
+
+Utilize o playground para testar as queries e mutations. <br />
+clique no link abaixo:
+## [Graphiql Playground aqui](https://parkinggraphql-production.up.railway.app/graphiql) <br />
+
+
+##### ***Queries:***
+```graphql
+  accessControls: [AccessControl]
+  findByVehiclePlate(vehiclePlate: String): AccessControl
+  establishmentById(id: ID): Establishment
+  establishments: [Establishment]
+  vehicleById(id: ID): Vehicle
+  vehicles: [Vehicle]
+```
+
+##### ***Mutations:***
+```graphql
+registerEntry(plate: String, type: VehicleType,establishmentId: ID): AccessControl
+registerExit(plate: String): AccessControl
+createAccessControl(establishmentId: ID): AccessControl
+addEstablishment(establishmentInput: EstablishmentInput): Establishment
+addVehicle(vehicleInput: VehicleInput): Vehicle
+```
+
+#### Clique no link abaixo para o github da versão Graphql:
+### [Repositório Github](https://github.com/harrissondutra/Parking_Graphql)
 
 ### 2. Banco de Dados (Nível Básico)
 
