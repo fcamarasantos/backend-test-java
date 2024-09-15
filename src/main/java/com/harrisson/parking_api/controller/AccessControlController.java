@@ -21,6 +21,7 @@ public class AccessControlController {
     @Autowired
     private AccessControlService accessControlService;
 
+
     @Operation(summary = "Register entry", description = "Register entry")
     @PostMapping
     public ResponseEntity<AccessControl> registerEntry(@RequestParam Long vehicleId, @RequestParam Long establishmentId) {
@@ -31,8 +32,8 @@ public class AccessControlController {
 
     @Operation(summary = "Register exit", description = "Register exit")
     @PostMapping("/exit")
-    public ResponseEntity<AccessControl> registerExit(@RequestParam Long vehicleId, @RequestParam Long establishmentId) {
-        AccessControl accessControl = accessControlService.registerExit(vehicleId, establishmentId);
+    public ResponseEntity<AccessControl> registerExit(@RequestParam String plate) {
+        AccessControl accessControl = accessControlService.registerExit(plate);
         return ResponseEntity.ok(accessControl);
     }
 }

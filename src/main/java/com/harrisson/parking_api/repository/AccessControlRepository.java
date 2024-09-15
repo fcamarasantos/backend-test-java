@@ -51,4 +51,5 @@ public interface AccessControlRepository extends JpaRepository<AccessControl, Lo
     @Query("SELECT e.establishment.name FROM AccessControl e WHERE e.id = :establishmentId")
     String findEstablishmentNameById(Long establishmentId);
 
+    AccessControl findByVehicle_Plate(String plate);
 }

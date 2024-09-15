@@ -39,7 +39,7 @@ public class AccessControlControllerTest {
     @Test
     public void testRegisterExit() throws Exception {
         AccessControl accessControl = new AccessControl();
-        Mockito.when(accessControlService.registerExit(1L, 1L)).thenReturn(accessControl);
+        Mockito.when(accessControlService.registerExit("hwr-5465")).thenReturn(accessControl);
 
         mockMvc.perform(post("/access-controls/exit")
                 .param("vehicleId", "1")

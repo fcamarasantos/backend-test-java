@@ -47,10 +47,10 @@ public class AccessControlService {
         return accessControlRepository.save(accessControl);
     }
 
-    public AccessControl registerExit(Long vehicleId, Long establishmentId) {
-        AccessControl accessControl = accessControlRepository.findByVehicleIdAndEstablishmentIdAndExitTimeIsNull(vehicleId, establishmentId);
+    public AccessControl registerExit(String plate) {
+        AccessControl accessControl = accessControlRepository.findByVehicle_Plate(plate);
         if (accessControl == null) {
-            throw new RuntimeException("Entrada não encontrada para o veículo e estabelecimento especificados");
+            throw new RuntimeException("Entrada não encontrada para o veículo");
         }
         accessControl.setExitTime(LocalDateTime.now());
         return accessControlRepository.save(accessControl);
