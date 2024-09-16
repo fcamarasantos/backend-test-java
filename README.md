@@ -101,11 +101,22 @@ clique no link abaixo:
 
 ##### ***Mutations:***
 ```graphql
+- Access Control
 registerEntry(plate: String, type: VehicleType,establishmentId: ID): AccessControl
 registerExit(plate: String): AccessControl
 createAccessControl(establishmentId: ID): AccessControl
+
+- Establishment
 addEstablishment(establishmentInput: EstablishmentInput): Establishment
+updateEstablishment(establishmentId: ID, establishmentInput: EstablishmentInput): Establishment
+deleteEstablishment(establishmentId: ID): Establishment
+inactiveEstablishment(establishmentId: ID): Establishment
+
+- Vehicle
 addVehicle(vehicleInput: VehicleInput): Vehicle
+updateVehicle(vehicleId: ID,vehicleInput: VehicleInput): Vehicle
+deleteVehicle(vehicleId: ID): Vehicle
+inactiveVehicle(vehicleId: ID): Vehicle
 ```
 
 #### Clique no link abaixo para o github da versão Graphql:
