@@ -6,4 +6,18 @@ spring:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/fcamaradatabase
     username: localuser
-    password:  localpassword
+    password: localpassword
+
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  flyway:
+    baseline-on-migrate: true
+
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html

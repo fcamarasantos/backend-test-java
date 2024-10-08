@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:17.0-alpine3.19
+    container_name: postgresdatasource
+    environment:
+      POSTGRES_USER: localuser
+      POSTGRES_PASSWORD: localpassword
+      POSTGRES_DB: fcamaradatabase
+    ports:
+      - 5432:5432
