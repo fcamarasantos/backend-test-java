@@ -1,0 +1,40 @@
+{"marca": "Yamaha", "placa": "AAA-1111", "cor": "Red", "modelo": "YZF-R3", "tipo": "MOTO"}
+{"marca": "Honda", "placa": "BBB-2222", "cor": "Blue", "modelo": "CBR500R", "tipo": "MOTO"}
+{"marca": "Suzuki", "placa": "CCC-3333", "cor": "Black", "modelo": "GSX-R600", "tipo": "MOTO"}
+{"marca": "Kawasaki", "placa": "DDD-4444", "cor": "Green", "modelo": "Ninja 400", "tipo": "MOTO"}
+{"marca": "Ducati", "placa": "EEE-5555", "cor": "Red", "modelo": "Panigale V2", "tipo": "MOTO"}
+{"marca": "BMW", "placa": "FFF-6666", "cor": "White", "modelo": "S1000RR", "tipo": "MOTO"}
+{"marca": "Triumph", "placa": "GGG-7777", "cor": "Silver", "modelo": "Street Triple", "tipo": "MOTO"}
+{"marca": "Harley-Davidson", "placa": "HHH-8888", "cor": "Black", "modelo": "Iron 883", "tipo": "MOTO"}
+{"marca": "KTM", "placa": "III-9999", "cor": "Orange", "modelo": "Duke 390", "tipo": "MOTO"}
+{"marca": "Aprilia", "placa": "JJJ-0000", "cor": "Red", "modelo": "RS 660", "tipo": "MOTO"}
+{"marca": "MV Agusta", "placa": "KKK-1111", "cor": "Black", "modelo": "F3 800", "tipo": "MOTO"}
+{"marca": "Royal Enfield", "placa": "LLL-2222", "cor": "Blue", "modelo": "Interceptor 650", "tipo": "MOTO"}
+{"marca": "Indian", "placa": "MMM-3333", "cor": "Red", "modelo": "Scout", "tipo": "MOTO"}
+{"marca": "Moto Guzzi", "placa": "NNN-4444", "cor": "Green", "modelo": "V7 III", "tipo": "MOTO"}
+{"marca": "Husqvarna", "placa": "OOO-5555", "cor": "White", "modelo": "Vitpilen 401", "tipo": "MOTO"}
+{"marca": "Benelli", "placa": "PPP-6666", "cor": "Silver", "modelo": "TNT 300", "tipo": "MOTO"}
+{"marca": "Bajaj", "placa": "QQQ-7777", "cor": "Black", "modelo": "Pulsar NS200", "tipo": "MOTO"}
+{"marca": "Hero", "placa": "RRR-8888", "cor": "Blue", "modelo": "Xtreme 200R", "tipo": "MOTO"}
+{"marca": "TVS", "placa": "SSS-9999", "cor": "Red", "modelo": "Apache RTR 200", "tipo": "MOTO"}
+{"marca": "CFMoto", "placa": "TTT-0000", "cor": "Orange", "modelo": "300NK", "tipo": "MOTO"}
+{"marca": "Toyota", "placa": "ABC-1234", "cor": "Red", "modelo": "Corolla", "tipo": "CARRO"}
+{"marca": "Honda", "placa": "DEF-5678", "cor": "Blue", "modelo": "Civic", "tipo": "CARRO"}
+{"marca": "Ford", "placa": "GHI-9012", "cor": "Black", "modelo": "Focus", "tipo": "CARRO"}
+{"marca": "Chevrolet", "placa": "JKL-3456", "cor": "White", "modelo": "Malibu", "tipo": "CARRO"}
+{"marca": "Nissan", "placa": "MNO-7890", "cor": "Silver", "modelo": "Altima", "tipo": "CARRO"}
+{"marca": "BMW", "placa": "PQR-1234", "cor": "Gray", "modelo": "X5", "tipo": "CARRO"}
+{"marca": "Audi", "placa": "STU-5678", "cor": "Green", "modelo": "Q7", "tipo": "CARRO"}
+{"marca": "Mercedes", "placa": "VWX-9012", "cor": "Yellow", "modelo": "GLC", "tipo": "CARRO"}
+{"marca": "Volkswagen", "placa": "YZA-3456", "cor": "Blue", "modelo": "Tiguan", "tipo": "CARRO"}
+{"marca": "Hyundai", "placa": "BCD-7890", "cor": "Red", "modelo": "Tucson", "tipo": "CARRO"}
+{"marca": "Kia", "placa": "EFG-1234", "cor": "Black", "modelo": "Sportage", "tipo": "CARRO"}
+{"marca": "Mazda", "placa": "HIJ-5678", "cor": "White", "modelo": "CX-5", "tipo": "CARRO"}
+{"marca": "Subaru", "placa": "KLM-9012", "cor": "Silver", "modelo": "Forester", "tipo": "CARRO"}
+{"marca": "Tesla", "placa": "NOP-3456", "cor": "Gray", "modelo": "Model 3", "tipo": "CARRO"}
+{"marca": "Volvo", "placa": "QRS-7890", "cor": "Green", "modelo": "XC60", "tipo": "CARRO"}
+{"marca": "Jaguar", "placa": "TUV-1234", "cor": "Yellow", "modelo": "F-Pace", "tipo": "CARRO"}
+{"marca": "Land Rover", "placa": "WXY-5678", "cor": "Blue", "modelo": "Discovery", "tipo": "CARRO"}
+{"marca": "Porsche", "placa": "ZAB-9012", "cor": "Red", "modelo": "Cayenne", "tipo": "CARRO"}
+{"marca": "Ferrari", "placa": "CDE-3456", "cor": "Black", "modelo": "488", "tipo": "CARRO"}
+{"marca": "Lamborghini", "placa": "FGH-7890", "cor": "White", "modelo": "Huracan", "tipo": "CARRO"}

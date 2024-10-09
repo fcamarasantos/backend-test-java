@@ -1,0 +1,84 @@
+{
+	"info": {
+		"_postman_id": "637726f3-fc24-4fcb-bbff-4146dcd6751e",
+		"name": "Controle estabelecimento",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10119525"
+	},
+	"item": [
+		{
+			"name": "Entrada Veiculo Estabelecimento",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"idVeiculo\": 1,\r\n    \"idEstabelecimento\": 10\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_api_url}}/entrada-saida/entrada-veiculo/",
+					"host": [
+						"{{base_api_url}}"
+					],
+					"path": [
+						"entrada-saida",
+						"entrada-veiculo",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Saida Veiculo Estabelecimento",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"idVeiculo\": 2,\r\n    \"idEstabelecimento\": 10\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_api_url}}/estabelecimentos/1",
+					"host": [
+						"{{base_api_url}}"
+					],
+					"path": [
+						"estabelecimentos",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Vagas disponiveis",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_api_url}}/entrada-saida/vagas-disponiveis/10",
+					"host": [
+						"{{base_api_url}}"
+					],
+					"path": [
+						"entrada-saida",
+						"vagas-disponiveis",
+						"10"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
