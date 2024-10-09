@@ -8,7 +8,8 @@ public record VeiculoDetailsDTO(
         String marca,
         String modelo,
         String placa,
-        String cor
+        String cor,
+        TipoVeiculo tipo
 ) {
 
     public VeiculoDetailsDTO(Veiculo veiculo) {
@@ -17,7 +18,8 @@ public record VeiculoDetailsDTO(
                 veiculo.getMarca(),
                 veiculo.getModelo(),
                 veiculo.getPlaca(),
-                veiculo.getCor()
+                veiculo.getCor(),
+                veiculo.getTipo()
         );
     }
 }

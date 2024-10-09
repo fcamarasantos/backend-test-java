@@ -5,19 +5,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public record UpdateVeiculoDTO(
-        @NotBlank
         String marca,
-
-        @NotBlank
         String modelo,
-
-        @NotBlank
         String placa,
-
-        @NotBlank
-        String cor,
-
-        @NotNull
-        TipoVeiculo tipoVeiculo
+        String cor
 ) {
 }

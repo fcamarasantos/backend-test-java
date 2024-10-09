@@ -37,10 +37,18 @@ public class Veiculo {
     }
 
 
-    public void updateVeiculo(UpdateVeiculoDTO updateVeiculoDTO){
-        this.marca = updateVeiculoDTO.marca();
-        this.modelo = updateVeiculoDTO.modelo();
-        this.placa = updateVeiculoDTO.placa();
-        this.cor = updateVeiculoDTO.cor();
+    public void updateVeiculo(UpdateVeiculoDTO updateVeiculoDTO) {
+        if (updateVeiculoDTO.marca() != null) {
+            this.marca = updateVeiculoDTO.marca();
+        }
+        if (updateVeiculoDTO.modelo() != null) {
+            this.modelo = updateVeiculoDTO.modelo();
+        }
+        if (updateVeiculoDTO.placa() != null) {
+            this.placa = updateVeiculoDTO.placa();
+        }
+        if (updateVeiculoDTO.cor() != null) {
+            this.cor = updateVeiculoDTO.cor();
+        }
     }
 }
