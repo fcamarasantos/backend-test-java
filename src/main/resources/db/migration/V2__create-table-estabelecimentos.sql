@@ -3,7 +3,7 @@ create table estabelecimentos
 
     id               SERIAL       not null,
     nome             varchar(100) not null,
-    cnpj             varchar(14)  not null,
+    cnpj             varchar(14)  not null UNIQUE,
     telefone         varchar(15),
     num_vagas_motos  integer      not null,
     num_vagas_carros integer      not null,

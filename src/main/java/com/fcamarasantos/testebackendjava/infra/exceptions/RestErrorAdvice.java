@@ -2,6 +2,8 @@ package com.fcamarasantos.testebackendjava.infra.exceptions;
 
 import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.ValidationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
@@ -38,6 +40,18 @@ public class RestErrorAdvice {
                 .body(new NotReadableErrorMessage(exception));
     }
 
+    @ExceptionHandler(BusinessValidationException.class)
+    public ResponseEntity<?> validationException(BusinessValidationException exception) {
+        return ResponseEntity
+                .badRequest()
+                .body(new ErrorMessage(exception.getMessage()));
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity serverInternalError(Exception ex) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro: " + ex.getLocalizedMessage());
+    }
+
     private record ValidationErrorMessage(String field, String message) {
         ValidationErrorMessage(FieldError fieldError) {
             this(fieldError.getField(), fieldError.getDefaultMessage());
@@ -48,5 +62,8 @@ public class RestErrorAdvice {
         NotReadableErrorMessage(HttpMessageNotReadableException exception) {
             this(exception.getMessage());
         }
+    }
+
+    private record ErrorMessage(String message) {
     }
 }

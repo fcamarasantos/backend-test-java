@@ -1,0 +1,136 @@
+{
+	"info": {
+		"_postman_id": "e9d85898-e887-4b78-b7ba-1334d45d96f7",
+		"name": "Estabelecimento CRUD",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10119525"
+	},
+	"item": [
+		{
+			"name": "getAll Estabelecimento",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_api_url}}/estabelecimentos/",
+					"host": [
+						"{{base_api_url}}"
+					],
+					"path": [
+						"estabelecimentos",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getOne Estabelecimento",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_api_url}}/estabelecimentos/10",
+					"host": [
+						"{{base_api_url}}"
+					],
+					"path": [
+						"estabelecimentos",
+						"10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getOne Estabelecimento Copy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_api_url}}/estabelecimentos/1",
+					"host": [
+						"{{base_api_url}}"
+					],
+					"path": [
+						"estabelecimentos",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create Estabelecimento",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 5,\r\n    \"nome\": \"Empresa X\",\r\n    \"cnpj\": \"00000000001000\",\r\n    \"telefone\": \"40028922\",\r\n    \"endereco\": {\r\n        \"numero\": \"707\",\r\n        \"logradouro\": \"Rua J\",\r\n        \"bairro\": \"Bairro J\",\r\n        \"cidade\": \"Cidade J\",\r\n        \"complemento\": \"Apto 10\",\r\n        \"uf\": \"GO\",\r\n        \"cep\": \"99999999\"\r\n    },\r\n    \"NumVagasMotos\": 3,\r\n    \"NumVagasCarros\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_api_url}}/estabelecimentos/",
+					"host": [
+						"{{base_api_url}}"
+					],
+					"path": [
+						"estabelecimentos",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update Estabelecimento",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\": \"Empresa Y\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_api_url}}/estabelecimentos/5",
+					"host": [
+						"{{base_api_url}}"
+					],
+					"path": [
+						"estabelecimentos",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete Estabelecimento",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_api_url}}/estabelecimentos/1",
+					"host": [
+						"{{base_api_url}}"
+					],
+					"path": [
+						"estabelecimentos",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

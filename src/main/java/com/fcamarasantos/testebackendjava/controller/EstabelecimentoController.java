@@ -2,9 +2,11 @@ package com.fcamarasantos.testebackendjava.controller;
 
 import com.fcamarasantos.testebackendjava.domain.estabelecimento.Estabelecimento;
 import com.fcamarasantos.testebackendjava.domain.estabelecimento.EstabelecimentoRepository;
+import com.fcamarasantos.testebackendjava.domain.estabelecimento.VagasDisponiveis;
 import com.fcamarasantos.testebackendjava.domain.estabelecimento.dto.CreateEstabelecimentoDTO;
 import com.fcamarasantos.testebackendjava.domain.estabelecimento.dto.EstabelecimentoDetailsDto;
 import com.fcamarasantos.testebackendjava.domain.estabelecimento.dto.UpdateEstabelecimentoDTO;
+import com.fcamarasantos.testebackendjava.domain.estabelecimento.dto.VagasDisponiveisDTO;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
